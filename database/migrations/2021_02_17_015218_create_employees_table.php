@@ -30,6 +30,7 @@ class CreateEmployeesTable extends Migration
             $table->string('marital_status');
             $table->smallInteger('children')->nullable();
             $table->text('emergency_contact')->nullable();
+            $table->smallInteger('status');
 
             $table->foreignId('department_id')->constrained('departments');
             $table->foreignId('user_id')->constrained('users');

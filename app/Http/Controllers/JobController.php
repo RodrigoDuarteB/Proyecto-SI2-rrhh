@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Job;
+
 use Illuminate\Http\Request;
 
 class JobController extends Controller
@@ -22,9 +22,9 @@ class JobController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create()    
     {
-        //
+       //
     }
 
     /**
@@ -35,7 +35,7 @@ class JobController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       //
     }
 
     /**

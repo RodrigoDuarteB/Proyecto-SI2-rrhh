@@ -17,7 +17,7 @@ use App\Http\Controllers\EmployeeController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('employees.index');
 });
 
 Route::get('/dashboard', function () {
@@ -33,5 +33,16 @@ Route::middleware(['auth'])->group(function (){
     Route::resource('departments', DepartmentController::class)->names('departments');
 });
 
+Route::get('/employees.index', function () {
+    return view('employees.index');
+});
+
+Route::get('/employees.edit', function () {
+    return view('employees.edit');
+});
+
+Route::get('/employees.create', function () {
+    return view('employees.create');
+});
 
 require __DIR__.'/auth.php';

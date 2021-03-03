@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
+/*use App\Http\Controllers\UserController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\EmployeeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,12 +18,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('employees.index');
 });
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
 
     Route::get('/workdays', 'App\Http\Controllers\WorkdayController@index')->name('workdays');
     Route::post('/workdays', 'App\Http\Controllers\WorkdayController@store')->name('workdays.store');
@@ -28,4 +33,25 @@ Route::get('/dashboard', function () {
     Route::get('/workdays/{workday}', 'App\Http\Controllers\WorkdayController@destroy')->name('workdays.destroy');
     Route::get('/workdays/{workday}', 'App\Http\Controllers\WorkdayController@update')->name('workdays.update');
 
-require __DIR__.'/auth.php';
+Route::middleware(['auth'])->group(function (){
+    Route::resource('users', UserController::class)->names('users');
+    Route::resource('roles', RoleController::class)->names('roles');
+    Route::resource('permissions', PermissionController::class)->names('permissions');
+    Route::resource('employees', EmployeeController::class)->names('employees');
+    Route::resource('orders', OrderController::class)->names('orders');
+    Route::resource('departments', DepartmentController::class)->names('departments');
+});
+
+Route::get('/employees.index', function () {
+    return view('employees.index');
+});
+
+Route::get('/employees.edit', function () {
+    return view('employees.edit');
+});
+
+Route::get('/employees.create', function () {
+    return view('employees.create');
+});
+
+

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Models\OrderEmployees;
 use Illuminate\Http\Request;
 
-class JobController extends Controller
+class OrderEmployeesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,9 +22,9 @@ class JobController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()    
+    public function create()
     {
-       //
+        //
     }
 
     /**
@@ -35,16 +35,16 @@ class JobController extends Controller
      */
     public function store(Request $request)
     {
-       //
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Job  $job
+     * @param  \App\Models\OrderEmployees  $orderEmployees
      * @return \Illuminate\Http\Response
      */
-    public function show(Job $job)
+    public function show(OrderEmployees $orderEmployees)
     {
         //
     }
@@ -52,10 +52,10 @@ class JobController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Job  $job
+     * @param  \App\Models\OrderEmployees  $orderEmployees
      * @return \Illuminate\Http\Response
      */
-    public function edit(Job $job)
+    public function edit(OrderEmployees $orderEmployees)
     {
         //
     }
@@ -64,10 +64,10 @@ class JobController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Job  $job
+     * @param  \App\Models\OrderEmployees  $orderEmployees
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Job $job)
+    public function update(Request $request, OrderEmployees $orderEmployees)
     {
         //
     }
@@ -75,10 +75,10 @@ class JobController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Job  $job
+     * @param  \App\Models\OrderEmployees  $orderEmployees
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Job $job)
+    public function destroy(OrderEmployees $orderEmployees)
     {
         //
     }

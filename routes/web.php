@@ -16,9 +16,7 @@ use App\Http\Controllers\EmployeeController;
 |
 */
 
-Route::get('/', function () {
-    return view('employees.index');
-});
+Route::view('/', 'home')->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -28,21 +26,10 @@ Route::middleware(['auth'])->group(function (){
     Route::resource('users', UserController::class)->names('users');
     Route::resource('roles', RoleController::class)->names('roles');
     Route::resource('permissions', PermissionController::class)->names('permissions');
-    Route::resource('employees', EmployeeController::class)->names('employees');
+
     Route::resource('orders', OrderController::class)->names('orders');
     Route::resource('departments', DepartmentController::class)->names('departments');
 });
-
-Route::get('/employees.index', function () {
-    return view('employees.index');
-});
-
-Route::get('/employees.edit', function () {
-    return view('employees.edit');
-});
-
-Route::get('/employees.create', function () {
-    return view('employees.create');
-});
+Route::resource('employees', EmployeeController::class)->names('employees');
 
 require __DIR__.'/auth.php';

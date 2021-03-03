@@ -15,6 +15,8 @@ class WorkdayController extends Controller
     public function index()
     {
         //
+        $datos['workdays'] = Workday::paginate();
+		return view('workdays.index', $datos);
     }
 
     /**
@@ -24,7 +26,7 @@ class WorkdayController extends Controller
      */
     public function create()
     {
-        //
+        return view('workdays.create');
     }
 
     /**
@@ -35,7 +37,9 @@ class WorkdayController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $datos=request()->except('_token');
+        Workday::insert($datos);
+        return redirect('workday')->with('Mensaje','Asistencia agregada satisfactoriamente.');
     }
 
     /**

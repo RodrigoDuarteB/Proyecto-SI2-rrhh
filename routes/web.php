@@ -5,6 +5,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\DepartmentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,8 +26,6 @@ Route::get('/dashboard', function () {
 
 Route::middleware(['auth'])->group(function (){
     Route::resource('users', UserController::class)->names('users');
-
-
     Route::resource('orders', OrderController::class)->names('orders');
     Route::resource('departments', DepartmentController::class)->names('departments');
 });

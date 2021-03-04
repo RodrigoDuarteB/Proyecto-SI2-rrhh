@@ -53,7 +53,8 @@ class PermissionController extends Controller{
             $request->validate([
                 'name' => 'required|string|min:3'
             ]);
-            $permission->name = $request->input('');
+            $permission->name = $request->input('name');
+            $permission->save();
             return redirect()->route('permissions.index')->with('info', 'Permiso creado correctamente');
         }catch (\Exception $e){
             return redirect()->route('permissions.index')->with('info', 'Datos erróneos');
@@ -61,6 +62,12 @@ class PermissionController extends Controller{
     }
 
     public function destroy(Permission $permission){
-        //
+        try {
+            Permission::findOrFail($permission->id);
+            Permission::destroy([$permission->id]);
+            return redirect()->route('permissions.index')->with('info', 'Permiso eliminado correctamente');
+        }catch (\Exception $e){
+            return redirect()->route('permissions.index')->with('info', 'El Permiso que intentó eliminar no existe');
+        }
     }
 }

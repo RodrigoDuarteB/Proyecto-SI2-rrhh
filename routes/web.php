@@ -18,20 +18,25 @@ use App\Http\Controllers\DepartmentController;
 |
 */
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-
 Route::middleware(['auth'])->group(function (){
     Route::view('/', 'home')->name('home');
-
     Route::resource('users', UserController::class)->names('users');
-
     Route::resource('departments', DepartmentController::class)->names('departments');
+    Route::resource('orders', OrderController::class)->names('orders');
+    Route::resource('roles', RoleController::class)->names('roles');
+    Route::resource('permissions', PermissionController::class)->names('permissions');
+    Route::resource('employees', EmployeeController::class)->names('employees');
 });
-Route::resource('orders', OrderController::class)->names('orders');
-Route::resource('roles', RoleController::class)->names('roles');
-Route::resource('permissions', PermissionController::class)->names('permissions');
-Route::resource('employees', EmployeeController::class)->names('employees');
+
+
+//RUTA PARA CREAR USUARIOS DE PRUEBA 
+Route::get('/test', function (){
+    $user = new \App\Models\User();
+    $user->name = 'Rodrigo Duarte';
+    $user->email = 'rodrijedbu2@outlook.com';
+    $user->password = bcrypt('laravel1234');
+    $user->save();
+    return $user;
+});
 
 require __DIR__.'/auth.php';

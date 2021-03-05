@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<h1>Probando Home</h1>
 <div class="container-fluid">
     <h3 class="text-dark mb-4">Bienvenido &lt;@name&gt;</h3>
     <div class="row mb-3">
@@ -141,9 +140,4 @@
     <div class="clearfix"></div>
 </div>
 </div>
-<footer class="bg-white sticky-footer">
-    <div class="container my-auto">
-        <div class="text-center my-auto copyright"><span>Copyright © RR.HH. 2021</span></div>
-    </div>
-</footer>
 @endsection

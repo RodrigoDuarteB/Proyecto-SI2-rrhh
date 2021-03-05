@@ -15,6 +15,6 @@ class Order extends Model{
     }
 
     public function employees(){
-        return $this->hasMany(OrderEmployees::class);
+        return $this->hasMany(OrderEmployees::class)->with('employee');
     }
 }

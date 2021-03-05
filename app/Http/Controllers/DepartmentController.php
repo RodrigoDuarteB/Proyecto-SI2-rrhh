@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DepartmentRequest;
 use App\Models\Department;
 use App\Models\Employee;
 use Illuminate\Http\Request;
@@ -37,7 +38,7 @@ class DepartmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DepartmentRequest $request)
     {
         $validated = $request->validated();
         $department = new Department();
@@ -76,7 +77,7 @@ class DepartmentController extends Controller
      */
     public function edit(Department $department)
     {
-        $department = Department::with('manager')->find($department);
+        $department = Department::with('manager')->find($department->id);
         $employee = Employee::where('department_id', '=', 'null')->get();
         return view('departments.edit', compact('employee'))->with('department', $department);
 
@@ -89,9 +90,9 @@ class DepartmentController extends Controller
      * @param  \App\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Department $department)
+    public function update(DepartmentRequest $request, Department $department)
     {
-        $department = Department::find($department);
+        $department = Department::find($department->id);
         $department->name = $request->input('name');
         $department->description = $request->input('description');
 
@@ -116,7 +117,7 @@ class DepartmentController extends Controller
      */
     public function destroy(Department $department)
     {
-        $department = Department::find($department);
+        $department = Department::find($department->id);
         $department->delete();
 
         return redirect('/Departments')->with('status','Departamento Eliminado Correctamente.');

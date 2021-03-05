@@ -26,9 +26,10 @@ Route::get('/dashboard', function () {
 
 Route::middleware(['auth'])->group(function (){
     Route::resource('users', UserController::class)->names('users');
-    Route::resource('orders', OrderController::class)->names('orders');
+    
     Route::resource('departments', DepartmentController::class)->names('departments');
 });
+Route::resource('orders', OrderController::class)->names('orders');
 Route::resource('roles', RoleController::class)->names('roles');
 Route::resource('permissions', PermissionController::class)->names('permissions');
 Route::resource('employees', EmployeeController::class)->names('employees');

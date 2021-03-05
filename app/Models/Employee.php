@@ -12,8 +12,9 @@ class Employee extends Model{
 
     //estados
     public static $ACTIVE = 1;
-    public static $FIRED = 2;
-    public static $VACATION = 3;
+    public static $VACATION = 2;
+    public static $FIRED = 3;
+    public static $PUNISHED = 4;
 
     public function user(){
         return $this->belongsTo(User::class, 'user_id');

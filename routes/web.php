@@ -25,6 +25,8 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 Route::middleware(['auth'])->group(function (){
+
+
     Route::resource('users', UserController::class)->names('users');
     
     Route::resource('departments', DepartmentController::class)->names('departments');

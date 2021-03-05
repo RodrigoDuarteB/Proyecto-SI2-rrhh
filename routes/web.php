@@ -18,17 +18,15 @@ use App\Http\Controllers\DepartmentController;
 |
 */
 
-Route::view('/', 'home')->name('home');
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
 Route::middleware(['auth'])->group(function (){
-
+    Route::view('/', 'home')->name('home');
 
     Route::resource('users', UserController::class)->names('users');
-    
+
     Route::resource('departments', DepartmentController::class)->names('departments');
 });
 Route::resource('orders', OrderController::class)->names('orders');

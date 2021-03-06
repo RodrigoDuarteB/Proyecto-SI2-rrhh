@@ -35,7 +35,7 @@ Route::get('/test', function (){
     $user->name = 'Rodrigo Duarte';
     $user->email = 'rodrijedbu2@outlook.com';
     $user->password = bcrypt('laravel1234');
-    $user->type = 1;
+    $user->type = \App\Models\User::$ADMINISTRATOR;
     $user->save();
     return $user;
 });

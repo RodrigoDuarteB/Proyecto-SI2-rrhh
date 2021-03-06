@@ -21,6 +21,7 @@ class User extends Authenticatable{
         'name',
         'email',
         'password',
+        'type'
     ];
 
     /**
@@ -41,6 +42,9 @@ class User extends Authenticatable{
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public static $ADMINISTRATOR = 1;
+    public static $EMPLOYEE = 2;
 
     public function employee(){
         return $this->hasOne(Employee::class);

@@ -1,0 +1,29 @@
+.pulseBtn {
+  background-color: transparent;
+  -moz-border-radius: 30px;
+  -webkit-border-radius: 30px;
+  display: block;
+  width: 200px;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 1px;
+  border-radius: 40px;
+  border: 1px solid rgba(255,255,255,0.7);
+  cursor: pointer;
+  color: #ebeff1;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 22px;
+  padding: .3rem .8rem;
+  text-decoration: none;
+}
+
+.pulseBtn:hover {
+  text-decoration: none;
+  color: #FFF;
+  animation-name: pulse_animation;
+  animation-duration: 1300ms;
+  transform-origin: 80% 80%;
+  animation-iteration-count: 1;
+  animation-timing-function: linear;
+}
+

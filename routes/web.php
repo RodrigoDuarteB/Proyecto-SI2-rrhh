@@ -29,12 +29,13 @@ Route::middleware(['auth'])->group(function (){
 });
 
 
-//RUTA PARA CREAR USUARIOS DE PRUEBA 
+//RUTA PARA CREAR USUARIOS DE PRUEBA
 Route::get('/test', function (){
     $user = new \App\Models\User();
     $user->name = 'Rodrigo Duarte';
     $user->email = 'rodrijedbu2@outlook.com';
     $user->password = bcrypt('laravel1234');
+    $user->type = 1;
     $user->save();
     return $user;
 });

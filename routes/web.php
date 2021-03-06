@@ -20,6 +20,7 @@ use App\Http\Controllers\DepartmentController;
 
 Route::middleware(['auth'])->group(function (){
     Route::view('/', 'home')->name('home');
+    Route::view('/error', 'error')->name('error');
     Route::resource('users', UserController::class)->names('users');
     Route::resource('departments', DepartmentController::class)->names('departments');
     Route::resource('orders', OrderController::class)->names('orders');

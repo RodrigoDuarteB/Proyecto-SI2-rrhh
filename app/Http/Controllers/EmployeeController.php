@@ -27,14 +27,78 @@ class EmployeeController extends Controller{
             $employee->last_name = $request->input('last_name');
             $employee->work_phone = $request->input('work_phone');
             $employee->personal_phone = $request->input('personal_phone');
-            $employee->sex = $request->input('sex');
+            $sex = $request->input('sex');
+            switch ($sex){
+                case 1:
+                    $employee->sex = Employee::$WOMAN;
+                    break;
+                case 2:
+                    $employee->sex = Employee::$MAN;
+                    break;
+                case 3:
+                    $employee->sex = Employee::$OTHERSEX;
+                    break;
+                default:
+                    $employee->sex = Employee::$WOMAN;
+            }
             $employee->ID_number = $request->input('ID_number');
             $employee->address = $request->input('address');
             $employee->nationality = $request->input('nationality');
             $employee->passport = $request->input('passport');
             $employee->birthdate = $request->input('birthdate');
             $employee->birthplace = $request->input('birthplace');
-            $employee->marital_status = $request->input('marital_status');
+            switch ($request->input('marital_status')){
+                case 1:
+                    if($sex == 1){
+                        $employee->marital_status = Employee::$SINGLE.'a';
+                    }elseif ($sex == 2){
+                        $employee->marital_status = Employee::$SINGLE.'o';
+                    }else{
+                        $employee->marital_status = Employee::$SINGLE.'@';
+                    }
+                    break;
+                case 2:
+                    if($sex == 1){
+                        $employee->marital_status = Employee::$MARRIED.'a';
+                    }elseif ($sex == 2){
+                        $employee->marital_status = Employee::$MARRIED.'o';
+                    }else{
+                        $employee->marital_status = Employee::$MARRIED.'@';
+                    }
+                    break;
+                case 3:
+                    if($sex == 1){
+                        $employee->marital_status = Employee::$COMMITTED.'a';
+                    }elseif ($sex == 2){
+                        $employee->marital_status = Employee::$COMMITTED.'o';
+                    }else{
+                        $employee->marital_status = Employee::$COMMITTED.'@';
+                    }
+                    break;
+                case 4:
+                    if($sex == 1){
+                        $employee->marital_status = Employee::$WIDOW.'a';
+                    }elseif ($sex == 2){
+                        $employee->marital_status = Employee::$WIDOW.'o';
+                    }else{
+                        $employee->marital_status = Employee::$WIDOW.'@';
+                    }
+                    break;
+                case 5:
+                    if($sex == 1){
+                        $employee->marital_status = Employee::$DIVORCED.'a';
+                    }elseif ($sex == 2){
+                        $employee->marital_status = Employee::$DIVORCED.'o';
+                    }else{
+                        $employee->marital_status = Employee::$DIVORCED.'@';
+                    }
+                    break;
+                case 6:
+                    $employee->marital_status = Employee::$OTHER;
+                    break;
+                default:
+                    $employee->marital_status = Employee::$OTHER;
+            }
             $employee->children = $request->input('children');
             $employee->emergency_contact = $request->input('emergency_contact');
             $employee->status = Employee::$ACTIVE;
@@ -42,7 +106,7 @@ class EmployeeController extends Controller{
                 $image = $request->file('image_name');
                 $name = time().$image->getClientOriginalName();
                 $image->move(public_path().'storage/images/employees/'.$name);
-                $employee->image_name = $name;
+                    $employee->image_name = $name;
             }
             //Se asigna departamento
             $employee->department_id = $request->input('department');

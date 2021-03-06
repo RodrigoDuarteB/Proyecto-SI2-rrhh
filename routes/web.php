@@ -7,6 +7,8 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\DepartmentController;
+use Spatie\Permission\Models\Permission;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,6 +19,7 @@ use App\Http\Controllers\DepartmentController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::view('index', 'index')->name('index');
 
 Route::middleware(['auth'])->group(function (){
     Route::view('/', 'home')->name('home');
@@ -33,12 +36,18 @@ Route::middleware(['auth'])->group(function (){
 //RUTA PARA CREAR USUARIOS DE PRUEBA
 Route::get('/test', function (){
     $user = new \App\Models\User();
-    $user->name = 'Rodrigo Duarte';
-    $user->email = 'rodrijedbu2@outlook.com';
-    $user->password = bcrypt('laravel1234');
+    $user->name = 'Prueba';
+    $user->email = 'prueba@gmail.com';
+    $user->password = bcrypt('prueba');
     $user->type = \App\Models\User::$ADMINISTRATOR;
     $user->save();
+    $user->syncPermissions(['Gestionar Personal']);
     return $user;
+});
+
+Route::get('/test2', function (){
+    $permission = Permission::where('name', '=', 'Crear Empleados')->get();
+    return dd($permission);
 });
 
 require __DIR__.'/auth.php';

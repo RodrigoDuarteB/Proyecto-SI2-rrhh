@@ -19,15 +19,17 @@ class PermissionController extends Controller{
     }
 
     public function store(Request $request){
-        try {
-            $request->validate([
-                'name' => 'required|string|min:3'
-            ]);
+        $request->validate([
+            'name' => 'required|string|regex:/(^[A-Z][A-Z,a-z, ]+)/'
+        ]);
+        $searchFirst = Permission::where('name', '=', $request->input('name'))->get();
+        if(count($searchFirst) < 1){
             Permission::create(['name' => $request->input('name')]);
-            return redirect()->route('permissions.index')->with('info', 'Permiso creado correctamente');
-        }catch (\Exception $e){
-            return redirect()->route('permissions.index')->with('info', 'Datos erróneos');
+        }else{
+            return redirect()->route('permissions.create')->with('failed', 'Permiso '
+                .$request->input('name').' ya existe');
         }
+        return redirect()->route('permissions.index')->with('success', 'Permiso creado correctamente');
     }
 
     public function show(Permission $permission){
@@ -35,7 +37,7 @@ class PermissionController extends Controller{
             Permission::findOrFail($permission->id);
             return view('permissions.show', compact('permission'));
         }catch (\Exception $e){
-            return redirect()->route('permissions.index')->with('info', 'El permiso que intentó ver no existe');
+            return redirect()->route('permissions.index')->with('failed', 'El permiso que intentó ver no existe');
         }
     }
 
@@ -44,30 +46,34 @@ class PermissionController extends Controller{
             Permission::findOrFail($permission->id);
             return view('permissions.edit', compact('permission'));
         }catch (\Exception $e){
-            return redirect()->route('permissions.index')->with('info', 'El permiso que intentó editar no existe');
+            return redirect()->route('permissions.index')->with('failed', 'El permiso que intentó editar no existe');
         }
     }
 
     public function update(Request $request, Permission $permission){
-        try {
-            $request->validate([
-                'name' => 'required|string|min:3'
-            ]);
-            $permission->name = $request->input('name');
-            $permission->save();
-            return redirect()->route('permissions.index')->with('info', 'Permiso creado correctamente');
-        }catch (\Exception $e){
-            return redirect()->route('permissions.index')->with('info', 'Datos erróneos');
+        $request->validate([
+            'name' => 'required|string|regex:/(^[A-Z][A-Z,a-z, ]+)/'
+        ]);
+        $searchFirst = Permission::where('name', '=', $request->input('name'))->get();
+        if($request->input('name') != $permission->name){
+            if(count($searchFirst) < 1){
+                $permission->name = $request->input('name');
+                $permission->save();
+            }else{
+                return redirect()->route('permissions.edit', $permission)->with('failed', 'Permiso '
+                    .$request->input('name').' ya existe');
+            }
         }
+        return redirect()->route('permissions.index')->with('success', 'Permiso actualizado correctamente');
     }
 
     public function destroy(Permission $permission){
         try {
             Permission::findOrFail($permission->id);
             Permission::destroy([$permission->id]);
-            return redirect()->route('permissions.index')->with('info', 'Permiso eliminado correctamente');
         }catch (\Exception $e){
-            return redirect()->route('permissions.index')->with('info', 'El Permiso que intentó eliminar no existe');
+            return redirect()->route('permissions.index')->with('failed', 'El Permiso que intentó eliminar no se encontró');
         }
+        return redirect()->route('permissions.index')->with('success', 'Permiso eliminado correctamente');
     }
 }

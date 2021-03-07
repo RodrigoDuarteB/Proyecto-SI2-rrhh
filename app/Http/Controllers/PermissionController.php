@@ -10,7 +10,7 @@ use Spatie\Permission\Models\Role;
 class PermissionController extends Controller{
 
     public function index(){
-        $permissions = Permission::all();
+        $permissions = Permission::orderBy('name', 'ASC')->get();
         return \view('permissions.index', compact('permissions'));
     }
 

@@ -3,7 +3,7 @@
         <div class="form-group pull-right col-lg-4"><input type="text" class="search form-control" placeholder="Search by typing here.."></div><span class="counter pull-right"></span>
         <h2>Roles</h2>
         @include('layouts.session-messages')
-        <div class="table-responsive table-bordered table table-hover table-bordered results">
+        <div class="container table-responsive table-bordered table table-hover table-bordered results">
             <a class="btn btn-primary mb-3" type="button" href="{{ route('roles.create') }}">Nuevo Rol</a>
             @if(count($roles) >= 1)
                 <table class="table table-bordered table-hover">

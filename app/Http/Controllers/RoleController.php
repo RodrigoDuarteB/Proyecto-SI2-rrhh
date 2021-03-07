@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class RoleController extends Controller{
 
     public function index(){
-        $roles = Role::all();
+        $roles = Role::orderBy('name', 'ASC')->get();
         return \view('roles.index', compact('roles'));
     }
 

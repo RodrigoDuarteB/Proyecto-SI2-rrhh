@@ -21,8 +21,13 @@
                             <td>{{ $permission->id }}</td>
                             <td>{{ $permission->name }}</td>
                             <td>
-                                <a class="btn btn-primary mb-3" type="button"
-                                   href="{{ route('permissions.show', $permission) }}">Ver Roles</a>
+                                <ul>
+                                    @forelse($permission->roles as $rol)
+                                        <li>{{ $rol->name }}</li>
+                                    @empty
+                                        No está en ningun rol
+                                    @endforelse
+                                </ul>
                             </td>
                             <td>
                                 <a class="btn btn-success" style="margin-left: 5px;" href="{{ route('permissions.edit', $permission) }}">

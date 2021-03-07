@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <h3 class="text-dark mb-4">Agregar Asistencia</h3>
+    <h3 class="text-dark mb-4">Agregar Postulante</h3>
     <p class="card-category">Ingrese los datos correspondientes</p>
     <div class="row mb-3">
         <div class="col-lg-3">

@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\ApplicantController;
 use Illuminate\Support\Facades\Route;
 
-/*use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\EmployeeController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,15 +32,17 @@ Route::get('/dashboard', function () {
     Route::get('/workdays/{workday}', 'App\Http\Controllers\WorkdayController@edit')->name('workdays.edit');
     Route::get('/workdays/{workday}', 'App\Http\Controllers\WorkdayController@destroy')->name('workdays.destroy');
     Route::get('/workdays/{workday}', 'App\Http\Controllers\WorkdayController@update')->name('workdays.update');
+    Route::resource('applicants', ApplicantController::class)->names('applicants');
 
 Route::middleware(['auth'])->group(function (){
     Route::resource('users', UserController::class)->names('users');
-    Route::resource('roles', RoleController::class)->names('roles');
-    Route::resource('permissions', PermissionController::class)->names('permissions');
+
 
     Route::resource('orders', OrderController::class)->names('orders');
     Route::resource('departments', DepartmentController::class)->names('departments');
 });
+Route::resource('roles', RoleController::class)->names('roles');
+Route::resource('permissions', PermissionController::class)->names('permissions');
 Route::resource('employees', EmployeeController::class)->names('employees');
 
 

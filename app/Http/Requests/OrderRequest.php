@@ -11,7 +11,7 @@ class OrderRequest extends FormRequest{
      * @return bool
      */
     public function authorize(){
-        return false;
+        return true;
     }
 
     /**
@@ -21,9 +21,16 @@ class OrderRequest extends FormRequest{
      */
     public function rules(){
         return [
-            'title' => 'required|string|regex:/^[A-Z][A-Z,a-z, ]+&/',
-            'description' => 'required|string|regex:/^[A-Z][A-Z,a-z, ]+&/',
-            'employe_id' => 'required|numeric|regex:/^[0-9, ,--,+]+&/',          
+            'title' => 'required|string|max:100',
+            'description' => 'required|string|max:250',
+                       
         ];
+    }
+
+    public function messages(){
+        return [
+            'title.required' => 'Se ha superado la cantidad de caracteres permitidos en el Título, max:100',
+            'description.required' => 'Se ha superado la cantidad de caracteres permitidos en la Descripción, max:250',
+            ];
     }
 }

@@ -51,123 +51,194 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col" style="padding-top: 0px;margin-top: 0px;margin-bottom: 0px;">
-                        <div class="card shadow mb-3">
-                            <div class="card-header py-3">
-                                <p class="text-primary m-0 font-weight-bold">Datos Personales</p>
-                            </div>
-                            <div class="card-body">
-                                <form>
+                    <form action="{{ route('employees.store') }}" method="POST">
+                        @csrf
+                        <div class="col" style="padding-top: 0px;margin-top: 0px;margin-bottom: 0px;">
+                            <div class="card shadow mb-3">
+                                <div class="card-header py-3">
+                                    <p class="text-primary m-0 font-weight-bold">Datos Personales</p>
+                                </div>
+                                <div class="card-body">
                                     <div class="form-row">
                                         <div class="col">
                                             <div class="form-group">
                                                 <div class="col">
-                                                    <div class="form-group"><label
-                                                            for="first_name"><strong>Nombres:</strong><br></label><input
+                                                    <div class="form-group">
+                                                        <label for="name">
+                                                            <strong>Nombres:</strong><br>
+                                                        </label>
+                                                        <input
                                                             class="form-control" type="text" name="name"
-                                                            value="nombre"></div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="form-group"><label><strong>Carnet de
-                                                                Identidad:</strong><br></label><input
-                                                            class="form-control" type="text" name="ID_number"
-                                                            value="Ci"></div>
+                                                            value="{{ old('name') }}" id="name">
+                                                    </div>
+                                                    @error('name')
+                                                        <small>{{$message}}</small>
+                                                    @enderror
                                                 </div>
                                                 <div class="col">
                                                     <div class="form-group">
-                                                        <label><strong>Nacionalidad:</strong><br></label><input
-                                                            class="form-control" type="text"
-                                                            name="nationality" value="nacionalidad"></div>
+                                                        <label><strong>Carnet de
+                                                                Identidad:</strong><br>
+                                                        </label>
+                                                        <input class="form-control" type="text" name="ID_number"
+                                                               value="{{ old('ID_number') }}">
+                                                    </div>
                                                 </div>
                                                 <div class="col">
-                                                    <div class="form-group"><label><strong>Fecha de
-                                                                Nacimiento:</strong><br></label><input
-                                                            class="form-control" type="date"
-                                                            name="birthdate"></div>
+                                                    <div class="form-group">
+                                                        <label><strong>Fecha de
+                                                                Nacimiento:</strong><br></label>
+                                                        <input class="form-control" type="date"
+                                                               name="birthdate" value="{{ old('birthdate') }}">
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="form-group">
+                                                        <label for="last_name"><strong>Ciudad o Provincia:</strong><br></label>
+                                                        <input
+                                                            class="form-control" type="text" name="birthplace"
+                                                            value="{{ old('birthplace') }}">
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="form-group">
+                                                        <label for="last_name"><strong>Telefono Personal:</strong><br></label>
+                                                        <input
+                                                            class="form-control" type="text" name="personal_phone"
+                                                            value="{{ old('personal_phone') }}">
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="form-group">
+                                                        <label for="last_name"><strong>Contacto de Emergencia</strong><br></label>
+                                                        <input
+                                                            class="form-control" type="text" name="emergency_contact"
+                                                            value="{{ old('emergency_contact') }}">
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="form-group">
+                                                        <label for="last_name"><strong>Hijos:</strong><br></label>
+                                                        <select
+                                                            class="form-control form-control" id="exampleSelect-1" name="children"
+                                                            style="padding-left: 9px;padding-right: 60px;padding-top: 0px;padding-bottom: 0px;margin-right: 5px;margin-bottom: -4px;margin-left: -1px;min-width: 0px|;width: 300px;">
+                                                            <option value="" selected disabled>Elija una opcion</option>
+                                                            <option value="0">0</option>
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                            <option value="5">5</option>
+                                                            <option value="6">6</option>
+                                                            <option value="7">7</option>
+                                                            <option value="8">8</option>
+                                                            <option value="9">9</option>
+                                                            <option value="10">10 o mas</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col">
-                                            <div class="form-group"><label
-                                                    for="last_name"><strong>Apellidos:</strong><br></label><input
+                                            <div class="form-group">
+                                                <label for="last_name"><strong>Apellidos:</strong><br></label>
+                                                <input
                                                     class="form-control" type="text" name="last_name"
-                                                    value="Apellidos"></div>
-                                            <div class="form-group"><label for="last_name"><strong>Estado
-                                                        Civil:</strong><br></label><input
-                                                    class="form-control" type="text" name="marital_status"
-                                                    value="soltero"></div>
-                                            <div class="form-group"><label
-                                                    for="last_name"><strong>Sexo:</strong><br></label><select
-                                                    class="form-control form-control" id="exampleSelect-2"
-                                                    style="padding-left: 9px;padding-right: 60px;padding-top: 0px;padding-bottom: 0px;margin-right: 5px;margin-bottom: -4px;margin-left: -1px;min-width: 0px|;width: 169px;">
-                                                    <option value="Femenino">Femenino</option>
-                                                    <option value="Masculino">Masculino</option>
-                                                    <option value="Otros">Otros</option>
-                                                </select></div>
-                                            <div class="form-group"><label
-                                                    for="last_name"><strong>Hijos:</strong><br></label><select
+                                                    value="{{ old('last_name') }}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="last_name"><strong>Sexo:</strong><br></label>
+                                                <select class="form-control form-control" id="exampleSelect-2"
+                                                        style="padding-left: 9px;padding-right: 60px;padding-top: 0px;padding-bottom: 0px;margin-right: 5px;margin-bottom: -4px;margin-left: -1px;min-width: 0px|;width: 300px;">
+                                                    <option value="" selected disabled>Elija una opcion</option>
+                                                    <option value="1">Femenino</option>
+                                                    <option value="2">Masculino</option>
+                                                    <option value="3">Otro</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label><strong>Nacionalidad:</strong><br></label>
+                                                <input class="form-control" type="text"
+                                                       name="nationality" value="{{ old('nationality') }}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label><strong>Nro de Pasaporte:</strong><br></label>
+                                                <input class="form-control" type="text"
+                                                       name="passport" value="{{ old('passport') }}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label><strong>Direccion:</strong><br></label>
+                                                <input class="form-control" type="text"
+                                                       name="address" value="{{ old('address') }}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="last_name"><strong>Estado Civil:</strong><br></label>
+                                                <select
                                                     class="form-control form-control" id="exampleSelect-1"
-                                                    style="padding-left: 9px;padding-right: 60px;padding-top: 0px;padding-bottom: 0px;margin-right: 5px;margin-bottom: -4px;margin-left: -1px;min-width: 0px|;width: 169px;">
-                                                    <option value="4">1</option>
-                                                    <option value="4">2</option>
-                                                    <option value="4">3</option>
-                                                    <option value="4">4</option>
-                                                    <option value="5">5</option>
-                                                    <option value="6">6</option>
-                                                    <option value="7">7</option>
-                                                    <option value="8">8</option>
-                                                    <option value="9">9</option>
-                                                    <option value="10">10</option>
-                                                </select></div>
+                                                    style="padding-left: 9px;padding-right: 60px;padding-top: 0px;padding-bottom: 0px;margin-right: 5px;margin-bottom: -4px;margin-left: -1px;min-width: 0px|;width: 300px;" name=marital_status>
+                                                    <option value="" selected disabled>Elija una Opcion</option>
+                                                    <option value="1">Solter@</option>
+                                                    <option value="2">Casado@</option>
+                                                    <option value="3">Comprometid@</option>
+                                                    <option value="4">Viud@</option>
+                                                    <option value="5">Divorciad@</option>
+                                                    <option value="6">Otro</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
-                                </form>
+                                </div>
                             </div>
-                        </div>
-                        <div class="card shadow mb-3">
-                            <div class="card-header py-3">
-                                <p class="text-primary m-0 font-weight-bold">Datos de Usuario</p>
-                            </div>
-                            <div class="card-body">
-                                <form>
+                            <div class="card shadow mb-3">
+                                <div class="card-header py-3">
+                                    <p class="text-primary m-0 font-weight-bold">Datos de Usuario</p>
+                                </div>
+                                <div class="card-body">
                                     <div class="form-row">
                                         <div class="col">
                                             <div class="form-group">
                                                 <div class="col">
-                                                    <div class="form-group"><label
-                                                            for="first_name"><strong>Email:</strong><br></label><input
+                                                    <div class="form-group">
+                                                        <label
+                                                            for="first_name"><strong>Email:</strong><br>
+                                                        </label>
+                                                        <input
                                                             class="form-control" type="text" name="email"
-                                                            value="email"></div>
+                                                            value="{{ old('email') }}"></div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <label><strong>Contraseña:</strong><br></label><input
                                                             class="form-control" type="password"
-                                                            name="pasword" value=""></div>
+                                                            name="password" value=""></div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col"
-                                             style="margin-bottom: 0px;padding-bottom: 0px;padding-top: 86px;">
+                                        <div class="col" style="margin-bottom: 0px;padding-bottom: 0px;padding-top: 86px;">
+                                            <br>
                                             <div class="form-group"><label for="last_name"><strong>Confirmar
-                                                        Contraseña:</strong><br></label><input
+                                                        Contraseña:</strong><br></label>
+                                                <input
                                                     class="form-control" type="password"
-                                                    name="confirm_password" value=""></div>
+                                                    name="confirm_password" value="">
+                                            </div>
                                         </div>
                                     </div>
-                                </form>
+                                </div>
                             </div>
-                        </div>
-                        <div class="card shadow">
-                            <div class="card-header py-3">
-                                <p class="text-primary m-0 font-weight-bold">Datos RR.HH.</p>
-                            </div>
-                            <div class="card-body">
-                                <form>
-                                    <div class="form-group"><label
-                                            for="address"><strong>Departamento:</strong></label><input
+                            <div class="card shadow">
+                                <div class="card-header py-3">
+                                    <p class="text-primary m-0 font-weight-bold">Datos RR.HH.</p>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label
+                                            for="address"><strong>Departamento:</strong>
+                                        </label>
+                                        <input
                                             class="form-control" type="text" name="departament"
-                                            value="tipo de departamento" disabled=""></div>
+                                            value="tipo de departamento" disabled="">
+                                    </div>
                                     <div class="form-group"><label
                                             for="address"><strong>Contrato</strong></label><input
                                             class="form-control" type="text" name="contrato_name"
@@ -192,19 +263,19 @@
                                                     value="Adm. Bodega" disabled=""></div>
                                         </div>
                                         <div class="col">
-                                            <div class="form-group"><label for="country"><strong>ID
-                                                        Empleado</strong></label><input class="form-control"
-                                                                                        type="text" name="ID_number" value="11111" disabled="">
+                                            <div class="form-group">
+                                                <label for="country"><strong>ID
+                                                        Empleado</strong></label>
+                                                <input class="form-control" type="text" name="ID_number"
+                                                       value="11111" disabled="">
                                             </div>
                                         </div>
                                     </div>
-                                </form>
-                            </div>
-                            <div class="card-header py-3">
-                                <p class="text-primary m-0 font-weight-bold">Información de Contacto</p>
-                            </div>
-                            <div class="card-body">
-                                <form>
+                                </div>
+                                <div class="card-header py-3">
+                                    <p class="text-primary m-0 font-weight-bold">Información de Contacto</p>
+                                </div>
+                                <div class="card-body">
                                     <div class="form-row">
                                         <div class="col">
                                             <div class="form-group">
@@ -235,32 +306,36 @@
                                             </div>
                                         </div>
                                     </div>
-                                </form>
-                                <div><a class="btn btn-primary btn-lg" role="button" data-toggle="modal"
-                                        href="#myModal">Guardar</a>
-                                    <div class="modal fade" role="dialog" tabindex="-1" id="myModal">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h4>Modal Title</h4><button type="button" class="close"
-                                                                                data-dismiss="modal" aria-label="Close"><span
-                                                            aria-hidden="true">×</span></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <p class="text-center text-muted">Description </p>
-                                                </div>
-                                                <div class="modal-footer"><button class="btn btn-light"
-                                                                                  data-dismiss="modal"
-                                                                                  type="button">Close</button><button
-                                                        class="btn btn-primary" type="button">Save</button>
+                                    <div>
+                                        <a class="btn btn-primary btn-lg" role="button" data-toggle="modal"
+                                            href="#myModal">Registrar</a>
+                                        <div class="modal fade" role="dialog" tabindex="-1" id="myModal">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4>Registrar nuevo Empleado</h4>
+                                                        <button type="button" class="close"
+                                                                data-dismiss="modal" aria-label="Close"><span
+                                                                aria-hidden="true">×</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p class="text-center text-muted">¿Está seguro que desea proceder a registrar el empleado con los datos introducidos? </p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button class="btn btn-light" data-dismiss="modal"
+                                                                type="button">Cancelar</button>
+                                                        <button class="btn btn-primary" type="submit">Aceptar</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

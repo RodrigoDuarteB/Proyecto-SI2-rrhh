@@ -21,6 +21,7 @@ class User extends Authenticatable{
         'name',
         'email',
         'password',
+        'type'
     ];
 
     /**
@@ -42,16 +43,15 @@ class User extends Authenticatable{
         'email_verified_at' => 'datetime',
     ];
 
+    public static $ADMINISTRATOR = 1;
+    public static $EMPLOYEE = 2;
+
     public function employee(){
         return $this->hasOne(Employee::class);
     }
 
     public function logs(){
         return $this->hasMany(Log::class);
-    }
-
-    public function administrator(){
-        return $this->hasOne(Administrator::class);
     }
 
 }

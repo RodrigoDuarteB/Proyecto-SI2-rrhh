@@ -37,16 +37,16 @@ Route::middleware(['auth'])->group(function (){
 //RUTA PARA CREAR USUARIOS DE PRUEBA
 Route::get('/test', function (){
     $user = new \App\Models\User();
-<<<<<<< HEAD
+
     $user->name = 'Romina0Cortez';
     $user->email = 'rominacortez@outlook.com';
     $user->password = bcrypt('laravel1234');
-=======
+
     $user->name = 'Prueba';
     $user->email = 'prueba@gmail.com';
     $user->password = bcrypt('prueba');
     $user->type = \App\Models\User::$ADMINISTRATOR;
->>>>>>> e4ce6d1018581eccf708707966252573e2349053
+
     $user->save();
     $user->syncPermissions(['Gestionar Personal']);
     return $user;

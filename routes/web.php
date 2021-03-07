@@ -24,6 +24,7 @@ Route::view('index', 'index')->name('index');
 Route::middleware(['auth'])->group(function (){
     Route::view('/', 'home')->name('home');
     Route::view('/error', 'error')->name('error');
+    Route::view('/error405', 'error405')->name('error405');
     Route::resource('users', UserController::class)->names('users');
     Route::resource('departments', DepartmentController::class)->names('departments');
     Route::resource('orders', OrderController::class)->names('orders');

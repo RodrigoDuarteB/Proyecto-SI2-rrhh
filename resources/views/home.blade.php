@@ -2,7 +2,13 @@
 
 @section('content')
 <div class="container-fluid">
-    <h3 class="text-dark mb-4">Bienvenido &lt;@name&gt;</h3>
+    <h3 class="text-dark mb-4"> ¡Bienvenido
+        @auth()
+        {{ auth()->user()->name }}
+        @elseauth()
+        Usuario
+        @endauth
+        !</h3>
     <div class="row mb-3">
         <div class="col-lg-4">
             <div class="card mb-3"
@@ -58,20 +64,18 @@
                                         <div class="form-group">
                                             <div class="col-xl-12 offset-xl-0">
                                                 <div class="form-group"><label
-                                                        for="first_name"><strong>Nombres:</strong><br></label><label
+                                                        for="first_name"><strong>Nombre:</strong><br></label><label
                                                         for="name"
-                                                        style="height: 23px;min-width: 0px;min-height: 0px;padding-right: 0px;padding-left: 62px;"><strong>nombre</strong><br></label>
+                                                        style="height: 23px;min-width: 0px;min-height: 0px;padding-right: 0px;padding-left: 62px;"><strong>{{ auth()->user()->name }}</strong><br></label>
                                                 </div>
-                                                <div class="form-group"><label
-                                                        for="first_name"><strong>Apellidos:</strong><br></label><label
-                                                        for="last_name"
-                                                        style="height: 23px;min-width: 0px;min-height: 0px;padding-right: 0px;padding-left: 58px;"><strong>apellidos</strong><br></label>
-                                                </div>
+
                                                 <div class="form-group"><label
                                                         for="first_name"><strong>ID:</strong><br></label><label
                                                         for="ID_employed"
-                                                        style="height: 23px;min-width: 0px;min-height: 0px;padding-right: 0px;padding-left: 114px;"><strong>id
-                                                            del empleado</strong><br></label></div>
+                                                        style="height: 23px;min-width: 0px;min-height: 0px;padding-right: 0px;padding-left: 114px;">
+                                                        <strong>
+                                                            {{ auth()->user()->id }}
+                                                        </strong><br></label></div>
                                             </div>
                                         </div>
                                     </div>

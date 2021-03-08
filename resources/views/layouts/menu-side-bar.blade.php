@@ -9,13 +9,20 @@
             <li class="nav-item">
                 <a class="nav-link" style="color: rgba(0,1,1,0.8);font-size: 18px;">Administrar Personal</a>
                 <a class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt; Gestionar Usuarios</a>
-                @can('Gestionar Personal')
+                @canany(['Gestionar Personal', 'Listar Personal'])
                     <a class="nav-link" href="{{ route('employees.index') }}" style="padding-right: 16px;padding-left: 43px;">&gt; Gestionar Personal</a>
+<<<<<<< Updated upstream
                 @endcan
                 <a href="{{ route('orders.index') }}"class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt; Gestionar Ordenes<br>&nbsp; &nbsp;de Trabajo</a>
+=======
+                @endcanany
+                <a class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt; Gestionar Ordenes<br>&nbsp; &nbsp;de Trabajo</a>
+>>>>>>> Stashed changes
                 <a class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt; Gestionar<br>&nbsp;&nbsp;Departamentos</a>
-                <a class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt; Administrar<br>&nbsp;
-                &nbsp;Asistencias</a>
+                @canany(['Gestionar Asistencias'])
+                    <a class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt; Administrar<br>&nbsp;
+                    &nbsp;Asistencias</a>
+                @endcanany
                 <a class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt; Administrar<br>&nbsp;&nbsp;Ausencias</a>
                 <a class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt;Gestionar Carrera<br>&nbsp; &nbsp;Administrativa</a>
                 <a class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt; Gestionar Capacitación<br>&nbsp; &nbsp;Interna</a>

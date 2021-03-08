@@ -10,11 +10,10 @@ use App\Models\User;
 class EmployeeController extends Controller{
 
     public function __construct(){
-        $this->middleware('role_or_permission:Gestionar Personal|Listar Empleados')->only('index');
-        $this->middleware('can:Registrar Empleados')->only('create', 'store');
-        $this->middleware('can:Ver Empleados')->only('show');
-        $this->middleware('can:Editar Empleados')->only('edit', 'update');
-        $this->middleware('can:Eliminar Empleados')->only('destroy');
+        $this->middleware('role_or_permission:Gestionar Personal|Listar Personal')->only('index', 'show');
+        $this->middleware('role_or_permission:Gestionar Personal|Crear Personal')->only('create', 'store');
+        $this->middleware('role_or_permission:Gestionar Personal|Editar Personal')->only('edit', 'update');
+        $this->middleware('role_or_permission:Gestionar Personal|Eliminar Personal')->only('destroy');
     }
 
     public function index(){
@@ -46,7 +45,7 @@ class EmployeeController extends Controller{
                 $employee->sex = Employee::$OTHERSEX;
                 break;
             default:
-                $employee->sex = Employee::$WOMAN;
+                $employee->sex = Employee::$OTHERSEX;
         }
         $employee->ID_number = $request->input('ID_number');
         $employee->address = $request->input('address');
@@ -115,14 +114,15 @@ class EmployeeController extends Controller{
             $image->move(public_path().'storage/images/employees/'.$name);
             $employee->image_name = $name;
         }
-        //Se asigna departamento
-        $employee->department_id = $request->input('department');
         //Se crea su usuario
         $user = new User();
         $user->name = $request->input('name').' '.$request->input('last_name');;
         $user->email = $request->input('email');
         $user->password = bcrypt($request->input('password'));
+        $user->type = User::$EMPLOYEE;
         $user->save();
+        //Se le asigna el Rol de Empleado
+        $user->assignRole('Empleado');
         //se guarda su usuario
         $employee->user_id = $user->id;
         //se guarda el empleado
@@ -147,7 +147,7 @@ class EmployeeController extends Controller{
             Employee::findOrFail($employee->id);
             return view('employees.show', compact('employee'));
         }catch (\Exception $e){
-            return redirect()->route('employees.index')->with('info', 'Ocurrió un error al intentar mostrar el empleado');
+            return redirect()->route('employees.index')->with('failed', 'Ocurrió un error al intentar mostrar el empleado');
         }
     }
 
@@ -156,49 +156,116 @@ class EmployeeController extends Controller{
             Employee::findOrFail($employee->id);
             return view('employees.edit', compact('employee'));
         }catch (\Exception $e){
-            return redirect()->route('employees.index')->with('info', 'Ocurrió un error al intentar editar el empleado');
+            return redirect()->route('employees.index')->with('failed', 'Ocurrió un error al intentar editar el empleado');
         }
     }
 
     public function update(EmployeeRequest $request, Employee $employee){
-        try {
-            $validated = $request->validated();
-            //se edita solo los datos del empleado
-            $employee->name = $request->input('name');
-            $employee->last_name = $request->input('last_name');
-            $employee->work_phone = $request->input('work_phone');
-            $employee->personal_phone = $request->input('personal_phone');
-            $employee->sex = $request->input('sex');
-            $employee->ID_number = $request->input('ID_number');
-            $employee->address = $request->input('address');
-            $employee->nationality = $request->input('nationality');
-            $employee->passport = $request->input('passport');
-            $employee->birthdate = $request->input('birthdate');
-            $employee->birthplace = $request->input('birthplace');
-            $employee->marital_status = $request->input('marital_status');
-            $employee->children = $request->input('children');
-            $employee->emergency_contact = $request->input('emergency_contact');
-            $employee->status = Employee::$ACTIVE;
-            if($request->hasFile('image_name')){
-                $image = $request->file('image_name');
-                $name = time().$image->getClientOriginalName();
-                $image->move(public_path().'storage/images/employees/'.$name);
-                $employee->image_name = $name;
-            }
-            $employee->save();
-        }catch (\Exception $e){
-            return redirect()->route('employees.index')->with('info', 'Ocurrió un error al intentar editar');
+        $validated = $request->validated();
+        //se registra el empleado
+        $employee->name = $request->input('name');
+        $employee->last_name = $request->input('last_name');
+        $employee->work_phone = $request->input('work_phone');
+        $employee->personal_phone = $request->input('personal_phone');
+        $sex = $request->input('sex');
+        switch ($sex){
+            case 1:
+                $employee->sex = Employee::$WOMAN;
+                break;
+            case 2:
+                $employee->sex = Employee::$MAN;
+                break;
+            case 3:
+                $employee->sex = Employee::$OTHERSEX;
+                break;
+            default:
+                $employee->sex = Employee::$OTHERSEX;
         }
-        return redirect()->route('employees.index')->with('info', 'Empleado editado correctamente');
+        $employee->ID_number = $request->input('ID_number');
+        $employee->address = $request->input('address');
+        $employee->nationality = $request->input('nationality');
+        $employee->passport = $request->input('passport');
+        $employee->birthdate = $request->input('birthdate');
+        $employee->birthplace = $request->input('birthplace');
+        switch ($request->input('marital_status')){
+            case 1:
+                if($sex == 1){
+                    $employee->marital_status = Employee::$SINGLE.'a';
+                }elseif ($sex == 2){
+                    $employee->marital_status = Employee::$SINGLE.'o';
+                }else{
+                    $employee->marital_status = Employee::$SINGLE.'@';
+                }
+                break;
+            case 2:
+                if($sex == 1){
+                    $employee->marital_status = Employee::$MARRIED.'a';
+                }elseif ($sex == 2){
+                    $employee->marital_status = Employee::$MARRIED.'o';
+                }else{
+                    $employee->marital_status = Employee::$MARRIED.'@';
+                }
+                break;
+            case 3:
+                if($sex == 1){
+                    $employee->marital_status = Employee::$COMMITTED.'a';
+                }elseif ($sex == 2){
+                    $employee->marital_status = Employee::$COMMITTED.'o';
+                }else{
+                    $employee->marital_status = Employee::$COMMITTED.'@';
+                }
+                break;
+            case 4:
+                if($sex == 1){
+                    $employee->marital_status = Employee::$WIDOW.'a';
+                }elseif ($sex == 2){
+                    $employee->marital_status = Employee::$WIDOW.'o';
+                }else{
+                    $employee->marital_status = Employee::$WIDOW.'@';
+                }
+                break;
+            case 5:
+                if($sex == 1){
+                    $employee->marital_status = Employee::$DIVORCED.'a';
+                }elseif ($sex == 2){
+                    $employee->marital_status = Employee::$DIVORCED.'o';
+                }else{
+                    $employee->marital_status = Employee::$DIVORCED.'@';
+                }
+                break;
+            case 6:
+                $employee->marital_status = Employee::$OTHER;
+                break;
+            default:
+                $employee->marital_status = Employee::$OTHER;
+        }
+        $employee->children = $request->input('children');
+        $employee->emergency_contact = $request->input('emergency_contact');
+        $employee->status = Employee::$ACTIVE;
+        if($request->hasFile('image_name')){
+            $image = $request->file('image_name');
+            $name = time().$image->getClientOriginalName();
+            $image->move(public_path().'storage/images/employees/'.$name);
+            $employee->image_name = $name;
+        }
+        //Edita su usuario
+        $user = $employee->user();
+        $user->email = $request->input('email');
+        $user->password = bcrypt($request->input('password'));
+        $user->save();
+
+        //se edita el empleado
+        $employee->save();
+        return redirect()->route('employees.index')->with('sucess', 'Empleado editado correctamente');
     }
 
     public function destroy(Employee $employee){
         try{
             Employee::findOrFail($employee->id);
             $employee->status = Employee::$FIRED;
-            return redirect()->route('employees.index')->with('info', 'Empleado despedido correctamente');
+            return redirect()->route('employees.index')->with('sucess', 'Empleado despedido correctamente');
         }catch (\Exception $e){
-            return redirect()->route('employees.index')->with('info', 'Ocurrió un error al intentar despedir el empleado');
+            return redirect()->route('employees.index')->with('failed', 'Ocurrió un error al intentar despedir el empleado');
         }
     }
 }

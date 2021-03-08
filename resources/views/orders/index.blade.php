@@ -87,41 +87,53 @@
 
                             @else
 
-                                @foreach ($order->employees as $employees)
 
 
-                                    <tr>
-                                        <td>{{ $order->id }}</td>
-                                        <td>{{ $order->employee->last_name }} {{ $order->employee->name }}</td>
-                                        <td>{{ $order->title }}</td>
-                                        <td>{{ $employees->employee->last_name }} {{ $employees->employee->name }}
-                                        </td>
-                                        <td>{{ $order->datetime }}</td>
-                                        <td>{{ $employees->datetime }}</td>
 
+                                <tr>
+                                    <td>{{ $order->id }}</td>
+                                    <td>{{ $order->employee->last_name }} {{ $order->employee->name }}</td>
+                                    <td>{{ $order->title }}</td>
+                                    <td>
+                                        <ol>
+                                            @foreach ($order->employees as $employees)
+                                                <li>{{ $employees->employee->last_name }}
+                                                    {{ $employees->employee->name }}</li>
+                                            @endforeach
+                                        </ol>
+                                    </td>
+                                    <td>{{ $order->datetime }}</td>
 
-                                        @if ($employees->acomplished == true)
-                                            <td>Completada</td>
-                                        @else
-                                            <td>En Proceso</td>
-                                        @endif
+                                    <td>
+                                        <ol>
+                                            @foreach ($order->employees as $employees)
+                                                <li>{{ $employees->datetime }}</li>
+                                            @endforeach
+                                        </ol>
+                                    </td>
 
-                                        <td>
-                                            <form class="form-horizontal form-label-left"
-                                                action="{{ route('orders.destroy', $order->id) }}" method="POST">
-                                                <a href="/orders/{{ $order->id }}/edit" class="btn btn-success"
-                                                    style="margin-left: 5px;" type="submit"><i class="fa fa-pencil"
-                                                        style="font-size: 15px;"></i></a>
-                                                <a class="btn btn-primary" style="margin-left: 5px;"
-                                                    href="/orders/{{ $order->id }}"><i class="fa fa-eye"
-                                                        style="font-size: 15px;"></i></a>
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-danger" style="margin-left: 5px;" type="submit"><i
-                                                        class="fa fa-trash" style="font-size: 15px;"></i></button>
-                                            </form>
-                                    </tr>
-                                @endforeach
+                                    @if ($employees->acomplished == true)
+                                        <td>Completada</td>
+                                    @else
+                                        <td>En Proceso</td>
+                                    @endif
+
+                                    <td>
+                                        <form class="form-horizontal form-label-left"
+                                            action="{{ route('orders.destroy', $order->id) }}" method="POST">
+                                            <a href="/orders/{{ $order->id }}/edit" class="btn btn-success"
+                                                style="margin-left: 5px;" type="submit"><i class="fa fa-pencil"
+                                                    style="font-size: 15px;"></i></a>
+                                            <a class="btn btn-primary" style="margin-left: 5px;"
+                                                href="/orders/{{ $order->id }}"><i class="fa fa-eye"
+                                                    style="font-size: 15px;"></i></a>
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-danger" style="margin-left: 5px;" type="submit"><i
+                                                    class="fa fa-trash" style="font-size: 15px;"></i></button>
+                                        </form>
+                                </tr>
+
 
 
 

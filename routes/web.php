@@ -40,17 +40,13 @@ Route::middleware(['auth'])->group(function (){
 Route::get('/test', function (){
     $user = new \App\Models\User();
 
-    $user->name = 'Romina0Cortez';
-    $user->email = 'rominacortez@outlook.com';
-    $user->password = bcrypt('laravel1234');
-
-    $user->name = 'Prueba';
-    $user->email = 'prueba@gmail.com';
-    $user->password = bcrypt('prueba');
+    $user->name = 'Gary Añez';
+    $user->email = 'GaryAñez@gmail.com';
+    $user->password = bcrypt('cassis');
     $user->type = \App\Models\User::$ADMINISTRATOR;
 
     $user->save();
-    $user->syncPermissions(['Gestionar Personal']);
+    //$user->syncPermissions(['Gestionar Personal','Gestionar Ordenes']);
     return $user;
 });
 

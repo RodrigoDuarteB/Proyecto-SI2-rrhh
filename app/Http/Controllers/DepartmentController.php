@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\DepartmentRequest;
 use App\Models\Department;
 use App\Models\Employee;
+use App\Models\Job;
 use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
@@ -16,7 +17,7 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        $departments = Department::with('manager')->get();
+        $departments = Department::with('manager')->with('subDepartments','parent')->with('jobs')->get();
         return view('departments.index', compact('departments'));
     }
 
@@ -27,9 +28,9 @@ class DepartmentController extends Controller
      */
     public function create()
     {
-        $employee = Employee::where('department_id', '=', 'null')->get();
+        $cargos = Employee::all();
         $departments = Department::all();
-        return view('departments.create', compact('employee', 'departments'));
+        return view('departments.create', compact('cargos', 'departments'));
     }
 
     /**
@@ -53,9 +54,9 @@ class DepartmentController extends Controller
             $department->parent_id = $request->input('parent_id');
         }
 
-        $department->saved();
+        $department->save();
 
-        return redirect('/Departments')->with('status','Departamento Creado Correctamente.');
+        return redirect('/departments')->with('status','Departamento Creado Correctamente.');
     }
 
     /**

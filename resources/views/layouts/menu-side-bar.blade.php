@@ -11,13 +11,9 @@
                 <a class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt; Gestionar Usuarios</a>
                 @canany(['Gestionar Personal', 'Listar Personal'])
                     <a class="nav-link" href="{{ route('employees.index') }}" style="padding-right: 16px;padding-left: 43px;">&gt; Gestionar Personal</a>
-<<<<<<< Updated upstream
-                @endcan
-                <a href="{{ route('orders.index') }}"class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt; Gestionar Ordenes<br>&nbsp; &nbsp;de Trabajo</a>
-=======
                 @endcanany
+                <a href="{{ route('orders.index') }}"class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt; Gestionar Ordenes<br>&nbsp; &nbsp;de Trabajo</a>
                 <a class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt; Gestionar Ordenes<br>&nbsp; &nbsp;de Trabajo</a>
->>>>>>> Stashed changes
                 <a class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt; Gestionar<br>&nbsp;&nbsp;Departamentos</a>
                 @canany(['Gestionar Asistencias'])
                     <a class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt; Administrar<br>&nbsp;

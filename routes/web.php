@@ -32,10 +32,6 @@ Route::middleware(['auth'])->group(function (){
     Route::resource('roles', RoleController::class)->names('roles');
     Route::resource('permissions', PermissionController::class)->names('permissions');
     Route::resource('employees', EmployeeController::class)->names('employees');
-<<<<<<< Updated upstream
-
-    
-=======
     Route::resource('plannings', PlanningController::class)->names('plannings');
 
     // carreras administrativas
@@ -47,7 +43,7 @@ Route::middleware(['auth'])->group(function (){
     Route::get('contracts/create/{employee}', [ContractController::class, 'create'])->name('contracts.create');
     Route::put('contracts/{employee}', [ContractController::class, 'store'])->name('contracts.store');
     Route::get('contracts/{contract}/edit/{employee}', [ContractController::class, 'edit'])->name('contracts.edit');
->>>>>>> Stashed changes
+
 });
 
 

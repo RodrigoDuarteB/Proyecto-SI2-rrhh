@@ -105,7 +105,9 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        $orders = Order::with('employee')->with('employees')->find($order->id);
+        $employees = Employee::where('status', '!=',  Employee::$FIRED)->where('status', '!=', Employee::$VACATION)->with('user')->get();
+        return view('orders.show', compact('employees'))->with('orders', $orders);
     }
 
     /**

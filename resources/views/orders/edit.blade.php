@@ -1,9 +1,11 @@
 @extends("layouts.app")
 
-@section('title', 'Orders')
+@section('title', 'Edit - Orders')
 
 
 @section('content')
+
+
 
     <h3 class="text-dark mt-3">Crear Nueva Orden de Trabajo</h3>
     <div class="row mt-3">

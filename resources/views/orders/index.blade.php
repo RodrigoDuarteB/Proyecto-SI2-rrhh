@@ -57,7 +57,6 @@
                         </tr>
                         @foreach ($orders as $order)
 
-
                             @if ($order->employees == '[]')
 
                                 <tr>
@@ -67,21 +66,16 @@
                                     <td>Sin Asignar</td>
                                     <td>{{ $order->datetime }}</td>
                                     <td>Aún sin Asignar</td>
-
-                                    @if ($employees->acomplished == true)
-                                        <td>Completada</td>
-                                    @else
-                                        <td>En Proceso</td>
-                                    @endif
-
+                                    <td>En Proceso</td>
                                     <td>
 
                                         <form action="{{ route('orders.destroy', $order->id) }}" method="POST">
                                             <a href="/orders/{{ $order->id }}/edit" class="btn btn-success"
                                                 style="margin-left: 5px;" type="submit"><i class="fa fa-pencil"
                                                     style="font-size: 15px;"></i></a>
-                                            <button class="btn btn-primary" style="margin-left: 5px;" type="submit"><i
-                                                    class="fa fa-eye" style="font-size: 15px;"></i></button>
+                                            <a class="btn btn-primary" style="margin-left: 5px;"
+                                                href="/orders/{{ $order->id }}"><i class="fa fa-eye"
+                                                    style="font-size: 15px;"></i></a>
                                             @csrf
                                             @method('DELETE')
                                             <button class="btn btn-danger" style="margin-left: 5px;" type="submit"><i
@@ -89,8 +83,6 @@
                                         </form>
                                     </td>
                                 </tr>
-
-
 
 
                             @else
@@ -120,8 +112,9 @@
                                                 <a href="/orders/{{ $order->id }}/edit" class="btn btn-success"
                                                     style="margin-left: 5px;" type="submit"><i class="fa fa-pencil"
                                                         style="font-size: 15px;"></i></a>
-                                                <button class="btn btn-primary" style="margin-left: 5px;" type="submit"><i
-                                                        class="fa fa-eye" style="font-size: 15px;"></i></button>
+                                                <a class="btn btn-primary" style="margin-left: 5px;"
+                                                    href="/orders/{{ $order->id }}"><i class="fa fa-eye"
+                                                        style="font-size: 15px;"></i></a>
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="btn btn-danger" style="margin-left: 5px;" type="submit"><i

@@ -12,7 +12,7 @@
                 @can('Gestionar Personal')
                     <a class="nav-link" href="{{ route('employees.index') }}" style="padding-right: 16px;padding-left: 43px;">&gt; Gestionar Personal</a>
                 @endcan
-                <a class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt; Gestionar Ordenes<br>&nbsp; &nbsp;de Trabajo</a>
+                <a href="{{ route('orders.index') }}"class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt; Gestionar Ordenes<br>&nbsp; &nbsp;de Trabajo</a>
                 <a class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt; Gestionar<br>&nbsp;&nbsp;Departamentos</a>
                 <a class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt; Administrar<br>&nbsp;
                 &nbsp;Asistencias</a>

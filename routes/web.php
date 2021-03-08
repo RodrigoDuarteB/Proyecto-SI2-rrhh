@@ -31,6 +31,8 @@ Route::middleware(['auth'])->group(function (){
     Route::resource('roles', RoleController::class)->names('roles');
     Route::resource('permissions', PermissionController::class)->names('permissions');
     Route::resource('employees', EmployeeController::class)->names('employees');
+
+    
 });
 
 

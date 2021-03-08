@@ -2,84 +2,70 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ContractRequest;
 use App\Models\Contract;
-use Illuminate\Http\Request;
+use App\Models\Employee;
 
-class ContractController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
+class ContractController extends Controller{
+
+    public function index(){
+        $contracts = Contract::orderBy('employee_id', 'ASC')->get();
+        return view('contracts.index', compact('contracts'));
+    }
+
+
+    public function create(Employee $employee){
+        return view('contracts.create', compact('employee'));
+    }
+
+
+    public function store(ContractRequest $request, Employee $employee){
+        $validated = $request->validated();
+        $contract = new Contract();
+        $contract->name = $request->input('name');
+        $contract->description = $request->input('description');
+        $contract->initial_date = date('Y-m-d');
+        $contract->final_date = $request->input('final_date');
+        $contract->employee_id = $employee->id;
+        $contract->job_id = $request->input('job_id');
+        $contract->planning_id = $request->input('planning_id');
+        $contract->status = Contract::$ACTIVE;
+        $contract->save();
+        return redirect()->route('contracts.index')->with('success', 'Contrato creado correctamente');
+    }
+
+
+    public function show(Contract $contract){
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+
+    public function edit(Contract $contract, Employee $employee){
+        return view('contracts.edit', compact('contract', 'employee'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+
+    public function update(ContractRequest $request, Contract $contract){
+        $validated = $request->validated();
+        $contract->name = $request->input('name');
+        $contract->description = $request->input('description');
+        $contract->final_date = $request->input('final_date');
+        $contract->job_id = $request->input('job_id');
+        $contract->planning_id = $request->input('planning_id');
+        $contract->save();
+        return redirect()->route('contracts.index')->with('success', 'Contrato creado correctamente');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Contract  $contract
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Contract $contract)
-    {
-        //
+
+    public function destroy(Contract $contract){
+        try{
+            Contract::findOrFail($contract->id);
+            $contract->status = Contract::$CANCELED;
+            $contract->save();
+        }catch (\Exception $e){
+            return redirect()->route('contracts.index')->with('failed', 'El contrato que intento cancelar no se encontro');
+        }
+        return redirect()->route('contracts.index')->with('success', 'Contrato cancelado correctamente');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Contract  $contract
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Contract $contract)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Contract  $contract
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Contract $contract)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Contract  $contract
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Contract $contract)
-    {
-        //
-    }
 }

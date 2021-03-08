@@ -57,4 +57,8 @@ class Employee extends Model{
         return $this->hasMany(OrderEmployees::class);
     }
 
+    public function currentContract(){
+        return '';
+    }
+
 }

@@ -31,7 +31,7 @@
                             </td>
                             <td>
                                 <a class="btn btn-success" style="margin-left: 5px;" href="{{ route('permissions.edit', $permission) }}">
-                                    <i class="fa fa-check" style="font-size: 15px;"></i>
+                                    <i class="fa fa-pencil" style="font-size: 15px;"></i>
                                 </a>
                                 <a class="btn btn-danger" style="margin-left: 5px;" role="button"
                                    data-toggle="modal" data-target="#delete{{$permission->id}}">

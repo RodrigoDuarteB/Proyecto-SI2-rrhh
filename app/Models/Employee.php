@@ -61,4 +61,14 @@ class Employee extends Model{
         return '';
     }
 
+    //sus ausencias
+    public function absences(){
+        return $this->hasMany(Absence::class);
+    }
+
+    //ausencias que aprueba
+    public function absence(){
+        return $this->hasOne(Absence::class);
+    }
+
 }

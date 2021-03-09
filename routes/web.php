@@ -10,6 +10,8 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\ContractController;
 use App\Http\Controllers\PlanningController;
 use App\Http\Controllers\AdministrativeCareerController;
+use App\Http\Controllers\AbsenceController;
+use App\Http\Controllers\ReportController;
 use Spatie\Permission\Models\Permission;
 
 /*
@@ -33,6 +35,8 @@ Route::middleware(['auth'])->group(function (){
     Route::resource('permissions', PermissionController::class)->names('permissions');
     Route::resource('employees', EmployeeController::class)->names('employees');
     Route::resource('plannings', PlanningController::class)->names('plannings');
+    Route::resource('absences', AbsenceController::class)->names('absences');
+    Route::resource('reports', ReportController::class)->names('reports')->only(['index', 'create']);
 
     // carreras administrativas
     Route::resource('administrative-careers', AdministrativeCareerController::class)->names('administrative-careers')->only('index');
@@ -50,7 +54,6 @@ Route::middleware(['auth'])->group(function (){
 //RUTA PARA CREAR USUARIOS DE PRUEBA
 Route::get('/test', function (){
 
-//<<<<<<< HEAD
  //   $user->name = 'Gary Añez';
 ////    $user->email = 'GaryAñez@gmail.com';
   //  $user->password = bcrypt('cassis');
@@ -59,7 +62,7 @@ Route::get('/test', function (){
  //   $user->save();
     //$user->syncPermissions(['Gestionar Personal','Gestionar Ordenes']);
  //   return $user;
-//=======
+
 //    $user = new \App\Models\User();
 //    $user->name = 'Prueba';
 //    $user->email = 'prueba@gmail.com';
@@ -88,7 +91,6 @@ Route::get('/test', function (){
 
 //    $user = \App\Models\User::find(1);
 //    $user->givePermissionTo('Listar Personal');
-//>>>>>>> b5e2e72e1df222bafceb0c9c6a69d246a6f2c5f9
 });
 
 Route::get('/test2', function (){

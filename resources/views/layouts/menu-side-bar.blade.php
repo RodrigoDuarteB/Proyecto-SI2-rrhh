@@ -13,18 +13,17 @@
                     <a class="nav-link" href="{{ route('employees.index') }}" style="padding-right: 16px;padding-left: 43px;">&gt; Gestionar Personal</a>
                 @endcanany
                 <a href="{{ route('orders.index') }}"class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt; Gestionar Ordenes<br>&nbsp; &nbsp;de Trabajo</a>
-                <a class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt; Gestionar Ordenes<br>&nbsp; &nbsp;de Trabajo</a>
-                <a class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt; Gestionar<br>&nbsp;&nbsp;Departamentos</a>
+                <a class="nav-link" style="padding-right: 16px;padding-left: 43px;" href="{{ route('departments.index') }}">&gt; Gestionar<br>&nbsp;&nbsp;Departamentos</a>
                 @canany(['Gestionar Asistencias'])
-                    <a class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt; Administrar<br>&nbsp;
+                    <a class="nav-link" style="padding-right: 16px;padding-left: 43px;" >&gt; Administrar<br>&nbsp;
                     &nbsp;Asistencias</a>
                 @endcanany
-                <a class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt; Administrar<br>&nbsp;&nbsp;Ausencias</a>
-                <a class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt;Gestionar Carrera<br>&nbsp; &nbsp;Administrativa</a>
+                <a class="nav-link" style="padding-right: 16px;padding-left: 43px;" href="{{ route('absences.index') }}">&gt; Administrar<br>&nbsp;&nbsp;Ausencias</a>
+                <a class="nav-link" style="padding-right: 16px;padding-left: 43px;" href="{{ route('administrative-careers.index') }}">&gt;Gestionar Carrera<br>&nbsp; &nbsp;Administrativa</a>
                 <a class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt; Gestionar Capacitación<br>&nbsp; &nbsp;Interna</a>
-                <a class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt; Gestionar Contratos</a>
+                <a class="nav-link" style="padding-right: 16px;padding-left: 43px;" href="{{ route('contracts.index') }}">&gt; Gestionar Contratos</a>
                 <a class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt; Gestionar Cargos</a>
-                <a class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt; Gestionar Planificaciones <br>&nbsp; &nbsp;Laborales</a>
+                <a class="nav-link" style="padding-right: 16px;padding-left: 43px;" href="{{ route('plannings.index') }}">&gt; Gestionar Planificaciones <br>&nbsp; &nbsp;Laborales</a>
                 <a class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt; Gestionar Horarios<br></a>
                 <a class="nav-link" href="{{ route('roles.index') }}" style="padding-right: 16px;padding-left: 43px;">&gt; Gestionar Roles<br></a>
                 <a class="nav-link" href="{{ route('permissions.index') }}"

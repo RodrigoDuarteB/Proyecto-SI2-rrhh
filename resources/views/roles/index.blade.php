@@ -1,12 +1,11 @@
 @extends('layouts.app')
     @section('content')
-        <div class="form-group pull-right col-lg-4"><input type="text" class="search form-control" placeholder="Search by typing here.."></div><span class="counter pull-right"></span>
         <h2>Roles</h2>
         @include('layouts.session-messages')
         <div class="container table-responsive table-bordered table table-hover table-bordered results">
             <a class="btn btn-primary mb-3" type="button" href="{{ route('roles.create') }}">Nuevo Rol</a>
             @if(count($roles) >= 1)
-                <table class="table table-bordered table-hover">
+                <table class="table table-bordered table-hover" id="roles">
                     <thead class="bill-header cs">
                         <tr>
                             <th id="trs-hd">id</th>
@@ -75,4 +74,24 @@
                 </x-alert>
             @endif
         </div>
+    @endsection
+    @section('other-scripts')
+        <script>
+            $('#roles').DataTable({
+                responsive: true,
+                autoWidth: false,
+                "language": {
+                    "lengthMenu": "Mostrar _MENU_ registros por pagina",
+                    "zeroRecords": "Ningun Resultado - disculpe",
+                    "info": "Mostrando pagina _PAGE_ de _PAGES_",
+                    "infoEmpty": "Sin registros disponibles",
+                    "infoFiltered": "(filtrado de _MAX_ registros totales)",
+                    "search": "Buscar:",
+                    "paginate": {
+                        "next": "Siguiente",
+                        "previous": "Anterior",
+                    },
+                }
+            });
+        </script>
     @endsection

@@ -36,7 +36,7 @@ Route::middleware(['auth'])->group(function (){
     Route::resource('employees', EmployeeController::class)->names('employees');
     Route::resource('plannings', PlanningController::class)->names('plannings');
     Route::resource('absences', AbsenceController::class)->names('absences');
-    Route::resource('reports', ReportController::class)->names('reports')->only(['index', 'create']);
+    Route::resource( 'reports', ReportController::class)->names('reports')->only(['index', 'create']);
 
     // carreras administrativas
     Route::resource('administrative-careers', AdministrativeCareerController::class)->names('administrative-careers')->only('index');
@@ -55,7 +55,7 @@ Route::middleware(['auth'])->group(function (){
 Route::get('/test', function (){
 
  //   $user->name = 'Gary Añez';
-////    $user->email = 'GaryAñez@gmail.com';
+  //  $user->email = 'GaryAñez@gmail.com';
   //  $user->password = bcrypt('cassis');
  //   $user->type = \App\Models\User::$ADMINISTRATOR;
 

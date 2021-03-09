@@ -10,7 +10,7 @@
                 <a class="nav-link" style="color: rgba(0,1,1,0.8);font-size: 18px;">Administrar Personal</a>
                 <a class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt; Gestionar Usuarios</a>
                 @canany(['Gestionar Personal', 'Listar Personal'])
-                    <a class="nav-link" href="{{ route('employees.index') }}" style="padding-right: 16px;padding-left: 43px;">&gt; Gestionar Personal</a>
+                    <a class="nav-link" href="{{ route('employees.index') }}" style="padding-right: 16px;padding-left: 43px;">&gt;Gestionar Personal</a>
                 @endcanany
                 <a href="{{ route('orders.index') }}"class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt; Gestionar Ordenes<br>&nbsp; &nbsp;de Trabajo</a>
                 <a class="nav-link" style="padding-right: 16px;padding-left: 43px;" href="{{ route('departments.index') }}">&gt; Gestionar<br>&nbsp;&nbsp;Departamentos</a>

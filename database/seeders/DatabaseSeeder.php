@@ -15,17 +15,17 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UsersTableSeeder::class,
-            DepartmentsTableSeeder::class,
-            JobsTableSeeder::class,
+            //DepartmentsTableSeeder::class,
+            //JobsTableSeeder::class,
+            DepartmentSeeder::class,
+            JobSeeder::class,
             ApplicantsTableSeeder::class,
             EmployeesTableSeeder::class,
             PermissionSeeder::class,
             RoleSeeder::class,
             UserSeeder::class,
             ScheduleSeeder::class,
-            PlanningSeeder::class,
-            DepartmentSeeder::class,
-            JobSeeder::class
+            PlanningSeeder::class
         ]);
     }
 }

@@ -5,81 +5,75 @@ namespace App\Http\Controllers;
 use App\Models\Planning;
 use Illuminate\Http\Request;
 
-class PlanningController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+class PlanningController extends Controller{
+
+    public function index(){
+        $plannings = Planning::all();
+        return view('plannings.index', compact('plannings'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+
+    public function create(){
+        return view('plannings.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+
+    public function store(Request $request){
+        $request->validate([
+            'name' => 'required|string|min:3|regex:/(^[A-Z][A-Z,a-z,0-9, ]+)/',
+            'description' => 'required|string|min:3|regex:/(^[A-Z][A-Z,a-z,0-9, ]+)/',
+            'schedule_id' => 'required|numeric'
+        ]);
+        $planning = new Planning();
+        $planning->name = $request->input('name');
+        $planning->description = $request->input('description');
+        $planning->schedule_id = $request->input('schedule_id');
+        $planning->save();
+        return redirect()->route('plannings.index')->with('success', 'Planificacion Laboral creada correctamente');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Planning  $planning
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Planning $planning)
-    {
-        //
+
+    public function show(Planning $planning){
+        try {
+            Planning::findOrFail($planning->id);
+        }catch (\Exception $e){
+            return redirect()->route('plannings.index')->with('failed', 'Planificacion Laboral no encontrada');
+        }
+        return view('plannings.show', compact('planning'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Planning  $planning
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Planning $planning)
-    {
-        //
+
+    public function edit(Planning $planning){
+        try {
+            Planning::findOrFail($planning->id);
+        }catch (\Exception $e){
+            return redirect()->route('plannings.index')->with('failed', 'Planificacion Laboral no encontrada');
+        }
+        return view('plannings.edit', compact('planning'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Planning  $planning
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Planning $planning)
-    {
-        //
+
+    public function update(Request $request, Planning $planning){
+        $request->validate([
+            'name' => 'required|string|min:3|regex:/(^[A-Z][A-Z,a-z,0-9, ]+)/',
+            'description' => 'required|string|min:3|regex:/(^[A-Z][A-Z,a-z,0-9, ]+)/',
+            'schedule_id' => 'required|numeric'
+        ]);
+        $planning->name = $request->input('name');
+        $planning->description = $request->input('description');
+        $planning->schedule_id = $request->input('schedule_id');
+        $planning->save();
+        return redirect()->route('plannings.index')->with('success', 'Planificacion Laboral actualizada correctamente');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Planning  $planning
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Planning $planning)
-    {
-        //
+
+    public function destroy(Planning $planning){
+        try {
+            Planning::findOrFail($planning->id);
+            $planning->delete();
+        }catch (\Exception $e){
+            return redirect()->route('plannings.index')->with('failed', 'Planificacion Laboral no encontrada');
+        }
+        return redirect()->route('plannings.index')->with('success', 'Planificacion Laboral eliminada correctamente');
     }
 }

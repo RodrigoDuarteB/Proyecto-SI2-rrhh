@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\DepartmentRequest;
 use App\Models\Department;
 use App\Models\Employee;
+use App\Models\Job;
 use Illuminate\Http\Request;
+use Illuminate\Queue\Events\JobProcessed;
 
 class DepartmentController extends Controller
 {
@@ -16,7 +18,7 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        $departments = Department::with('manager')->get();
+        $departments = Department::with('manager')->with('subDepartments', 'parent')->with('jobs')->get();
         return view('departments.index', compact('departments'));
     }
 
@@ -27,9 +29,9 @@ class DepartmentController extends Controller
      */
     public function create()
     {
-        $employee = Employee::where('department_id', '=', 'null')->get();
+        $cargos = Employee::all();
         $departments = Department::all();
-        return view('departments.create', compact('employee', 'departments'));
+        return view('departments.create', compact('cargos', 'departments'));
     }
 
     /**
@@ -53,9 +55,9 @@ class DepartmentController extends Controller
             $department->parent_id = $request->input('parent_id');
         }
 
-        $department->saved();
+        $department->save();
 
-        return redirect('/Departments')->with('status','Departamento Creado Correctamente.');
+        return redirect('/departments')->with('status', 'Departamento Creado Correctamente.');
     }
 
     /**
@@ -66,7 +68,9 @@ class DepartmentController extends Controller
      */
     public function show(Department $department)
     {
-        //
+        $department = Department::with('manager')->find($department->id);
+        $employees = Department::with('jobs')->where('id','=', $department->id)->get();
+        return view('departments.show', compact('department','employees'));
     }
 
     /**
@@ -78,9 +82,9 @@ class DepartmentController extends Controller
     public function edit(Department $department)
     {
         $department = Department::with('manager')->find($department->id);
-        $employee = Employee::where('department_id', '=', 'null')->get();
-        return view('departments.edit', compact('employee'))->with('department', $department);
-
+        $departments = Department::where('id','!=',$department->id)->get();
+        $cargos = Employee::all();
+        return view('departments.edit', compact('cargos', 'departments'))->with('department', $department);
     }
 
     /**
@@ -92,22 +96,38 @@ class DepartmentController extends Controller
      */
     public function update(DepartmentRequest $request, Department $department)
     {
-        $department = Department::find($department->id);
+        $validated = $request->validated();
+        $department =Department::find($department->id);
         $department->name = $request->input('name');
         $department->description = $request->input('description');
 
+
         if ($request->input('employee_id') != Null) {
-            $department->employee_id = $request->input('employee_id');
+            if (($request ->input('employee_id')) == 'delete') {
+                $department->employee_id = null;
+            }else{
+
+                $department->employee_id = $request->input('employee_id');
+            }
         }
+
+
+
 
         if ($request->input('parent_id') != Null) {
-            $department->parent_id = $request->input('parent_id');
+            if (($request->input('parent_id')) == 'delete') {
+                $department->parent_id = null;
+            }else{
+
+                $department->parent_id = $request->input('parent_id');
+            }
         }
 
-        $department->saved();
+        $department->save();
 
-        return redirect('/Departments')->with('status','Departamento Actualizado Correctamente.');
+        return redirect('/departments')->with('status', 'Departamento Actualizado Correctamente.');
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -120,7 +140,6 @@ class DepartmentController extends Controller
         $department = Department::find($department->id);
         $department->delete();
 
-        return redirect('/Departments')->with('status','Departamento Eliminado Correctamente.');
-
+        return redirect('/departments')->with('status', 'Departamento Eliminado Correctamente.');
     }
 }

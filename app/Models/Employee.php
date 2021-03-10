@@ -40,7 +40,7 @@ class Employee extends Model{
     }
 
     public function contracts(){
-        return $this->hasMany(Contract::class);
+        return $this->hasMany(Contract::class)->with('job');
     }
 
     public function workdays(){
@@ -55,6 +55,20 @@ class Employee extends Model{
     //ordenes recibidas
     public function orders(){
         return $this->hasMany(OrderEmployees::class);
+    }
+
+    public function currentContract(){
+        return '';
+    }
+
+    //sus ausencias
+    public function absences(){
+        return $this->hasMany(Absence::class);
+    }
+
+    //ausencias que aprueba
+    public function absence(){
+        return $this->hasOne(Absence::class);
     }
 
 }

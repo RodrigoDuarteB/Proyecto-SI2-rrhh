@@ -10,12 +10,13 @@ use Spatie\Permission\Models\Role;
 class PermissionController extends Controller{
 
     public function index(){
-        $permissions = Permission::all();
+        $permissions = Permission::orderBy('name', 'ASC')->get();
         return \view('permissions.index', compact('permissions'));
     }
 
     public function create(){
-        return \view('permissions.create');
+        $roles = Role::orderBy('name', 'ASC')->get();
+        return \view('permissions.create', compact('roles'));
     }
 
     public function store(Request $request){
@@ -24,7 +25,13 @@ class PermissionController extends Controller{
         ]);
         $searchFirst = Permission::where('name', '=', $request->input('name'))->get();
         if(count($searchFirst) < 1){
-            Permission::create(['name' => $request->input('name')]);
+            $permission = Permission::create(['name' => $request->input('name')]);
+            $roles = $request->input('roles');
+            if(!empty($roles)){
+                if(count($roles) > 0){
+                    $permission->syncRoles($roles);
+                }
+            }
         }else{
             return redirect()->route('permissions.create')->with('failed', 'Permiso '
                 .$request->input('name').' ya existe');
@@ -44,7 +51,8 @@ class PermissionController extends Controller{
     public function edit(Permission $permission){
         try {
             Permission::findOrFail($permission->id);
-            return view('permissions.edit', compact('permission'));
+            $roles = Role::orderBy('name', 'ASC')->get();
+            return view('permissions.edit', compact('permission', 'roles'));
         }catch (\Exception $e){
             return redirect()->route('permissions.index')->with('failed', 'El permiso que intentó editar no existe');
         }
@@ -63,6 +71,14 @@ class PermissionController extends Controller{
                 return redirect()->route('permissions.edit', $permission)->with('failed', 'Permiso '
                     .$request->input('name').' ya existe');
             }
+        }
+        $roles = $request->input('roles');
+        if(!empty($roles)){
+            if(count($roles) > 0){
+                $permission->syncRoles($roles);
+            }
+        }else{
+            $permission->syncRoles([]);
         }
         return redirect()->route('permissions.index')->with('success', 'Permiso actualizado correctamente');
     }

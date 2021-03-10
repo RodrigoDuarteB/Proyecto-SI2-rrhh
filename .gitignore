@@ -13,3 +13,4 @@ npm-debug.log
 yarn-error.log
 .idea/vcs.xml
 .idea/symfony2.xml
+.idea/laravel-plugin.xml

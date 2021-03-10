@@ -11,7 +11,7 @@ class DepartmentRequest extends FormRequest{
      * @return bool
      */
     public function authorize(){
-        return false;
+        return true;
     }
 
     /**
@@ -21,10 +21,10 @@ class DepartmentRequest extends FormRequest{
      */
     public function rules(){
         return [
-            'name' => 'required|string|regex:/^[A-Z][A-Z,a-z, ]+&/',
-            'description' => 'required|string|regex:/^[A-Z][A-Z,a-z, ]+&/',
-            'employe_id' => 'required|numeric|regex:/^[0-9, ,--,+]+&/',
-            'parent_id' => 'required|numeric|regex:/^[0-9, ,--,+]+&/',
+         //   'name' => 'required|string|regex:/^[A-Z][A-Z,a-z, ]+&/',
+         //   'description' => 'required|string|regex:/^[A-Z][A-Z,a-z, ]+&/',
+         //   'employe_id' => 'required|numeric|regex:/^[0-9, ,--,+]+&/',
+         //   'parent_id' => 'required|numeric|regex:/^[0-9, ,--,+]+&/',
         ];
     }
 }

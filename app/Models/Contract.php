@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Contract extends Model{
     use HasFactory;
-    protected $fillable = ['name', 'description', 'initial_date', 'final_date', 'employee_id', 'job_id', 'planning_id'];
+    protected $fillable = ['name', 'description', 'initial_date', 'final_date', 'status', 'employee_id', 'job_id', 'planning_id'];
     public $timestamps = false;
 
     //estados

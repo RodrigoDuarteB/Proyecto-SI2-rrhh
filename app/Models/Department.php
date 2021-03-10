@@ -11,11 +11,11 @@ class Department extends Model{
     public $timestamps = false;
 
     public function manager(){
-        return $this->belongsTo(Employee::class, 'employee_id');
+        return $this->belongsTo(Employee::class, 'employee_id')->with('contracts');
     }
 
     public function jobs(){
-        return $this->hasMany(Job::class);
+        return $this->hasMany(Job::class)->with('contracts');
     }
 
     public function subDepartments(){

@@ -5,9 +5,9 @@
             <div class="card-header py-3">
                 <p class="text-primary m-0 font-weight-bold">Nuevo Permiso</p>
             </div>
-            <div class="card-body">
-                <form action="{{ route('permissions.store') }}" method="POST">
-                    @csrf
+            <form action="{{ route('permissions.store') }}" method="POST" class="container">
+                @csrf
+                <div class="card-body">
                     <div class="container">
                         <div class="form-row">
                             <div class="col">
@@ -16,20 +16,44 @@
                                         <div class="form-group">
                                             <label for="name"><strong>Nombre del Permiso:</strong><br></label>
                                             <input class="form-control" type="text" name="name" id="name"
-                                                value="{{ old('name') }}">
+                                                   value="{{ old('name') }}">
                                         </div>
                                         @error('name')
-                                            {{ $message }}
+                                        {{ $message }}
                                         @enderror
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group ml-2">
-                            <button class="btn btn-primary" type="submit">Registrar</button>
-                        </div>
                     </div>
-                </form>
-            </div>
+                </div>
+                <div class="dropdown-divider"></div>
+                <div class="container">
+                    <h5>Asignar Permiso a algun Rol</h5>
+                    @forelse($roles as $role)
+                        <div class="row">
+                            <div class="col-2">
+                                <div class="form-check">
+                                    <input class="form-check-input"
+                                           type="checkbox" value="{{ $role->id }}"
+                                           id="flexCheckDefault" name="roles[]">
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        {{ $role->name }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    @empty
+                        <x-alert color="danger" >
+                            <x-slot name="message">
+                                No Hay Roles registrados
+                            </x-slot>
+                        </x-alert>
+                    @endforelse
+                </div>
+                <div class="form-group ml-3 mt-4">
+                    <button class="btn btn-primary" type="submit">Registrar</button>
+                </div>
+            </form>
         </div>
     @endsection

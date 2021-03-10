@@ -8,7 +8,22 @@ use Illuminate\Database\Eloquent\Model;
 class Applicant extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'last_name', 'personal_phone', 'email', 'job_id', 'academic_degree', 'career', 'resume_file', 'value', 'status'];
+    protected $fillable = [
+        'name',
+        'last_name',
+        'personal_phone',
+        'email',
+        'sex',
+        'nationality',
+        'birthdate',
+        'birthplace',
+        'job_id',
+        'academic_degree',
+        'career',
+        'resume_file',
+        'value',
+        'status'
+    ];
     public $timestamps = false;
 
     //estados
@@ -23,6 +38,7 @@ class Applicant extends Model
     public function job(){
         return $this->belongsTo(Job::class, 'job_id');
     }
+
 
 
 }

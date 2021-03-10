@@ -17,10 +17,10 @@ class CreateWorkdaysTable extends Migration
             $table->id();
             $table->date('date');
             $table->time('clock_in');
-            $table->time('clock_out');
-            $table->string('latitude');
-            $table->string('longitude');
-            $table->smallInteger('status');
+            $table->time('clock_out')->nullable();
+            $table->string('latitude')->nullable();
+            $table->string('longitude')->nullable();
+            $table->smallInteger('status')->nullable();
 
             $table->foreignId('employee_id')->constrained('employees');
         });

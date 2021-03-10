@@ -32,7 +32,6 @@ class EmployeesTableSeeder extends Seeder
                 'children'          => 0,
                 'emergency_contact' => '75461548',
                 'status'            => 1,
-                'department_id'     => 1,
                 'user_id'           => 1
             ]
         ]);

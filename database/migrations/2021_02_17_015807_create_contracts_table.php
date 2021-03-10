@@ -19,6 +19,7 @@ class CreateContractsTable extends Migration
             $table->text('description');
             $table->date('initial_date');
             $table->date('final_date');
+            $table->unsignedSmallInteger('status');
 
             $table->foreignId('employee_id')->constrained('employees');
             $table->foreignId('job_id')->constrained('jobs');

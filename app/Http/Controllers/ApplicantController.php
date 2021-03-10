@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Applicant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ApplicantController extends Controller
 {
@@ -40,7 +41,7 @@ class ApplicantController extends Controller
      */
     public function create()
     {
-        //
+        return view('applicants.create');
     }
 
     /**
@@ -51,7 +52,18 @@ class ApplicantController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = request()->except('_token');
+        $data['status'] = 0;
+
+        if($request->hasFile('resume_file')){
+            $resume_file = $request->file('resume_file');
+            $name = time().$resume_file->getClientOriginalName();
+            $resume_file->move(public_path('storage/curriculum_vitae'), $name);
+            $data['resume_file'] = $name;
+        }
+
+        Applicant::insert($data);
+        return redirect('applicants')->with('Mensaje','Su postulación fue registrada satisfactoriamente.');
     }
 
     /**
@@ -73,7 +85,7 @@ class ApplicantController extends Controller
      */
     public function edit(Applicant $applicant)
     {
-        //
+
     }
 
     /**

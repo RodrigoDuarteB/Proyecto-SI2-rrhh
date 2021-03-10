@@ -19,14 +19,19 @@ class CreateApplicantsTable extends Migration
             $table->string('last_name');
             $table->string('personal_phone');
             $table->text('email');
+            $table->string('sex')->nullable();
+            $table->string('nationality')->nullable();
+            $table->date('birthdate')->nullable();
+            $table->string('birthplace')->nullable();
             $table->foreignId('job_id')->constrained('jobs');
             $table->string('academic_degree');
             $table->string('career');
             $table->string('resume_file')->nullable();
-            $table->string('value');
+            $table->string('value')->nullable();
             $table->smallInteger('status');
             $table->timestamps();
         });
+
 
     }
 

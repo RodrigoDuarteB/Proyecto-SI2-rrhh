@@ -18,22 +18,26 @@ class JobsTableSeeder extends Seeder
             [
                 'name'          => 'Básico',
                 'description'   => 'Salario base en base al mínimo nacional',
-                'base_salary'   => 2400.00
+                'base_salary'   => 2400.00,
+                'department_id' => 1
             ],
             [
                 'name'          => 'Técnico I',
                 'description'   => 'Salario base para un técnico de nivel 1',
-                'base_salary'   => 2800.00
+                'base_salary'   => 2800.00,
+                'department_id' => 1
             ],
             [
                 'name'          => 'Técnico II',
                 'description'   => 'Salario base para un técnico de nivel 2',
-                'base_salary'   => 3200.00
+                'base_salary'   => 3200.00,
+                'department_id' => 1
             ],
             [
                 'name'          => 'Profesional I',
                 'description'   => 'Salario base para un profesional con título en provisión nacional de nivel 1',
-                'base_salary'   => 3700.00
+                'base_salary'   => 3700.00,
+                'department_id' => 1
             ]
         ]);
     }

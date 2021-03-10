@@ -7,21 +7,31 @@ use Illuminate\Database\Eloquent\Model;
 
 class Employee extends Model{
     use HasFactory;
-    protected $fillable = ['name', 'last_name', 'work_phone', 'personal_phone', 'image_name', 'sex', 'ID_number', 'address', 'nationality', 'passport', 'birthdate', 'birthplace', 'marital_status', 'children', 'emergency_contact', 'status','department_id', 'user_id'];
+    protected $fillable = ['name', 'last_name', 'work_phone', 'personal_phone', 'image_name', 'sex', 'ID_number', 'address', 'nationality', 'passport', 'birthdate', 'birthplace', 'marital_status', 'children', 'emergency_contact', 'status', 'user_id'];
     public $timestamps = false;
 
     //estados
     public static $ACTIVE = 1;
-    public static $FIRED = 2;
-    public static $VACATION = 3;
+    public static $VACATION = 2;
+    public static $FIRED = 3;
+    public static $PUNISHED = 4;
+
+    //estados civil
+    public static $SINGLE = 'Solter';
+    public static $MARRIED = 'Casad';
+    public static $COMMITTED = 'Comprometid';
+    public static $WIDOW = 'Viud';
+    public static $DIVORCED = 'Divorciad';
+
+    //sexos
+    public static $MAN = 'Masculino';
+    public static $WOMAN = 'Femenino';
+
+    //otro
+    public static $OTHER = 'Otro';
 
     public function user(){
         return $this->belongsTo(User::class, 'user_id');
-    }
-
-    //departamento perteneciente
-    public function department(){
-        return $this->belongsTo(Department::class, 'department_id');
     }
 
     //departamento que dirige

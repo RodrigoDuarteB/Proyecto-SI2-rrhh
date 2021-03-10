@@ -14,6 +14,10 @@ class Department extends Model{
         return $this->belongsTo(Employee::class, 'employee_id');
     }
 
+    public function jobs(){
+        return $this->hasMany(Job::class);
+    }
+
     public function subDepartments(){
         return $this->hasMany(Department::class, 'parent_id');
     }

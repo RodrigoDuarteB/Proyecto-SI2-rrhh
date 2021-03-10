@@ -165,9 +165,13 @@
                                                                 class="card-title text-left">Cargo:</label>
                                                         </div>
                                                         <div class="mt-2">
+                                                            @if($department->manager->contracts != '[]')
                                                             <label
-                                                                for="name">{{ $department->manager->contracts[0]->job->name }}</label>
-                                                        </div>
+                                                                >{{ $department->manager->contracts[0]->job->name }}</label>
+                                                        @else
+                                                        <label >Aún no cuenta con un Cargo Asignado</label>
+                                                        @endif
+                                                            </div>
                                                     </div>
                                                     <div class="form-group row text-left">
                                                         <div class="col-form-label col-sm">

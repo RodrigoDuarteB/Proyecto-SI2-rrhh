@@ -50,7 +50,7 @@ class OrderController extends Controller
         $order->datetime = new \Datetime();
 
         //obteniendo la informacion del usuario logueado
-        $login_user = Employee::find(auth()->id());
+        $login_user = Employee::find(auth()->user()->employee->id);
         $order->employee_id = $login_user->id;
         $order->save();
 
@@ -69,7 +69,7 @@ class OrderController extends Controller
             $order_employee->save();
         }
 
-        if ($employee2 != '0') {
+        if ($employee2 != '0' && $employee2 != null) {
 
             $order_employee2 = new OrderEmployees();
 
@@ -80,7 +80,7 @@ class OrderController extends Controller
             $order_employee2->save();
         }
 
-        if ($employee3 != '0') {
+        if ($employee3 != '0' && $employee3 != null) {
             $order_employee3 = new OrderEmployees();
 
             $order_employee3->order_id = $order->id;

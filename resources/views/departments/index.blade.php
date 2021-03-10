@@ -14,16 +14,15 @@
 
     <div class="x_panel mt-5">
 
-        <div class="form-group pull-right col-lg-4">
-            <input type="text" class="search form-control" placeholder="Search by typing here..">
-        </div>
+       
         <span class="counter pull-right"></span>
         <a class="btn btn-primary mb-3 float-right" type="button" href="{{ route('departments.create') }}">Nuevo
             Departamento</a>
 
         <h2>Departamentos</h2>
         <div class="table-responsive ">
-            <table class="table table-bordered table table-hover table-striped table-bordered" style="width:100%">
+            <table id="departments" class="table table-bordered table table-hover table-striped table-bordered"
+                style="width:100%">
 
 
                 <thead class="bill-header cs">
@@ -42,18 +41,14 @@
 
                 <tbody>
                     @if ($departments == '[]')
-                        <tr class="warning no-result">
-                            <td colspan="12"><i class="fa fa-warning"></i>&nbsp; No Result !!!</td>
-                        </tr>
+
                         <tr>
                             <td> aún no se ha registrado ningun Departamento</td>
                         </tr>
 
                     @else
 
-                        <tr class="warning no-result">
-                            <td colspan="12"><i class="fa fa-warning"></i>&nbsp; No Result !!!</td>
-                        </tr>
+
                         @foreach ($departments as $department)
                             <tr>
                                 <td>{{ $department->id }}</td>
@@ -69,12 +64,12 @@
                                     <td>No tiene Sub-departamento</td>
                                 @else
                                     <td>
-                                        
+
                                         <ol>
-                                                @foreach ($department->subDepartments as $subDepartment)
+                                            @foreach ($department->subDepartments as $subDepartment)
                                                 <li>{{ $subDepartment->name }}</li>
-                                                @endforeach
-                                            </ol>
+                                            @endforeach
+                                        </ol>
 
                                     </td>
                                 @endif
@@ -118,4 +113,25 @@
 
     </div>
 
+@endsection
+@section('other-scripts')
+    <script>
+        $('#departments').DataTable({
+            responsive: true,
+            autoWidth: false,
+            "language": {
+                "lengthMenu": "Mostrar _MENU_ registros por pagina",
+                "zeroRecords": "Ningun Resultado - disculpe",
+                "info": "Mostrando pagina _PAGE_ de _PAGES_",
+                "infoEmpty": "Sin registros disponibles",
+                "infoFiltered": "(filtrado de _MAX_ registros totales)",
+                "search": "Buscar:",
+                "paginate": {
+                    "next": "Siguiente",
+                    "previous": "Anterior",
+                },
+            }
+        });
+
+    </script>
 @endsection

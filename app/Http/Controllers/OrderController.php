@@ -90,7 +90,7 @@ class OrderController extends Controller
             $order_employee3->save();
         }
 
-        return redirect('/orders')->with('status', 'Orden Creada Correctamente.');
+        return redirect('/orders')->with('success', 'Orden Creada Correctamente.');
 
         //  } catch (\Exception $e) {
         //      return redirect()->route('orders.index')->with('status', 'Ocurrió un error al registrar una Nueva Orden de Trabajo');
@@ -106,8 +106,7 @@ class OrderController extends Controller
     public function show(Order $order)
     {
         $orders = Order::with('employee')->with('employees')->find($order->id);
-        $employees = Employee::where('status', '!=',  Employee::$FIRED)->where('status', '!=', Employee::$VACATION)->with('user')->get();
-        return view('orders.show', compact('employees'))->with('orders', $orders);
+        return view('orders.show')->with('orders', $orders);
     }
 
     /**
@@ -266,6 +265,8 @@ class OrderController extends Controller
         if ($employee1 == 'delete') {
             $order_employee[0]->delete();
         }
+
+        $order->save();
 
 
 

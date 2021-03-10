@@ -40,7 +40,7 @@ class Employee extends Model{
     }
 
     public function contracts(){
-        return $this->hasMany(Contract::class);
+        return $this->hasMany(Contract::class)->with('job');
     }
 
     public function workdays(){

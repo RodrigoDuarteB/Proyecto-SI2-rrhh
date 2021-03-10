@@ -41,7 +41,7 @@
                                     </label>
                                 <div class="col-md-6 col-sm-6 ">
                                     <select name="employee_id" id="employee_id" class="form-control"
-                                        onchange="carg(this);" required="required">
+                                        onchange="carg(this);">
                                         <option value="">Sin Asignar</option>
                                         @foreach ($cargos as $cargo)
 

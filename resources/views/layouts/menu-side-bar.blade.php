@@ -70,7 +70,7 @@
                                     </li>
                                     <li>
                                         @canany(['Gestionar Capacitaciones'])
-                                            <a class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt; Gestionar Capacitación<br>&nbsp; &nbsp;Interna</a>
+                                            <a href="#">&gt; Gestionar Capacitación<br>&nbsp; &nbsp;Interna</a>
                                         @endcanany
                                     </li>
                                     <li>

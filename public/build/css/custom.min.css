@@ -1883,7 +1883,7 @@ a:focus {
 }
 
 .nav li li.current-page a {
-    color: rgb(0, 0, 0)
+    color: rgb(255, 255, 255)
 }
 
 .nav.side-menu>li.active>a {

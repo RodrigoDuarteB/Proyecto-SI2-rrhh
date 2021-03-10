@@ -90,8 +90,8 @@
                             </div>
                             <div class="modal-footer">
                                 <a href="/orders" class="btn btn-danger" data-dismiss="modal" type="button">Cancelar</a>
-                                <button class="btn btn-primary" type="reset">Reset</button>
-                                <button class="btn btn-success" type="submit">Crear</button>
+                                <button class="btn btn-success" type="reset">Reset</button>
+                                <button class="btn btn-primary" type="submit">Crear</button>
                             </div>
                         </div>
                     </form>

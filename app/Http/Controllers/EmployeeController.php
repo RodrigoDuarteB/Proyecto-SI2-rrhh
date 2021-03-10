@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\EmployeeRequest;
 use App\Models\Contract;
 use App\Models\Employee;
+use App\Models\Job;
+use App\Models\Planning;
 use App\Models\User;
 
 class EmployeeController extends Controller{
@@ -22,7 +24,9 @@ class EmployeeController extends Controller{
     }
 
     public function create(){
-        return view('employees.create');
+        $jobs = Job::orderBy('name', 'ASC')->get();
+        $plannings = Planning::orderBy('name', 'ASC')->get();
+        return view('employees.create', compact('jobs', 'plannings'));
     }
 
     public function store(EmployeeRequest $request){
@@ -42,10 +46,10 @@ class EmployeeController extends Controller{
                 $employee->sex = Employee::$MAN;
                 break;
             case 3:
-                $employee->sex = Employee::$OTHERSEX;
+                $employee->sex = Employee::$OTHER;
                 break;
             default:
-                $employee->sex = Employee::$OTHERSEX;
+                $employee->sex = Employee::$OTHER;
         }
         $employee->ID_number = $request->input('ID_number');
         $employee->address = $request->input('address');
@@ -111,7 +115,7 @@ class EmployeeController extends Controller{
         if($request->hasFile('image_name')){
             $image = $request->file('image_name');
             $name = time().$image->getClientOriginalName();
-            $image->move(public_path().'storage/images/employees/'.$name);
+            $image->move(public_path('images/employees'), $name);
             $employee->image_name = $name;
         }
         //Se crea su usuario
@@ -176,10 +180,10 @@ class EmployeeController extends Controller{
                 $employee->sex = Employee::$MAN;
                 break;
             case 3:
-                $employee->sex = Employee::$OTHERSEX;
+                $employee->sex = Employee::$OTHER;
                 break;
             default:
-                $employee->sex = Employee::$OTHERSEX;
+                $employee->sex = Employee::$OTHER;
         }
         $employee->ID_number = $request->input('ID_number');
         $employee->address = $request->input('address');

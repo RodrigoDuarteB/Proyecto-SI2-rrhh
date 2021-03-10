@@ -36,7 +36,7 @@ Route::middleware(['auth'])->group(function (){
     Route::resource('employees', EmployeeController::class)->names('employees');
     Route::resource('plannings', PlanningController::class)->names('plannings');
     Route::resource('absences', AbsenceController::class)->names('absences');
-    Route::resource( 'reports', ReportController::class)->names('reports')->only(['index', 'create']);
+    Route::resource('reports', ReportController::class)->names('reports')->only(['index', 'create']);
 
     // carreras administrativas
     Route::resource('administrative-careers', AdministrativeCareerController::class)->names('administrative-careers')->only('index');
@@ -95,7 +95,9 @@ Route::get('/test', function (){
 
 Route::get('/test2', function (){
     $permission = Permission::where('name', '=', 'Crear Empleados')->get();
-    return date('d-m-Y');
+    $array1 = ['Hola', 'Como'];
+    $array2 = array_merge($array1, ['Estas', 'Jeje']);
+    return dd($array2);
 });
 
 require __DIR__.'/auth.php';

@@ -57,7 +57,7 @@
                                 <label class="col-form-label col-md-3 col-sm-3 label-align">Asignar Departamento Padre
                                 </label>
                                 <div class="col-md-6 col-sm-6 ">
-                                    <select name="parent_id" id="parent_id" class="form-control" 
+                                    <select name="parent_id" id="parent_id" class="form-control"
                                         onchange="carg2(this);">
                                         <option value="">Sin Asignar</option>
                                         @foreach ($departments as $deparment)
@@ -85,5 +85,5 @@
         </div>
     </div>
 
-   
+
 @endsection

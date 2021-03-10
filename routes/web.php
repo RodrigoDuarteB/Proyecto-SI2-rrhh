@@ -63,14 +63,14 @@ Route::get('/test', function (){
     //$user->syncPermissions(['Gestionar Personal','Gestionar Ordenes']);
  //   return $user;
 
-//    $user = new \App\Models\User();
-//    $user->name = 'Prueba';
-//    $user->email = 'prueba@gmail.com';
-//    $user->password = bcrypt('prueba1234');
-//    $user->type = \App\Models\User::$ADMINISTRATOR;
-//    $user->save();
-//    $user->syncPermissions(['Gestionar Personal']);
-//    return $user;
+    $user = new \App\Models\User();
+    $user->name = 'Prueba';
+    $user->email = 'prueba@gmail.com';
+    $user->password = bcrypt('prueba1234');
+    $user->type = \App\Models\User::$ADMINISTRATOR;
+    $user->save();
+    $user->syncPermissions(['Gestionar Personal', 'Listar Personal']);
+    return $user;
 
 //    $employee = new \App\Models\Employee();
 //    $employee->name = 'Rodrigo';

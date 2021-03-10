@@ -1,53 +1,85 @@
-<nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
-    <div class="container-fluid d-flex flex-column p-0">
-        <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="{{ route('home') }}">
-            <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink"></i></div>
-            <div class="sidebar-brand-text mx-3" href=""><span>RR.HH.</span></div>
-        </a>
-        <hr class="sidebar-divider my-0">
-        <ul class="nav navbar-nav text-light" id="accordionSidebar">
-            <li class="nav-item">
-                <a class="nav-link" style="color: rgba(0,1,1,0.8);font-size: 18px;">Administrar Personal</a>
-                <a class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt; Gestionar Usuarios</a>
-                @canany(['Gestionar Personal', 'Listar Personal'])
-                    <a class="nav-link" href="{{ route('employees.index') }}" style="padding-right: 16px;padding-left: 43px;">&gt;Gestionar Personal</a>
-                @endcanany
-                <a href="{{ route('orders.index') }}"class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt; Gestionar Ordenes<br>&nbsp; &nbsp;de Trabajo</a>
-                <a class="nav-link" style="padding-right: 16px;padding-left: 43px;" href="{{ route('departments.index') }}">&gt; Gestionar<br>&nbsp;&nbsp;Departamentos</a>
-                @canany(['Gestionar Asistencias'])
-                    <a class="nav-link" style="padding-right: 16px;padding-left: 43px;" >&gt; Administrar<br>&nbsp;
-                    &nbsp;Asistencias</a>
-                @endcanany
-                <a class="nav-link" style="padding-right: 16px;padding-left: 43px;" href="{{ route('absences.index') }}">&gt; Administrar<br>&nbsp;&nbsp;Ausencias</a>
-                <a class="nav-link" style="padding-right: 16px;padding-left: 43px;" href="{{ route('administrative-careers.index') }}">&gt;Gestionar Carrera<br>&nbsp; &nbsp;Administrativa</a>
-                <a class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt; Gestionar Capacitación<br>&nbsp; &nbsp;Interna</a>
-                <a class="nav-link" style="padding-right: 16px;padding-left: 43px;" href="{{ route('contracts.index') }}">&gt; Gestionar Contratos</a>
-                <a class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt; Gestionar Cargos</a>
-                <a class="nav-link" style="padding-right: 16px;padding-left: 43px;" href="{{ route('plannings.index') }}">&gt; Gestionar Planificaciones <br>&nbsp; &nbsp;Laborales</a>
-                <a class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt; Gestionar Horarios<br></a>
-                <a class="nav-link" href="{{ route('roles.index') }}" style="padding-right: 16px;padding-left: 43px;">&gt; Gestionar Roles<br></a>
-                <a class="nav-link" href="{{ route('permissions.index') }}"
-                   style="padding-right: 16px;padding-left: 43px;">&gt; Gestionar Permisos<br></a>
-            </li>
-            <li class="nav-item"><a class="nav-link" style="color: rgba(0,1,1,0.8);font-size: 18px;">Administrar Reportes</a>
-                <a class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt; Administrar Reportes<br>&nbsp; &nbsp;del Personal</a>
-                <a class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt; Administrar Planilla<br>&nbsp; &nbsp;de Sueldos</a>
-            </li>
-            <li class="nav-item"><a class="nav-link" style="color: rgba(0,1,1,0.8);font-size: 18px;">Administrar de Pagos</a>
-                <a class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt; Administrar Salarios</a>
-                <a class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt;Asignar Beneficio Prima</a>
-                <a class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt; Aplicar Descuentos a<br>&nbsp; &nbsp;Empleados</a>
-                <a class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt; Asignar Beneficios<br>&nbsp;&nbsp;Horas Extras</a>
-            </li>
-            <li class="nav-item"><a class="nav-link" style="color: rgba(0,1,1,0.8);font-size: 18px;">Administrar Seguridad</a>
-                <a class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt; Gestionar Bitácora</a>
-                <a class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt;Gestionar <br>&nbsp; &nbsp;Copias de Seguridad</a>
-            </li>
-            <li class="nav-item"><a class="nav-link" style="color: rgba(0,1,1,0.8);font-size: 17px;">Administrar Postulantes</a>
-                <a class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt; Gestionar Reportes<br>&nbsp; &nbsp;de Postulantes</a>
-                <a class="nav-link" style="padding-right: 16px;padding-left: 43px;">&gt; Gestionar Postulantes<br></a>
-            </li>
-        </ul>
-        <div class="text-center d-none d-md-inline"></div>
+<div class="container body " style="width:240px; background: #4e73df;">
+    <div class="main_container">
+        <div class="col-md-13 left_col">
+            <div class="left_col scroll-view" style="background: #4e73df;">
+                <div class="navbar nav_title justify-content-center" style="background: #4e73df;">
+                <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="/" style="font-size: 30px;">
+                    <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink"></i></div>
+                    <div class="sidebar-brand-text mx-3"><span>RR.HH.</span></div>
+                </a>
+                </div>
+                
+                <div class="clearfix"></div>
+
+                <!-- menu profile quick info -->
+                <div class="profile clearfix" style="margin-bottom: 25px;">
+                    <div class="profile_pic">
+                        <img src="assets/img/dogs/image3.jpeg" width="60" height="60" alt="..." class="img-circle profile_img">
+                    </div>
+                    <div class="profile_info">
+                        <span>Bienvenido,</span>
+                        <h2>{{ auth()->user()->name }}</h2>
+                    </div>
+                </div>
+                <!-- /menu profile quick info -->
+
+
+                <!-- sidebar menu -->
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div class="menu_section">
+                       
+                        <ul class="nav side-menu">
+                            <li><a><i class="fa fa-users"></i>Administrar Personal<span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="#">&gt; Gestionar Usuarios</a></li>
+
+                                    <li><a href="{{ route('employees.index') }}">&gt; Gestionar Personal</a></li>
+                                    <li><a href="{{ route('orders.index') }}">&gt; Gestionar Ordenes<br>&nbsp; &nbsp;de Trabajo</a></li>
+                                    <li><a href="#">&gt; Gestionar<br>&nbsp; &nbsp;Departamentos</a></li>
+                                    <li><a href="#">&gt; Administrar<br>&nbsp; &nbsp;Asistencias</a></li>
+                                    <li><a href="{{ route('absences.index') }}">&gt; Administrar<br>&nbsp; &nbsp;Ausencias</a></li>
+                                    <li><a href="{{ route('administrative-careers.index') }}">&gt; Gestionar Carrera<br>&nbsp; &nbsp;Administrativa</a></li>
+                                    <li><a href="#">&gt; Gestionar Capacitación<br>&nbsp; &nbsp;Interna</a></li>
+                                    <li><a href="{{ route('contracts.index') }}">&gt; Gestionar Contratos</a></li>
+                                    <li><a href="#">&gt; Gestionar Cargos</a></li>
+                                    <li><a href="{{ route('plannings.index') }}">&gt; Gestionar Planificaciones <br>&nbsp; &nbsp;Laborales</a></li>
+                                    <li><a href="#">&gt; Gestionar Horarios<br></a></li>
+                                    <li><a href="{{ route('roles.index') }}">&gt; Gestionar Roles<br></a></li>
+                                    <li><a href="{{ route('permissions.index') }}">&gt; Gestionar Permisos<br></a></li>      
+                                </ul>
+                            </li>
+                            <li><a><i class="fa fa-clipboard"></i>Administrar Reportes<span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="#">&gt; Administrar Reportes<br>&nbsp; &nbsp;del Personal</a></li>
+                                    <li><a href="#">&gt; Administrar Planilla<br>&nbsp; &nbsp;de Sueldos</a></li>                                    
+                                </ul>
+                            </li>
+                            <li><a><i class="fa fa-money"></i>Administrar Pagos<span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="#">&gt; Administrar Salarios</a></li>
+                                    <li><a href="#">&gt; Asignar Beneficio Prima</a></li>
+                                    <li><a href="#">&gt; Aplicar Descuentos a<br>&nbsp; &nbsp;Empleados</a></li>
+                                    <li><a href="#">&gt; Asignar Beneficios<br>&nbsp; &nbsp;Horas Extras</a></li>                                    
+                                </ul>
+                            </li>
+                            <li><a><i class="fa fa-shield"></i>Administrar Seguridad<span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="#">&gt; Gestionar Bitácora</a></li>
+                                    <li><a href="#">&gt; Gestionar <br>&nbsp; &nbsp;Copias de Seguridad</a></li>
+                                </ul>
+                            </li>
+                            <li><a><i class="fa fa-child"></i>Administrar Postulantes<span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="#">&gt; Gestionar Reportes<br>&nbsp; &nbsp;de Postulantes</a></li>
+                                    <li><a href="#">&gt; Gestionar Postulantes</a></li>
+                                </ul>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                </div>
+                <!-- /sidebar menu -->
+            </div>
+        </div>
     </div>
-</nav>
+</div>

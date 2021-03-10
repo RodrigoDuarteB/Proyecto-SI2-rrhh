@@ -28,7 +28,7 @@
                             class="badge badge-danger badge-counter">3+</span><i
                             class="fas fa-bell fa-fw"></i></a>
                     <div
-                        class="dropdown-menu dropdown-menu-right dropdown-list dropdown-menu-right animated--grow-in">
+                        class="dropdown-menu dropdown-menu-right dropdown-list dropdown-menu-right animated--grow-in" style= "margin-left: -270px;">
                         <h6 class="dropdown-header">alerts center</h6>
                         <a class="d-flex align-items-center dropdown-item" href="#">
                             <div class="mr-3">
@@ -69,7 +69,7 @@
                             class="badge badge-danger badge-counter">7</span></a>
 
                     <div
-                        class="dropdown-menu dropdown-menu-right dropdown-list dropdown-menu-right animated--grow-in">
+                        class="dropdown-menu dropdown-menu-right dropdown-list dropdown-menu-right animated--grow-in" style= "margin-left: -270px;">
                         <h6 class="dropdown-header">alerts center</h6>
                         <a class="d-flex align-items-center dropdown-item" href="#">
                             <div class="dropdown-list-image mr-3"><img class="rounded-circle"
@@ -120,7 +120,7 @@
                             Alerts</a>
                     </div>
                 </div>
-                <div class="shadow dropdown-list dropdown-menu dropdown-menu-right"
+                <div class="shadow dropdown-list dropdown-menu dropdown-menu-right" 
                      aria-labelledby="alertsDropdown"></div>
             </li>
             <div class="d-none d-sm-block topbar-divider"></div>
@@ -136,7 +136,7 @@
                         </span>
                         <img class="border rounded-circle img-profile" src="assets/img/avatars/avatar1.jpeg">
                     </a>
-                    <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in"><a
+                    <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in" style= "margin-left: -40px;"><a
                             class="dropdown-item" href="#"><i
                                 class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Profile</a><a
                             class="dropdown-item" href="#"><i

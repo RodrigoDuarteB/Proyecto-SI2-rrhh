@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="{{ asset('assets/fonts/font-awesome.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/fonts/fontawesome5-overrides.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/fonts/ionicons.min.css') }}">
+<link rel="stylesheet" href="assets/css/Accordion-with-custom-design.css">
 <link rel="stylesheet" href="{{ asset('assets/css/Animated-Menu-Icon.csss') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/Table-With-Search-1.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/Table-With-Search.css') }}">
@@ -21,3 +22,12 @@
 <link rel="stylesheet" href="{{ asset('assets/css/OcOrato---Login-form.css') }}">
 
 <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">-->
+    <!-- Bootstrap -->
+    <link href="{{ asset('vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="{{ asset('vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="{{ asset('vendors/nprogress/nprogress.css') }}" rel="stylesheet">
+
+    <!-- Custom styling plus plugins -->
+    <link href="{{ asset('build/css/custom.min.css') }}" rel="stylesheet">

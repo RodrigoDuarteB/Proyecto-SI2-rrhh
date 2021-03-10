@@ -58,7 +58,6 @@
 }
 
 body {
-  background-image: url("../../assets/img/fondo_login.png");
   background-size: cover;
   background-repeat: no-repeat;
   height: auto;

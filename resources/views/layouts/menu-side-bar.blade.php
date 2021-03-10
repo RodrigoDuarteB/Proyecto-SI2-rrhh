@@ -54,7 +54,7 @@
                                     </li>
                                     <li>
                                         @canany(['Gestionar Asistencias'])
-                                            <a href="#">&gt; Administrar<br>&nbsp;
+                                            <a href="{{ route('workdays')}}">&gt; Administrar<br>&nbsp;
                                                 &nbsp;Asistencias</a>
                                         @endcanany
                                     </li>
@@ -161,7 +161,7 @@
                                     </a>
                                     <ul class="nav child_menu">
                                         <li><a href="#">&gt; Gestionar Reportes<br>&nbsp; &nbsp;de Postulantes</a></li>
-                                        <li><a href="#">&gt; Gestionar Postulantes</a></li>
+                                        <li><a href="{{ route('applicants.index') }}">&gt; {{ 'Gestionar Postulantes'}}</a></li>
                                     </ul>
                                 </li>
                             @endhasanyrole

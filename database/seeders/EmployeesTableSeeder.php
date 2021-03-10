@@ -21,7 +21,7 @@ class EmployeesTableSeeder extends Seeder
                 'work_phone'        => '66345467',
                 'personal_phone'    => '66345467',
                 'image_name'        => 'selena906090.jpg',
-                'sex'               => 'Hombre',
+                'sex'               => 'Mujer',
                 'ID_number'         => 'E001',
                 'address'           => 'Las Lomas 17',
                 'nationality'       => 'Boliviana',

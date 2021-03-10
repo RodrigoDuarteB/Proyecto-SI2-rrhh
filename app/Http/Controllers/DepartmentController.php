@@ -82,7 +82,7 @@ class DepartmentController extends Controller
     public function edit(Department $department)
     {
         $department = Department::with('manager')->find($department->id);
-        $departments = Department::all();
+        $departments = Department::where('id','!=',$department->id)->get();
         $cargos = Employee::all();
         return view('departments.edit', compact('cargos', 'departments'))->with('department', $department);
     }

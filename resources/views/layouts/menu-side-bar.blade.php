@@ -33,7 +33,7 @@
                                 <ul class="nav child_menu">
                                     <li>
                                         @canany(['Gestionar Usuarios'])
-                                            <a href="">&gt; Gestionar Usuarios</a>
+                                            <a href="#">&gt; Gestionar Usuarios</a>
                                         @endcanany
                                     </li>
 
@@ -54,7 +54,7 @@
                                     </li>
                                     <li>
                                         @canany(['Gestionar Asistencias'])
-                                            <a href="">&gt; Administrar<br>&nbsp;
+                                            <a href="#">&gt; Administrar<br>&nbsp;
                                                 &nbsp;Asistencias</a>
                                         @endcanany
                                     </li>
@@ -80,7 +80,7 @@
                                     </li>
                                     <li>
                                         @canany(['Gestionar Cargos'])
-                                            <a href="">&gt; Gestionar Cargos</a>
+                                            <a href="#">&gt; Gestionar Cargos</a>
                                         @endcanany
                                     </li>
                                     <li>
@@ -90,7 +90,7 @@
                                     </li>
                                     <li>
                                         @canany(['Gestionar Horarios'])
-                                            <a href="">&gt; Gestionar Horarios<br></a>
+                                            <a href="#">&gt; Gestionar Horarios<br></a>
                                         @endcanany
                                     </li>
                                     <li>
@@ -142,12 +142,12 @@
                                     <ul class="nav child_menu">
                                         <li>
                                             @canany(['Gestionar Bitacora'])
-                                                <a href="">&gt; Gestionar Bitácora</a>
+                                                <a href="#">&gt; Gestionar Bitácora</a>
                                             @endcanany
                                         </li>
                                         <li>
                                             @canany(['Gestionar Seguridad'])
-                                                <a href="">&gt;Gestionar <br>&nbsp; &nbsp;Copias de Seguridad</a>
+                                                <a href="#">&gt;Gestionar <br>&nbsp; &nbsp;Copias de Seguridad</a>
                                             @endcanany
                                         </li>
                                     </ul>

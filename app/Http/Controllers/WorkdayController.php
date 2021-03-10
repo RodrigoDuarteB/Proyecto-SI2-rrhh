@@ -7,6 +7,47 @@ use Illuminate\Http\Request;
 
 class WorkdayController extends Controller
 {
+
+    public function addWorkdayFromMobile(Request $request){
+        $data["date"]       = $this->getFormatedDate();
+        $data["clock_in"]   = $this->getFormatedTime();
+        $data["latitude"]   = $request->latitude;
+        $data["longitude"]  = $request->longitude;
+        $data["status"]     = $this->getWorkdayStatus($data["clock_in"]);
+        $data["employee_id"]= $request->employee_id;
+
+        Workday::insert($data);
+        $data["id"]         = 1;
+        $data["clock_out"]  = $this->getFormatedTime();
+        //return ["Response"=>"Su asistencia fue registrada satisfactoriamente". $now->format('d-m-Y H:i:s')];
+        return $data;
+    }
+
+    public function getWorkdayStatus($clock_in_registered){
+        $clock_in = new \DateTime();
+        $clock_in = strtotime('21-03-2020 07:30:00');
+        //$time_difference = $clock_in_registered - $clock_in;
+
+        return 0;
+    }
+
+    function getFormatedDate(){
+        $defaultTimeZone = 'UTC';
+        if(date_default_timezone_get() != $defaultTimeZone)
+            date_default_timezone_set($defaultTimeZone);
+        $datetime = getdate();
+        $datetime = date("Y-m-d");
+        return $datetime;
+    }
+
+    function getFormatedTime(){
+        $defaultTimeZone = 'UTC';
+        if(date_default_timezone_get() != $defaultTimeZone)
+            date_default_timezone_set($defaultTimeZone);
+        $datetime = getdate();
+        $datetime = date("H:i:s");
+        return $datetime;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,8 +55,10 @@ class WorkdayController extends Controller
      */
     public function index()
     {
-        //
+        $datos['workdays'] = Workday::paginate();
+		return view('workdays.index', $datos);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -24,7 +67,7 @@ class WorkdayController extends Controller
      */
     public function create()
     {
-        //
+        return view('workdays.create');
     }
 
     /**
@@ -35,7 +78,9 @@ class WorkdayController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = request()->except('_token');
+        Workday::insert($data);
+        return redirect('workdays')->with('Mensaje','Su asistencia fue registrada satisfactoriamente.');
     }
 
     /**

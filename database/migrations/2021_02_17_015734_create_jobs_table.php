@@ -18,7 +18,10 @@ class CreateJobsTable extends Migration
             $table->string('name');
             $table->text('description');
             $table->decimal('base_salary');
+
+            $table->foreignId('department_id')->constrained('departments');
         });
+
     }
 
     /**

@@ -76,7 +76,7 @@
                                             <table id="employees" class="table table-bordered table-hover" style="width:100%">
                                                 <thead class="bill-header cs">
                                                     <tr>
-                                                        <th id="trs-hd">CI</th>
+                                                        <th id="trs-hd">Foto</th>
                                                         <th id="trs-hd">Nombres y Apellidos</th>
                                                         <th id="trs-hd">Cargo</th>
                                                         <th id="trs-hd">Corprativo</th>

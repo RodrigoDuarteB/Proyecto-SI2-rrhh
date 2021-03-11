@@ -31,6 +31,7 @@ class EmployeesTableSeeder extends Seeder
                 'marital_status'    => 'Soltera',
                 'children'          => 0,
                 'emergency_contact' => '75461548',
+                'created_at'        => date('d-m-Y'),
                 'status'            => 1,
                 'user_id'           => 1
             ]

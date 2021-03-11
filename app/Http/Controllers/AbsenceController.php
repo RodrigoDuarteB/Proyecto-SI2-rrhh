@@ -2,84 +2,80 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AbsenceRequest;
 use App\Models\Absence;
 use Illuminate\Http\Request;
 
-class AbsenceController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+class AbsenceController extends Controller{
+    public function index(){
+        $absences = Absence::orderBy('requested_date', 'DESC')->get();
+        return view('absences.index', compact('absences'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+
+    public function create(){
+        return view('absences.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+
+    public function store(AbsenceRequest $request){
+        $validated = $request->validated();
+        $absence = new Absence();
+        $absence->title = $request->input('title');
+        $absence->reason = $request->input('reason');
+        $absence->type = $request->input('type');
+        $absence->begin = $request->input('begin');
+        $absence->end = $request->input('end');
+        $absence->requested_date = date('d-m-Y');
+        $absence->status = Absence::$REQUESTED;
+        $absence->employee_id = auth()->user()->employee()->id;
+        $absence->save();
+        return redirect()->route('absences.index')->with('success', 'Ausencia solicitada correctamente');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Absence  $absence
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Absence $absence)
-    {
-        //
+
+    public function show(Absence $absence){
+        try{
+            Absence::findOrFail($absence->id);
+            return view('absences.show', compact('absence'));
+        }catch (\Exception $e){
+            return redirect()->route('absences.index')->with('failed', 'La ausencia solicitada no existe');
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Absence  $absence
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Absence $absence)
-    {
-        //
+
+    public function edit(Absence $absence){
+        try{
+            Absence::findOrFail($absence->id);
+            return view('absences.edit', compact('absence'));
+        }catch (\Exception $e){
+            return redirect()->route('absences.index')->with('failed', 'La ausencia solicitada no existe');
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Absence  $absence
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Absence $absence)
-    {
-        //
+
+    public function update(Request $request, Absence $absence){
+        $validated = $request->validated();
+        $absence->title = $request->input('title');
+        $absence->reason = $request->input('reason');
+        $absence->type = $request->input('type');
+        $absence->begin = $request->input('begin');
+        $absence->end = $request->input('end');
+        $absence->requested_date = date('d-m-Y');
+        $absence->status = Absence::$REQUESTED;
+        $absence->employee_id = auth()->user()->employee()->id;
+        $absence->save();
+        return redirect()->route('absences.index')->with('success', 'Ausencia actualizada correctamente');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Absence  $absence
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Absence $absence)
-    {
-        //
+
+    public function destroy(Absence $absence){
+        try{
+            Absence::findOrFail($absence->id);
+            Absence::destroy([$absence->id]);
+        }catch (\Exception $e){
+            return redirect()->route('absences.index')->with('failed', 'La ausencia solicitada no existe');
+        }
+        return redirect()->route('absences.index')->with('success', 'Ausencia eliminada correctamente');
     }
 }

@@ -1,5 +1,5 @@
-<div class="container body " style="width:240px; background: #4e73df;">
-    <div class="main_container">
+<div class="container body " style="width:230px; background: #4e73df;">
+    <div class="main_container fullHeight">
         <div class="col-md-13 left_col">
             <div class="left_col scroll-view" style="background: #4e73df;">
                 <div class="navbar nav_title justify-content-center" style="background: #4e73df;">

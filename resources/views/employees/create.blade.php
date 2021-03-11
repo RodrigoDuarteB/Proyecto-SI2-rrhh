@@ -9,12 +9,12 @@
                     @enderror
                     <div class="card-body text-center shadow" style="margin: 13px;margin-top: 22px;">
                         <img class="rounded-circle mb-3 mt-4" data-aos="fade-down" data-aos-duration="850"
-                            src="assets/img/dogs/image3.jpeg" width="160" height="160">
+                            src="" width="160" height="160" id="im">
                         <div class="mb-3">
                             <button class="btn btn-outline-primary" type="button">Cargar Imagen
                                 <input class="d-xl-flex form-control-file" type="file"
-                                       id="exampleInputFile" aria-describedby="fileHelp" style="margin-left: -2px;padding-left: 0px;padding-right: 2px;min-height: 0px;max-height: none;margin-right: 0px;margin-bottom: 11px;"
-                                       name="image_name" required="" accept="image/*">
+                                       id="imageR" aria-describedby="fileHelp" style="margin-left: -2px;padding-left: 0px;padding-right: 2px;min-height: 0px;max-height: none;margin-right: 0px;margin-bottom: 11px; display: none"
+                                       name="image_name" value="{{ old('image_name') }}" accept="image/*">
                             </button>
                         </div>
                     </div>
@@ -403,4 +403,30 @@
             </div>
         </div>
         <div class="card shadow mb-5"></div>
+    @endsection
+    @section('other-scripts')
+        <script type="text/javascript" >
+            $(function () {
+                // Summernote
+                $('.textarea').summernote()
+            })
+            $('input[type="file"]').change(function(e){
+                var fileName = e.target.files[0].name;
+                $('.custom-file-label').html(fileName);
+            });
+            const $seleccionArchivos = document.querySelector("#imagenR"),
+                $imagenPrevisualizacion = document.querySelector("#im");
+            $seleccionArchivos.addEventListener("change", () => {
+
+                const archivos = $seleccionArchivos.files;
+                if (!archivos || !archivos.length) {
+                    $imagenPrevisualizacion.src = "";
+                    return;
+                }
+                const primerArchivo = archivos[0];
+                const objectURL = URL.createObjectURL(primerArchivo);
+                $imagenPrevisualizacion.src = objectURL;
+            });
+            $('.my-colorpicker1').colorpicker()
+        </script>
     @endsection

@@ -15,7 +15,13 @@ class ContractController extends Controller{
 
 
     public function create(Employee $employee){
-        return view('contracts.create', compact('employee'));
+        try{
+            Employee::findOrFail($employee);
+            return view('contracts.create', compact('employee'));
+        }catch (\Exception $e){
+            return redirect()->route('contracts.index')->with('failed', 'El empleado no existe');
+        }
+
     }
 
 
@@ -40,8 +46,8 @@ class ContractController extends Controller{
     }
 
 
-    public function edit(Contract $contract, Employee $employee){
-        return view('contracts.edit', compact('contract', 'employee'));
+    public function edit(Contract $contract){
+        return view('contracts.edit', compact('contract'));
     }
 
 

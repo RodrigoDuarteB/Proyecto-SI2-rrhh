@@ -130,6 +130,7 @@ class EmployeeController extends Controller{
         //se guarda su usuario
         $employee->user_id = $user->id;
         //se guarda el empleado
+        $employee->created_at = date('d-m-Y');
         $employee->save();
 
         //se le asigna un contrato

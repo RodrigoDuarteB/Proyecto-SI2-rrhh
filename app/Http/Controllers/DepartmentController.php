@@ -42,7 +42,10 @@ class DepartmentController extends Controller
      */
     public function store(DepartmentRequest $request)
     {
+
         $validated = $request->validated();
+        $searchFirst = Department::where('name', '=', $request->input('name'))->get();
+        if(count($searchFirst) < 1){
         $department = new Department();
         $department->name = $request->input('name');
         $department->description = $request->input('description');
@@ -56,6 +59,10 @@ class DepartmentController extends Controller
         }
 
         $department->save();
+    }else{
+        return redirect()->route('departments.create')->with('failed', 'Departamento '
+        .$request->input('name').' ya existe');
+    }
 
         return redirect('/departments')->with('status', 'Departamento Creado Correctamente.');
     }
@@ -97,6 +104,9 @@ class DepartmentController extends Controller
     public function update(DepartmentRequest $request, Department $department)
     {
         $validated = $request->validated();
+
+        $searchfirst = Department::where('name', '=', $request->input('name'))->get();
+        if(count($searchfirst) < 1){ 
         $department =Department::find($department->id);
         $department->name = $request->input('name');
         $department->description = $request->input('description');
@@ -124,6 +134,11 @@ class DepartmentController extends Controller
         }
 
         $department->save();
+
+    }else{
+        return redirect()->route('departments.create', $department)->with('failed', 'Departamento '
+        .$request->input('name').' ya existe');
+    }
 
         return redirect('/departments')->with('status', 'Departamento Actualizado Correctamente.');
     }

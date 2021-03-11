@@ -112,4 +112,6 @@ Route::get('/test2', function (){
     return dd($array2);
 });
 
+Route::get("/ordencomplete/{order}",[OrderController::class, 'complete'])->name('ordencomplete.complete');
+
 require __DIR__.'/auth.php';

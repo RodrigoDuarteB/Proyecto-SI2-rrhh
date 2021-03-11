@@ -4,6 +4,7 @@
 
 
 @section('content')
+@include('layouts.session-messages')
 
     @if (session('status'))
         <div class="alert alert-success">
@@ -107,11 +108,13 @@
                                         </ol>
                                     </td>
 
+                                   
                                     @if ($employees->acomplished == true)
                                         <td>Completada</td>
                                     @else
-                                        <td>En Proceso</td>
+                                        <td>No Completada</td>
                                     @endif
+                                   
 
                                     <td>
                                         <div class="text-center">

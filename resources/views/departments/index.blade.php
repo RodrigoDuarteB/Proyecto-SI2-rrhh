@@ -4,6 +4,7 @@
 
 
 @section('content')
+@include('layouts.session-messages')
 
     @if (session('status'))
         <div class="alert alert-success">
@@ -14,8 +15,8 @@
 
     <div class="x_panel mt-5">
 
-       
-        <span class="counter pull-right"></span>
+
+
         <a class="btn btn-primary mb-3 float-right" type="button" href="{{ route('departments.create') }}">Nuevo
             Departamento</a>
 
@@ -33,6 +34,7 @@
                         <th id="trs-hd">Departamento Padre</th>
                         <th id="trs-hd">sub-Departamentos</th>
                         <th id="trs-hd">Jede de Departamento</th>
+
                         <th id="trs-hd">Acciones</th>
                     </tr>
 

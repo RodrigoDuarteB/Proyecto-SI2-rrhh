@@ -5,6 +5,7 @@
 
 @section('content')
 
+@include('layouts.session-messages')
 
 
     <h3 class="text-dark mt-3">Editar  Orden de Trabajo</h3>

@@ -4,6 +4,15 @@
 
 
 @section('content')
+@include('layouts.session-messages')
+
+@if (session('status'))
+<div class="alert alert-success">
+    {{ session('status') }}
+</div>
+@endif
+
+<div class="x_panel mt-5"> 
 
     <h3 class="text-dark mt-3">Crear Nueva Orden de Trabajo</h3>
     <div class="row mt-3">
@@ -99,6 +108,7 @@
             </div>
         </div>
     </div>
+</div>
 
     <script>
         

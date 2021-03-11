@@ -142,7 +142,7 @@
                                     <ul class="nav child_menu">
                                         <li>
                                             @canany(['Gestionar Bitacora'])
-                                                <a href="#">&gt; Gestionar Bitácora</a>
+                                                <a href="{{ route('logs.index') }}">&gt; Gestionar Bitácora</a>
                                             @endcanany
                                         </li>
                                         <li>

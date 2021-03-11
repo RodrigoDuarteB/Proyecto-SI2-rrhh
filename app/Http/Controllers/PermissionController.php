@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Log;
 use Illuminate\View\View;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Http\Request;
@@ -36,6 +37,7 @@ class PermissionController extends Controller{
             return redirect()->route('permissions.create')->with('failed', 'Permiso '
                 .$request->input('name').' ya existe');
         }
+        Log::new(Log::$CREATED, 'Creó el permiso con id '.$permission->id);
         return redirect()->route('permissions.index')->with('success', 'Permiso creado correctamente');
     }
 
@@ -80,16 +82,19 @@ class PermissionController extends Controller{
         }else{
             $permission->syncRoles([]);
         }
+        Log::new(Log::$EDITED, 'Editó el permiso con id '.$permission->id);
         return redirect()->route('permissions.index')->with('success', 'Permiso actualizado correctamente');
     }
 
     public function destroy(Permission $permission){
         try {
+            $id = $permission->id;
             Permission::findOrFail($permission->id);
             Permission::destroy([$permission->id]);
         }catch (\Exception $e){
             return redirect()->route('permissions.index')->with('failed', 'El Permiso que intentó eliminar no se encontró');
         }
+        Log::new(Log::$DELETED, 'Eliminó el permiso con id '.$id);
         return redirect()->route('permissions.index')->with('success', 'Permiso eliminado correctamente');
     }
 }

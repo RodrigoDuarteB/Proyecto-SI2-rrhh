@@ -13,6 +13,7 @@ use App\Http\Controllers\PlanningController;
 use App\Http\Controllers\AdministrativeCareerController;
 use App\Http\Controllers\AbsenceController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\LogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,7 @@ Route::middleware(['auth'])->group(function (){
     Route::resource('absences', AbsenceController::class)->names('absences');
     Route::resource('reports', ReportController::class)->names('reports')->only(['index', 'create']);
     Route::resource('applicants', ApplicantController::class)->names('applicants');
+    Route::resource('logs', LogController::class)->only(['index'])->names('logs')->middleware('password.confirm');
 
     // carreras administrativas
     Route::resource('administrative-careers', AdministrativeCareerController::class)->names('administrative-careers')->only('index');
@@ -61,8 +63,7 @@ Route::middleware(['auth'])->group(function (){
 
 //RUTA para pruebas
 Route::get('/test', function (){
-    $user = \App\Models\User::find(1);
-    return $user->roles->first()->permissions->where('guard_name', 'web')->first();
+    return \Carbon\Carbon::now('America/La_Paz')->toDateTimeString();
 });
 
 

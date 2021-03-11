@@ -73,7 +73,7 @@
                         <h6 class="dropdown-header">alerts center</h6>
                         <a class="d-flex align-items-center dropdown-item" href="#">
                             <div class="dropdown-list-image mr-3"><img class="rounded-circle"
-                                                                       src="assets/img/avatars/avatar4.jpeg">
+                                                                       src="{{ asset('assets/img/avatars/avatar4.jpeg') }}">
                                 <div class="bg-success status-indicator"></div>
                             </div>
                             <div class="font-weight-bold">
@@ -84,7 +84,7 @@
                         </a>
                         <a class="d-flex align-items-center dropdown-item" href="#">
                             <div class="dropdown-list-image mr-3"><img class="rounded-circle"
-                                                                       src="assets/img/avatars/avatar2.jpeg">
+                                                                       src="{{ asset('assets/img/avatars/avatar2.jpeg')}}">
                                 <div class="status-indicator"></div>
                             </div>
                             <div class="font-weight-bold">
@@ -95,7 +95,7 @@
                         </a>
                         <a class="d-flex align-items-center dropdown-item" href="#">
                             <div class="dropdown-list-image mr-3"><img class="rounded-circle"
-                                                                       src="assets/img/avatars/avatar3.jpeg">
+                                                                       src="{{ asset('assets/img/avatars/avatar3.jpeg')}}">
                                 <div class="bg-warning status-indicator"></div>
                             </div>
                             <div class="font-weight-bold">
@@ -107,7 +107,7 @@
                         </a>
                         <a class="d-flex align-items-center dropdown-item" href="#">
                             <div class="dropdown-list-image mr-3"><img class="rounded-circle"
-                                                                       src="assets/img/avatars/avatar5.jpeg">
+                                                                       src="{{ asset('assets/img/avatars/avatar5.jpeg') }}">
                                 <div class="bg-success status-indicator"></div>
                             </div>
                             <div class="font-weight-bold">
@@ -134,7 +134,7 @@
                                 Usuario
                             @endauth
                         </span>
-                        <img class="border rounded-circle img-profile" src="assets/img/avatars/avatar1.jpeg">
+                        <img class="border rounded-circle img-profile" src="{{ asset('assets/img/avatars/avatar1.jpeg') }}">
                     </a>
                     <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in" style= "margin-left: -40px;"><a
                             class="dropdown-item" href="#"><i

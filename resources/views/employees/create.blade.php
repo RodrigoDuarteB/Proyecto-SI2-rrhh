@@ -3,57 +3,36 @@
         <h3 class="text-dark mb-4">Crear Nuevo Personal</h3>
         <div class="row mb-3">
             <div class="col-lg-4">
-                <div class="card mb-3" style="width: 252px;margin-top: 4px;padding: 2px;margin-right: 2px;margin-left: 22px;padding-right: 0px;margin-bottom: -4px;padding-bottom: -7px;">
+
+
+                <div class="card mb-3" style="width: 252px;margin-right: 10px; margin-left: 50px;">
                     @error('image_name')
                         <small style="color: red">{{$message}}</small>
                     @enderror
-                    <div class="card-body text-center shadow" style="margin: 13px;margin-top: 22px;">
-                        <img class="rounded-circle mb-3 mt-4" data-aos="fade-down" data-aos-duration="850"
-                            src="" width="160" height="160" id="im">
-                        <div class="mb-3">
-                            <button class="btn btn-outline-primary" type="button">Cargar Imagen
-                                <input class="d-xl-flex form-control-file" type="file"
-                                       id="imageR" aria-describedby="fileHelp" style="margin-left: -2px;padding-left: 0px;padding-right: 2px;min-height: 0px;max-height: none;margin-right: 0px;margin-bottom: 11px; display: none"
-                                       name="image_name" value="{{ old('image_name') }}" accept="image/*">
-                            </button>
+
+                    <div class="bootstrap_img_upload">
+                        <div class="col" style="padding-left: 40px;" >
+                            <!-- Uploaded image area-->
+                            <img id="imageResult" src="{{ asset('assets/img/perfil_vacio.jpg') }}" alt="" class="rounded-circle mb-3 mt-4" width="160" height="160">
+                        </div>
+                        <!-- Upload image input-->
+                        <div class="input-group px-1 py-2 rounded-pill  shadow-sm" style="margin-left: -30px;">
+                            <input id="upload" type="file" onchange="readURL(this);" class="form-control border-0">
+                            <label id="upload-label" for="upload" class="font-weight-light text-muted"></label>
+                            <div class="input-group-append">
+                                <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i
+                                        class="fa fa-cloud-upload mr-2 text-muted"></i><small
+                                        class="text-uppercase font-weight-bold text-muted">Cargar Imagen</small></label>
+                            </div>
                         </div>
                     </div>
+
+
+
                 </div>
-                <div class="card shadow mb-4"></div>
+                
             </div>
             <div class="col-lg-8">
-                <div class="row mb-3 d-none">
-                    <div class="col">
-                        <div class="card text-white bg-primary shadow">
-                            <div class="card-body">
-                                <div class="row mb-2">
-                                    <div class="col">
-                                        <p class="m-0">Peformance</p>
-                                        <p class="m-0"><strong>65.2%</strong></p>
-                                    </div>
-                                    <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
-                                </div>
-                                <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i>&nbsp;5%
-                                    since last month</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card text-white bg-success shadow">
-                            <div class="card-body">
-                                <div class="row mb-2">
-                                    <div class="col">
-                                        <p class="m-0">Peformance</p>
-                                        <p class="m-0"><strong>65.2%</strong></p>
-                                    </div>
-                                    <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
-                                </div>
-                                <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i>&nbsp;5%
-                                    since last month</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="row">
                     <form action="{{ route('employees.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
@@ -278,10 +257,10 @@
                             </div>
                             <div class="card shadow mb-3">
                                 <div class="card-header py-3">
-                                    <p class="text-primary m-0 font-weight-bold">Datos RRHH</p>
+                                    <p class="text-primary m-0 font-weight-bold">Contrato</p>
                                 </div>
                                 <div class="card-body">
-                                    <h3>Contrato</h3>
+                                    
                                     @error('contract_name')
                                         <small style="color: red">{{$message}}</small>
                                     @enderror

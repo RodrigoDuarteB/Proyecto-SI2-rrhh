@@ -14,7 +14,7 @@
                 <!-- menu profile quick info -->
                 <div class="profile clearfix" style="margin-bottom: 25px;">
                     <div class="profile_pic">
-                        <img src="assets/img/dogs/image3.jpeg" width="60" height="60" alt="..." class="img-circle profile_img">
+                        <img src="{{ asset('assets/img/dogs/image3.jpeg') }}" width="60" height="60" alt="..." class="img-circle profile_img">
                     </div>
                     <div class="profile_info">
                         <span>Bienvenido,</span>

@@ -13,7 +13,6 @@ use App\Http\Controllers\PlanningController;
 use App\Http\Controllers\AdministrativeCareerController;
 use App\Http\Controllers\AbsenceController;
 use App\Http\Controllers\ReportController;
-use Spatie\Permission\Models\Permission;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,7 +61,8 @@ Route::middleware(['auth'])->group(function (){
 
 //RUTA para pruebas
 Route::get('/test', function (){
-
+    $user = \App\Models\User::find(1);
+    return $user->roles->first()->permissions->where('guard_name', 'web')->first();
 });
 
 

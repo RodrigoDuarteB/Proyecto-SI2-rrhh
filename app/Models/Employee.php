@@ -58,7 +58,7 @@ class Employee extends Model{
     }
 
     public function currentContract(){
-        return '';
+        return $this->contracts()->where('status', Contract::$ACTIVE)->first();
     }
 
     //sus ausencias

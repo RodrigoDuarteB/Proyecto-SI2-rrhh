@@ -94,8 +94,12 @@
                     "paginate": {
                         "next": "Siguiente",
                         "previous": "Anterior",
-                    },
-                }
+                    }
+                },
+                dom: 'Blfrtip',
+                buttons: [
+                    'copy', 'excel', 'pdf'
+                ]
             });
         </script>
     @endsection

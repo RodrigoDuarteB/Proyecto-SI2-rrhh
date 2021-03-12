@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', 'Reportes')
 @section('content')
 <div class="container-fluid">
     <h3 class="text-dark mb-1" style="padding-bottom: 17px;"><strong>Reportes</strong><br></h3>

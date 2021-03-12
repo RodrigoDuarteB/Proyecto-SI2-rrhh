@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', 'Bitacora')
     @section('content')
         <h1>Bitácora</h1>
         @include('layouts.session-messages')

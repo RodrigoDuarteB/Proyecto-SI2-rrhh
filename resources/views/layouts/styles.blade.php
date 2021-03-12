@@ -34,3 +34,4 @@
 
     <!-- Custom styling plus plugins -->
     <link href="{{ asset('build/css/custom.min.css') }}" rel="stylesheet">
+<link rel="stylesheet" href="{{ asset('css/styles.css') }}">

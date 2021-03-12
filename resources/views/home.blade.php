@@ -115,12 +115,12 @@
                         <div class="text-uppercase text-info font-weight-bold text-xs mb-1"><span>Tasks</span></div>
                         <div class="row no-gutters align-items-center">
                             <div class="col-auto">
-                                <div class="text-dark font-weight-bold h5 mb-0 mr-3"><span>50%</span></div>
+                                <div class="text-dark font-weight-bold h5 mb-0 mr-3"><span>30%</span></div>
                             </div>
                             <div class="col">
                                 <div class="progress progress-sm">
-                                    <div class="progress-bar bg-info" aria-valuenow="50" aria-valuemin="0"
-                                        aria-valuemax="100" style="width: 50%;"><span class="sr-only">50%</span></div>
+                                    <div class="progress-bar bg-info" aria-valuenow="30" aria-valuemin="0"
+                                        aria-valuemax="100" style="width: 30%;"><span class="sr-only">30%</span></div>
                                 </div>
                             </div>
                         </div>

@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
         @include('layouts.styles')
         @stack('styles')
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>@yield('title', 'RRHH')</title>
     </head>
     <body>
         <main id="wrapper">

@@ -22,7 +22,8 @@ class Applicant extends Model
         'career',
         'resume_file',
         'value',
-        'status'
+        'status',
+        'created_at'
     ];
     public $timestamps = false;
 

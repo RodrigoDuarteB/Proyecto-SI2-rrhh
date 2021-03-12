@@ -31,6 +31,7 @@ class CreateEmployeesTable extends Migration
             $table->smallInteger('children')->nullable();
             $table->text('emergency_contact')->nullable();
             $table->smallInteger('status');
+            $table->date('created_at');
 
             $table->foreignId('user_id')->constrained('users');
         });

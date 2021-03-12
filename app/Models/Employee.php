@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Employee extends Model{
     use HasFactory;
-    protected $fillable = ['name', 'last_name', 'work_phone', 'personal_phone', 'image_name', 'sex', 'ID_number', 'address', 'nationality', 'passport', 'birthdate', 'birthplace', 'marital_status', 'children', 'emergency_contact', 'status', 'user_id'];
+    protected $fillable = ['name', 'last_name', 'work_phone', 'personal_phone', 'image_name', 'sex', 'ID_number', 'address', 'nationality', 'passport', 'birthdate', 'birthplace', 'marital_status', 'children', 'emergency_contact', 'status', 'created_at', 'user_id'];
     public $timestamps = false;
 
     //estados
@@ -58,7 +58,7 @@ class Employee extends Model{
     }
 
     public function currentContract(){
-        return '';
+        return $this->contracts()->where('status', Contract::$ACTIVE)->first();
     }
 
     //sus ausencias

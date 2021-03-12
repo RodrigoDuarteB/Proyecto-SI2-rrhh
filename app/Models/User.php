@@ -8,8 +8,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use phpDocumentor\Reflection\Utils;
 use Spatie\Permission\Traits\HasRoles;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable{
+class User extends Authenticatable implements JWTSubject {
     use HasFactory, Notifiable, HasRoles;
 
     /**
@@ -45,6 +46,7 @@ class User extends Authenticatable{
 
     public static $ADMINISTRATOR = 1;
     public static $EMPLOYEE = 2;
+    public static $ADMINISTRATOR_RRHH = 3;
 
     public function employee(){
         return $this->hasOne(Employee::class);
@@ -52,6 +54,14 @@ class User extends Authenticatable{
 
     public function logs(){
         return $this->hasMany(Log::class);
+    }
+
+    public function getJWTIdentifier(){
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims(){
+        return [];
     }
 
 }

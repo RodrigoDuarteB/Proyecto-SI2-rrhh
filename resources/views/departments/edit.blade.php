@@ -4,7 +4,7 @@
 
 
 @section('content')
-
+@include('layouts.session-messages')
     <h3 class="text-dark mt-3">Modificar Departamento</h3>
     <div class="row mt-3">
         <div class="col-md-9 col-sm-6 float-center" style="padding-top: 0px;margin-top: 0px;margin-bottom: 0px;">

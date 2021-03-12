@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model{
     use HasFactory;
-    protected $fillable = ['title', 'description', 'date', 'employee_id'];
+    protected $fillable = ['title', 'description', 'datetime', 'employee_id'];
     public $timestamps = false;
 
     public function employee(){

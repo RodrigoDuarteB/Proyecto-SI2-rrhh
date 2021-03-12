@@ -40,5 +40,12 @@ class JobSeeder extends Seeder
             'base_salary' => '3000',
             'department_id' => 1
         ]);
+
+        Job::create([
+            'name' => 'Administrador de Base de Datos',
+            'description' => 'Administra la integridad y el funcionamiento correcto de bases de datos',
+            'base_salary' => '2800',
+            'department_id' => 1
+        ]);
     }
 }

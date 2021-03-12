@@ -2,9 +2,12 @@
 
 @section('content')
 <div class="container-fluid">
+    @php
+        $user = auth()->user();
+    @endphp
     <h3 class="text-dark mb-4"> ¡Bienvenido
         @auth()
-        {{ auth()->user()->name }}
+            {{ $user->name }}
         @elseauth()
         Usuario
         @endauth
@@ -15,7 +18,7 @@
                 style="width: 252px;margin-top: 4px;padding: 2px;margin-right: 2px;margin-left: 22px;padding-right: 0px;margin-bottom: -4px;padding-bottom: -7px;">
                 <div class="card-body text-center shadow" style="margin: 13px;margin-top: 22px;"><img
                         class="rounded-circle mb-3 mt-4" data-aos="fade-down" data-aos-duration="850"
-                        src="assets/img/dogs/image3.jpeg" width="160" height="160"></div>
+                        src="{{ $user->employee == null ? asset('storage/images/employees/user.png') : asset('storage/images/employees/'.$user->employee->image_name) }}" width="160" height="160"></div>
             </div>
         </div>
         <div class="col-lg-8">
@@ -112,12 +115,12 @@
                         <div class="text-uppercase text-info font-weight-bold text-xs mb-1"><span>Tasks</span></div>
                         <div class="row no-gutters align-items-center">
                             <div class="col-auto">
-                                <div class="text-dark font-weight-bold h5 mb-0 mr-3"><span>50%</span></div>
+                                <div class="text-dark font-weight-bold h5 mb-0 mr-3"><span>30%</span></div>
                             </div>
                             <div class="col">
                                 <div class="progress progress-sm">
-                                    <div class="progress-bar bg-info" aria-valuenow="50" aria-valuemin="0"
-                                        aria-valuemax="100" style="width: 50%;"><span class="sr-only">50%</span></div>
+                                    <div class="progress-bar bg-info" aria-valuenow="30" aria-valuemin="0"
+                                        aria-valuemax="100" style="width: 30%;"><span class="sr-only">30%</span></div>
                                 </div>
                             </div>
                         </div>

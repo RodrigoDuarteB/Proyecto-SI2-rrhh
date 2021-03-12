@@ -26,5 +26,12 @@ class UserSeeder extends Seeder
             'password' => bcrypt('prueba1234'),
             'type' => User::$EMPLOYEE
         ])->assignRole('Empleado');
+
+        User::create([
+            'name' => 'Administrador de RRHH',
+            'email' => 'rrhh@gmail.com',
+            'password' => bcrypt('prueba1234'),
+            'type' => User::$ADMINISTRATOR_RRHH
+        ])->assignRole('Empleado');
     }
 }

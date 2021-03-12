@@ -4,6 +4,19 @@
     src: url("https://netdna.bootstrapcdn.com/bootstrap/3.0.0/fonts/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("https://netdna.bootstrapcdn.com/bootstrap/3.0.0/fonts/glyphicons-halflings-regular.woff") format("woff"), url("https://netdna.bootstrapcdn.com/bootstrap/3.0.0/fonts/glyphicons-halflings-regular.ttf") format("truetype"), url("https://netdna.bootstrapcdn.com/bootstrap/3.0.0/fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular") format("svg")
 }
 
+.fullHeight {
+ 
+    position: absolute;
+    top: 0;
+    bottom: 0;
+	width: 270px;
+	height: 1000px;
+}
+
+.footerA{
+	margin-left: 285px;
+}
+
 .glyphicon {
     position: relative;
     top: 1px;

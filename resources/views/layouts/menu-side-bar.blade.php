@@ -1,5 +1,5 @@
-<div class="container body " style="width:240px; background: #4e73df;">
-    <div class="main_container">
+<div class="container body " style="width:230px; background: #4e73df;">
+    <div class="main_container fullHeight">
         <div class="col-md-13 left_col">
             <div class="left_col scroll-view" style="background: #4e73df;">
                 <div class="navbar nav_title justify-content-center" style="background: #4e73df;">
@@ -10,14 +10,16 @@
                 </div>
 
                 <div class="clearfix"></div>
-
+                @php
+                    $user = auth()->user();
+                @endphp
                 <!-- menu profile quick info -->
                 <div class="profile clearfix" style="margin-bottom: 25px;">
                     <div class="profile_pic">
-                        <img src="assets/img/dogs/image3.jpeg" width="60" height="60" alt="..." class="img-circle profile_img">
+                        <img src="{{ $user->employee == null ? asset('storage/images/employees/user.png') : asset('storage/images/employees/'.$user->employee->image_name) }}" width="60" height="60" alt="..." class="img-circle profile_img">
                     </div>
                     <div class="profile_info">
-                        <span>Bienvenido,</span>
+                        <span>Bienvenido !<br>{{ ''.$user->name }}</span>
                         <h2></h2>
                     </div>
                 </div>
@@ -54,7 +56,7 @@
                                     </li>
                                     <li>
                                         @canany(['Gestionar Asistencias'])
-                                            <a href="{{ route('workdays')}}">&gt; Administrar<br>&nbsp;
+                                            <a href="{{ route('workdays.index')}}">&gt; Administrar<br>&nbsp;
                                                 &nbsp;Asistencias</a>
                                         @endcanany
                                     </li>
@@ -69,18 +71,13 @@
                                         @endcanany
                                     </li>
                                     <li>
-                                        @canany(['Gestionar Capacitaciones'])
-                                            <a href="#">&gt; Gestionar Capacitación<br>&nbsp; &nbsp;Interna</a>
-                                        @endcanany
-                                    </li>
-                                    <li>
                                         @canany(['Gestionar Contratos'])
                                             <a href="{{ route('contracts.index') }}">&gt; Gestionar Contratos</a>
                                         @endcanany
                                     </li>
                                     <li>
                                         @canany(['Gestionar Cargos'])
-                                            <a href="#">&gt; Gestionar Cargos</a>
+                                            <a href="{{ route('jobs.index') }}">&gt; Gestionar Cargos</a>
                                         @endcanany
                                     </li>
                                     <li>
@@ -90,7 +87,7 @@
                                     </li>
                                     <li>
                                         @canany(['Gestionar Horarios'])
-                                            <a href="#">&gt; Gestionar Horarios<br></a>
+                                            <a href="{{ route('schedules.index') }}">&gt; Gestionar Horarios<br></a>
                                         @endcanany
                                     </li>
                                     <li>
@@ -112,10 +109,13 @@
                                     </a>
                                     <ul class="nav child_menu">
                                         <li>
-                                            <a href="#">&gt; Administrar Reportes<br>&nbsp; &nbsp;del Personal</a>
+                                            <a href="{{ route('reports.index') }}">&gt; Gestionar Reportes</a>
                                         </li>
                                         <li>
-                                            <a href="#">&gt; Administrar Planilla<br>&nbsp; &nbsp;de Sueldos</a>
+                                            <a href="{{ route('reports.employees') }}">&gt; Gestionar Reportes<br>&nbsp; &nbsp;del Personal</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('reports.salaries') }}">&gt; Gestionar Planilla<br>&nbsp; &nbsp;de Sueldos</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -126,10 +126,7 @@
                                     <a><i class="fa fa-money"></i>Administrar Pagos<span class="fa fa-chevron-down"></span>
                                     </a>
                                     <ul class="nav child_menu">
-                                        <li><a href="#">&gt; Administrar Salarios</a></li>
-                                        <li><a href="#">&gt; Asignar Beneficio Prima</a></li>
-                                        <li><a href="#">&gt; Aplicar Descuentos a<br>&nbsp; &nbsp;Empleados</a></li>
-                                        <li><a href="#">&gt; Asignar Beneficios<br>&nbsp; &nbsp;Horas Extras</a></li>
+                                        <li><a href="{{ route('reports.salaries') }}">&gt; Administrar Salarios</a></li>
                                     </ul>
                                 </li>
                             @endcanany
@@ -142,7 +139,7 @@
                                     <ul class="nav child_menu">
                                         <li>
                                             @canany(['Gestionar Bitacora'])
-                                                <a href="#">&gt; Gestionar Bitácora</a>
+                                                <a href="{{ route('logs.index') }}">&gt; Gestionar Bitácora</a>
                                             @endcanany
                                         </li>
                                         <li>
@@ -160,7 +157,7 @@
                                         <span class="fa fa-chevron-down"></span>
                                     </a>
                                     <ul class="nav child_menu">
-                                        <li><a href="#">&gt; Gestionar Reportes<br>&nbsp; &nbsp;de Postulantes</a></li>
+                                        <li><a href="{{ route('reports.applicants') }}">&gt; Gestionar Reportes<br>&nbsp; &nbsp;de Postulantes</a></li>
                                         <li><a href="{{ route('applicants.index') }}">&gt; {{ 'Gestionar Postulantes'}}</a></li>
                                     </ul>
                                 </li>

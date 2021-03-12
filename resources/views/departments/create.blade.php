@@ -4,6 +4,7 @@
 
 
 @section('content')
+@include('layouts.session-messages')
 
     <h3 class="text-dark mt-3">Crear Nuevo Departamento</h3>
     <div class="row mt-3">

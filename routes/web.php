@@ -2,12 +2,10 @@
 
 use App\Http\Controllers\ApplicantController;
 use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\EmployeeController;
-
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\ContractController;
@@ -15,7 +13,12 @@ use App\Http\Controllers\PlanningController;
 use App\Http\Controllers\AdministrativeCareerController;
 use App\Http\Controllers\AbsenceController;
 use App\Http\Controllers\ReportController;
-use Spatie\Permission\Models\Permission;
+use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\JobController;
+use App\Http\Controllers\LogController;
+use App\Http\Controllers\WorkdayController;
+use App\Http\Controllers\SalaryController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -29,15 +32,6 @@ use Spatie\Permission\Models\Permission;
 */
 Route::view('index', 'index')->name('index');
 
-
-    Route::get('/workdays', 'App\Http\Controllers\WorkdayController@index')->name('workdays');
-    Route::post('/workdays', 'App\Http\Controllers\WorkdayController@store')->name('workdays.store');
-    Route::get('/workdays/create', 'App\Http\Controllers\WorkdayController@create')->name('workdays.create');
-    Route::get('/workdays/{workday}', 'App\Http\Controllers\WorkdayController@edit')->name('workdays.edit');
-    Route::get('/workdays/{workday}', 'App\Http\Controllers\WorkdayController@destroy')->name('workdays.destroy');
-    Route::get('/workdays/{workday}', 'App\Http\Controllers\WorkdayController@update')->name('workdays.update');
-    Route::resource('applicants', ApplicantController::class)->names('applicants');
-
 Route::middleware(['auth'])->group(function (){
     Route::view('/', 'home')->name('home');
     Route::resource('users', UserController::class)->names('users');
@@ -48,68 +42,55 @@ Route::middleware(['auth'])->group(function (){
     Route::resource('employees', EmployeeController::class)->names('employees');
     Route::resource('plannings', PlanningController::class)->names('plannings');
     Route::resource('absences', AbsenceController::class)->names('absences');
-    Route::resource('reports', ReportController::class)->names('reports')->only(['index', 'create']);
+    Route::resource('applicants', ApplicantController::class)->names('applicants');
+    Route::resource('schedules', ScheduleController::class)->names('schedules');
+    Route::resource('jobs', JobController::class)->names('jobs');
+    Route::resource('logs', LogController::class)->only(['index'])->names('logs')->middleware('password.confirm');
+
+    //reportes
+    Route::resource('reports', ReportController::class)->names('reports')->only(['index']);
+    Route::get('reports/employees', [ReportController::class, 'employees'])->name('reports.employees');
+    Route::get('reports/salaries', [ReportController::class, 'salaries'])->name('reports.salaries');
+    Route::get('reports/contracts', [ReportController::class, 'contracts'])->name('reports.contracts');
+    Route::get('reports/applicants', [ReportController::class, 'applicants'])->name('reports.applicants');
+    Route::get('reports/jobs', [ReportController::class, 'jobs'])->name('reports.jobs');
+    Route::get('reports/orders', [ReportController::class, 'orders'])->name('reports.orders');
 
     // carreras administrativas
     Route::resource('administrative-careers', AdministrativeCareerController::class)->names('administrative-careers')->only('index');
     Route::get('administrative-careers/{employee}', [AdministrativeCareerController::class, 'show'])->name('administrative-careers.show');
 
     //contratos
-    Route::resource('contracts', ContractController::class)->names('contracts')->except(['create', 'store', 'edit']);
+    Route::resource('contracts', ContractController::class)->names('contracts')->except(['create', 'store']);
     Route::get('contracts/create/{employee}', [ContractController::class, 'create'])->name('contracts.create');
     Route::put('contracts/{employee}', [ContractController::class, 'store'])->name('contracts.store');
-    Route::get('contracts/{contract}/edit/{employee}', [ContractController::class, 'edit'])->name('contracts.edit');
 
+    /*//asistencias
+    Route::get('/workdays', 'App\Http\Controllers\WorkdayController@index')->name('workdays');
+    Route::post('/workdays', 'App\Http\Controllers\WorkdayController@store')->name('workdays.store');
+    Route::get('/workdays/create', 'App\Http\Controllers\WorkdayController@create')->name('workdays.create');
+    Route::get('/workdays/{workday}', 'App\Http\Controllers\WorkdayController@edit')->name('workdays.edit');
+    Route::get('/workdays/{workday}', 'App\Http\Controllers\WorkdayController@destroy')->name('workdays.destroy');
+<<<<<<< Updated upstream
+    Route::get('/workdays/{workday}', 'App\Http\Controllers\WorkdayController@update')->name('workdays.update');*/
+    Route::resource('workdays', WorkdayController::class)->names('workdays');
+    Route::get('/workdays/{workday}', 'App\Http\Controllers\WorkdayController@update')->name('workdays.update');
+
+    //salarios
+    Route::get('salaries/discounts', [SalaryController::class, 'discounts'])->name('salaries.discounts');
+    Route::get('salaries/extras', [SalaryController::class, 'extras'])->name('salaries.extras');
+    Route::get('salaries/liquid', [SalaryController::class, 'liquid'])->name('salaries.liquid');
 });
 
 
-//RUTA PARA CREAR USUARIOS DE PRUEBA
-Route::get('/test', function (){
-
- //   $user->name = 'Gary Añez';
-  //  $user->email = 'GaryAñez@gmail.com';
-  //  $user->password = bcrypt('cassis');
- //   $user->type = \App\Models\User::$ADMINISTRATOR;
-
- //   $user->save();
-    //$user->syncPermissions(['Gestionar Personal','Gestionar Ordenes']);
- //   return $user;
-
-    $user = new \App\Models\User();
-    $user->name = 'Prueba';
-    $user->email = 'prueba@gmail.com';
-    $user->password = bcrypt('prueba1234');
-    $user->type = \App\Models\User::$ADMINISTRATOR;
-    $user->save();
-    $user->syncPermissions(['Gestionar Personal', 'Listar Personal']);
-    return $user;
-
-//    $employee = new \App\Models\Employee();
-//    $employee->name = 'Rodrigo';
-//    $employee->last_name = 'Duarte';
-//    $employee->work_phone = '78496366';
-//    $employee->image_name = 'image.jpg';
-//    $employee->sex = 'Masculino';
-//    $employee->ID_number = '861646254';
-//    $employee->address = 'Av 4to Anillo Alemana';
-//    $employee->nationality = 'boliviano';
-//    $employee->birthdate = '14-10-1998';
-//    $employee->birthplace = 'Santa Cruz';
-//    $employee->marital_status = 'Soltero';
-//    $employee->status = \App\Models\Employee::$ACTIVE;
-//    $employee->user_id = 4;
-//    $employee->save();
-//    return $employee;
-
-//    $user = \App\Models\User::find(1);
-//    $user->givePermissionTo('Listar Personal');
+//RUTA para pruebas
+Route::get('/test', function (){$horaInicio = new DateTime('08:00');
+    $horaTermino = new DateTime('09:47');
+    $interval = $horaInicio->diff($horaTermino);
+    echo $interval->format('%H %i');
 });
 
-Route::get('/test2', function (){
-    $permission = Permission::where('name', '=', 'Crear Empleados')->get();
-    $array1 = ['Hola', 'Como'];
-    $array2 = array_merge($array1, ['Estas', 'Jeje']);
-    return dd($array2);
-});
+
+Route::get("/ordencomplete/{order}",[OrderController::class, 'complete'])->name('ordencomplete.complete');
 
 require __DIR__.'/auth.php';

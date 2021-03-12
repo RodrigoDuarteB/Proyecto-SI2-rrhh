@@ -14,6 +14,7 @@
     <div class="x_panel mt-5">
         <a class="btn btn-primary mb-3 float-right" type="button" href="{{ route('workdays.create') }}">Marcar Entrada/Salida</a>
         <h2>Asistencias</h2>
+        <h3>{{ $clock_in_schedule }}</h3>
         <div class="table-responsive">
             <table id="tablepro" class="table table-bordered table-hover" style="width:100%">
                 <thead class="bill-header cs">
@@ -40,9 +41,28 @@
                         @foreach($workdays as $key => $data)
                         <tr>
                             <td>{{$data->id}}</td>
-                            <td>{{$data->date}}</td>
-                            <td>{{$data->clock_in}}</td>
-                            <td>{{$data->clock_out}}</td>
+                            <td>
+                                @php
+                                    $fecha = new DateTime($data->date);
+                                    $fecha->modify('-4 hours');
+                                    //echo $fecha->format('d-m-Y H:i:s');
+                                    echo $fecha->format('d-m-Y');
+                                @endphp
+                            </td>
+                            <td>
+                                @php
+                                    $clock_in = new DateTime($data->date . " " . $data->clock_in);
+                                    $clock_in->modify('-4 hours');
+                                    echo $clock_in->format('H:i:s');
+                                @endphp
+                            </td>
+                            <td>
+                                @php
+                                    $clock_out = new DateTime($data->date . " " . $data->clock_out);
+                                    $clock_out->modify('-4 hours');
+                                    echo $clock_out->format('H:i:s');
+                                @endphp
+                            </td>
                             <td>{{$data->latitude}}</td>
                             <td>{{$data->longitude}}</td>
                             <td>

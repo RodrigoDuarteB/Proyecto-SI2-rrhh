@@ -72,12 +72,13 @@ class WorkdayController extends Controller
 
     public function setWorkdayStatus(Employee $employee, $date, $clock_in_registered){
         $clock_in_schedule = $employee->currentContract()->planning->schedule->clock_in;
+        var_dump($clock_in_schedule);
         $entry_time     = strtotime($date ." ". $clock_in_schedule);
         $datetime_in    = strtotime($date ." ". $clock_in_registered);
         if($entry_time >= $datetime_in) {
             return 1;
         } else {
-            $entry_time_limit = strtotime($date ." ". "05:30:00");
+            $entry_time_limit = strtotime($date ." ". $clock_in_schedule, strtotime('+1 hours'));
             if ($datetime_in > $entry_time_limit  ) {
                 return 3;
             }
@@ -146,8 +147,8 @@ class WorkdayController extends Controller
                 ->get();
                 $workdays = $data['workdays'];
         }
-
-        return \view('workdays.index', compact('workdays', 'employee'));
+        $clock_in_schedule = $employee->currentContract()->planning->schedule->clock_in;
+        return \view('workdays.index', compact('workdays', 'employee', 'clock_in_schedule'));
     }
 
 

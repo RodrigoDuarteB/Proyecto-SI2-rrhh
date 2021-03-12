@@ -15,26 +15,26 @@ class ScheduleSeeder extends Seeder
     public function run(){
         Schedule::create([
             'name' => 'Turno Mañana',
-            'clock_in' => '08:00',
-            'clock_out' => '13:00',
+            'clock_in' => '12:00',
+            'clock_out' => '17:00',
         ]);
 
         Schedule::create([
             'name' => 'Turno Tarde',
-            'clock_in' => '14:00',
-            'clock_out' => '19:00',
+            'clock_in' => '18:00',
+            'clock_out' => '23:00',
         ]);
 
         Schedule::create([
             'name' => 'Turno Completo',
-            'clock_in' => '08:00',
-            'clock_out' => '19:00',
+            'clock_in' => '12:00',
+            'clock_out' => '23:00',
         ]);
 
         Schedule::create([
             'name' => 'Turno Nocturno',
-            'clock_in' => '22:00',
-            'clock_out' => '06:00',
+            'clock_in' => '02:00',
+            'clock_out' => '10:00',
         ]);
     }
 }

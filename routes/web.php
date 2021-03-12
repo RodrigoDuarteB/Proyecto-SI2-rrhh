@@ -15,11 +15,14 @@ use App\Http\Controllers\AbsenceController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\JobController;
-use Spatie\Permission\Models\Permission;
 use App\Http\Controllers\LogController;
+<<<<<<< Updated upstream
 use App\Http\Controllers\WorkdayController;
 
 
+=======
+use App\Http\Controllers\SalaryController;
+>>>>>>> Stashed changes
 
 /*
 |--------------------------------------------------------------------------
@@ -43,12 +46,19 @@ Route::middleware(['auth'])->group(function (){
     Route::resource('employees', EmployeeController::class)->names('employees');
     Route::resource('plannings', PlanningController::class)->names('plannings');
     Route::resource('absences', AbsenceController::class)->names('absences');
-    Route::resource('reports', ReportController::class)->names('reports')->only(['index', 'create']);
     Route::resource('applicants', ApplicantController::class)->names('applicants');
     Route::resource('schedules', ScheduleController::class)->names('schedules');
     Route::resource('jobs', JobController::class)->names('jobs');
     Route::resource('logs', LogController::class)->only(['index'])->names('logs')->middleware('password.confirm');
 
+    //reportes
+    Route::resource('reports', ReportController::class)->names('reports')->only(['index']);
+    Route::get('reports/employees', [ReportController::class, 'employees'])->name('reports.employees');
+    Route::get('reports/salaries', [ReportController::class, 'salaries'])->name('reports.salaries');
+    Route::get('reports/contracts', [ReportController::class, 'contracts'])->name('reports.contracts');
+    Route::get('reports/applicants', [ReportController::class, 'applicants'])->name('reports.applicants');
+    Route::get('reports/jobs', [ReportController::class, 'jobs'])->name('reports.jobs');
+    Route::get('reports/orders', [ReportController::class, 'orders'])->name('reports.orders');
 
     // carreras administrativas
     Route::resource('administrative-careers', AdministrativeCareerController::class)->names('administrative-careers')->only('index');
@@ -65,15 +75,25 @@ Route::middleware(['auth'])->group(function (){
     Route::get('/workdays/create', 'App\Http\Controllers\WorkdayController@create')->name('workdays.create');
     Route::get('/workdays/{workday}', 'App\Http\Controllers\WorkdayController@edit')->name('workdays.edit');
     Route::get('/workdays/{workday}', 'App\Http\Controllers\WorkdayController@destroy')->name('workdays.destroy');
+<<<<<<< Updated upstream
     Route::get('/workdays/{workday}', 'App\Http\Controllers\WorkdayController@update')->name('workdays.update');*/
     Route::resource('workdays', WorkdayController::class)->names('workdays');
+=======
+    Route::get('/workdays/{workday}', 'App\Http\Controllers\WorkdayController@update')->name('workdays.update');
+
+    //salarios
+    Route::get('salaries/discounts', [SalaryController::class, 'discounts'])->name('salaries.discounts');
+    Route::get('salaries/extras', [SalaryController::class, 'extras'])->name('salaries.extras');
+    Route::get('salaries/liquid', [SalaryController::class, 'liquid'])->name('salaries.liquid');
+>>>>>>> Stashed changes
 });
 
 
 //RUTA para pruebas
-Route::get('/test', function (){
-    $emloyee = \App\Models\Employee::find(3);
-    return $emloyee->currentContract();
+Route::get('/test', function (){$horaInicio = new DateTime('08:00');
+    $horaTermino = new DateTime('09:47');
+    $interval = $horaInicio->diff($horaTermino);
+    echo $interval->format('%H %i');
 });
 
 

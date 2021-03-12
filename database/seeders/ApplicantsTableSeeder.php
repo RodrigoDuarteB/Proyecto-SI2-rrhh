@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Applicant;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -31,8 +32,7 @@ class ApplicantsTableSeeder extends Seeder
                 'resume_file'       => 'scarlett.pdf',
                 'value'             => 'Muy buena',
                 'status'            => Applicant::$FEATURED,
-                'created_at'        => now(),
-                'updated_at'        => now()
+                'created_at'        => Carbon::now('America/La_Paz')->toDateString(),
             ],
             [
                 'name'              => 'Cameron',
@@ -49,8 +49,7 @@ class ApplicantsTableSeeder extends Seeder
                 'resume_file'       => 'cameron.pdf',
                 'value'             => 'Excelente',
                 'status'            => Applicant::$CONTRACTED,
-                'created_at'        => now(),
-                'updated_at'        => now()
+                'created_at'        => Carbon::now('America/La_Paz')->toDateString(),
             ]
         ]);
     }

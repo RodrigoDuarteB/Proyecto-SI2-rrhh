@@ -19,12 +19,12 @@ class RoleSeeder extends Seeder
         ])->syncPermissions($empleado);
 
         $administrador = array_merge($empleado, ['Gestionar Usuarios', 'Gestionar Departamentos',
-            'Gestionar Carreras', 'Gestionar Contratos', 'Gestionar Cargos', 'Gestionar Planificaciones', 'Gestionar Horarios', 'Gestionar Roles', 'Gestionar Permisos', 'Gestionar Reportes', 'Gestionar Bitacora', 'Gestionar Seguridad', 'Gestionar Postulantes']);
+            'Gestionar Carreras', 'Gestionar Contratos', 'Gestionar Cargos', 'Gestionar Planificaciones', 'Gestionar Horarios', 'Gestionar Roles', 'Gestionar Permisos', 'Gestionar Reportes', 'Gestionar Bitacora', 'Gestionar Seguridad', 'Gestionar Postulantes', 'Listar Personal', 'Crear Personal', 'Editar Personal', 'Eliminar Personal', 'Listar Ordenes', 'Crear Ordenes', 'Editar Ordenes', 'Eliminar Ordenes']);
         Role::create([
             'name' => 'Administrador del Sistema'
         ])->syncPermissions($administrador);
 
-        $administradorRRHH = array_merge($empleado, ['Gestionar Departamentos', 'Gestionar Carreras', 'Gestionar Contratos', 'Gestionar Cargos', 'Gestionar Planificaciones', 'Gestionar Horarios', 'Gestionar Reportes', 'Gestionar Postulantes']);
+        $administradorRRHH = array_merge($empleado, ['Gestionar Departamentos', 'Gestionar Carreras', 'Gestionar Contratos', 'Gestionar Cargos', 'Gestionar Planificaciones', 'Gestionar Horarios', 'Gestionar Reportes', 'Gestionar Postulantes', 'Listar Personal', 'Crear Personal', 'Editar Personal', 'Eliminar Personal', 'Listar Ordenes', 'Crear Ordenes', 'Editar Ordenes', 'Eliminar Ordenes']);
         Role::create([
             'name' => 'Administrador de RRHH'
         ])->syncPermissions($administradorRRHH);

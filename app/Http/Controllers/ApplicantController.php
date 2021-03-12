@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Applicant;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -53,6 +54,7 @@ class ApplicantController extends Controller
     public function store(Request $request)
     {
         $data = request()->except('_token');
+        $data['created_at'] = Carbon::now('America/La_Paz')->toDateString();
         $data['status'] = 0;
 
         if($request->hasFile('resume_file')){

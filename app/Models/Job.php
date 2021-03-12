@@ -18,4 +18,8 @@ class Job extends Model{
         return $this->hasMany(Contract::class)->with('employee');
     }
 
+    public function applicants(){
+        return $this->hasMany(Applicant::class);
+    }
+
 }

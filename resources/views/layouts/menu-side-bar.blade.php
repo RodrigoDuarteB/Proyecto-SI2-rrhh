@@ -71,11 +71,6 @@
                                         @endcanany
                                     </li>
                                     <li>
-                                        @canany(['Gestionar Capacitaciones'])
-                                            <a href="#">&gt; Gestionar Capacitación<br>&nbsp; &nbsp;Interna</a>
-                                        @endcanany
-                                    </li>
-                                    <li>
                                         @canany(['Gestionar Contratos'])
                                             <a href="{{ route('contracts.index') }}">&gt; Gestionar Contratos</a>
                                         @endcanany
@@ -114,10 +109,13 @@
                                     </a>
                                     <ul class="nav child_menu">
                                         <li>
-                                            <a href="#">&gt; Administrar Reportes<br>&nbsp; &nbsp;del Personal</a>
+                                            <a href="{{ route('reports.index') }}">&gt; Gestionar Reportes</a>
                                         </li>
                                         <li>
-                                            <a href="#">&gt; Administrar Planilla<br>&nbsp; &nbsp;de Sueldos</a>
+                                            <a href="{{ route('reports.employees') }}">&gt; Gestionar Reportes<br>&nbsp; &nbsp;del Personal</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('reports.salaries') }}">&gt; Gestionar Planilla<br>&nbsp; &nbsp;de Sueldos</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -128,10 +126,7 @@
                                     <a><i class="fa fa-money"></i>Administrar Pagos<span class="fa fa-chevron-down"></span>
                                     </a>
                                     <ul class="nav child_menu">
-                                        <li><a href="#">&gt; Administrar Salarios</a></li>
-                                        <li><a href="#">&gt; Asignar Beneficio Prima</a></li>
-                                        <li><a href="#">&gt; Aplicar Descuentos a<br>&nbsp; &nbsp;Empleados</a></li>
-                                        <li><a href="#">&gt; Asignar Beneficios<br>&nbsp; &nbsp;Horas Extras</a></li>
+                                        <li><a href="{{ route('reports.salaries') }}">&gt; Administrar Salarios</a></li>
                                     </ul>
                                 </li>
                             @endcanany
@@ -162,7 +157,7 @@
                                         <span class="fa fa-chevron-down"></span>
                                     </a>
                                     <ul class="nav child_menu">
-                                        <li><a href="#">&gt; Gestionar Reportes<br>&nbsp; &nbsp;de Postulantes</a></li>
+                                        <li><a href="{{ route('reports.applicants') }}">&gt; Gestionar Reportes<br>&nbsp; &nbsp;de Postulantes</a></li>
                                         <li><a href="{{ route('applicants.index') }}">&gt; {{ 'Gestionar Postulantes'}}</a></li>
                                     </ul>
                                 </li>

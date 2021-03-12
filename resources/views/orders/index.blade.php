@@ -10,65 +10,65 @@
                 {{ session('status') }}
             </div>
         @endif
-        @if($user->employee != null)
-            <h1>Mis Órdenes de Trabajo</h1>
-            <div class="table-responsive">
-                <table id="self-orders" class="table table-bordered table-hover" style="width:100%">
-                    <thead class="bill-header cs">
-                    <tr>
-                        <th id="trs-hd">ID Orden</th>
-                        <th id="trs-hd">Encargado de la Orden</th>
-                        <th id="trs-hd">Titulo</th>
-                        <th id="trs-hd">Personal Asignado</th>
-                        <th id="trs-hd">Fecha Creada</th>
-                        <th id="trs-hd">Fecha Asignada</th>
-                        <th id="trs-hd">Estado</th>
-                        <th id="trs-hd">Acciones</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        @forelse($user->employee->orders as $order)
-                            <tr>
-                                <td>{{ $order->id }}</td>
-                                <td>{{ $order->employee->last_name }} {{ $order->employee->name }}</td>
-                                <td>{{ $order->title }}</td>
-                                <td>
-                                    <ol>
-                                        @foreach ($order->employees as $employees)
-                                            <li>{{ $employees->employee->last_name }}
-                                                {{ $employees->employee->name }}</li>
-                                        @endforeach
-                                    </ol>
-                                </td>
-                                <td>{{ $order->datetime }}</td>
-                                <td>
-                                    <ol>
-                                        @foreach ($order->employees as $employees)
-                                            <li>{{ $employees->datetime }}</li>
-                                        @endforeach
-                                    </ol>
-                                </td>
-                                @if ($employees->acomplished == true)
-                                    <td>Completada</td>
-                                @else
-                                    <td>No Completada</td>
-                                @endif
-                                <td>
-                                    <div class="text-center">
-                                        <a class="btn btn-primary" style="margin-left: 5px;"
-                                           href="/orders/{{ $order->id }}"><i class="fa fa-eye"
-                                                                              style="font-size: 15px;"></i>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                        @empty
-                            Aun no tienes Ordenes
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
-        @endif
+{{--        @if($user->employee != null)--}}
+{{--            <h1>Mis Órdenes de Trabajo</h1>--}}
+{{--            <div class="table-responsive">--}}
+{{--                <table id="self-orders" class="table table-bordered table-hover" style="width:100%">--}}
+{{--                    <thead class="bill-header cs">--}}
+{{--                    <tr>--}}
+{{--                        <th id="trs-hd">ID Orden</th>--}}
+{{--                        <th id="trs-hd">Encargado de la Orden</th>--}}
+{{--                        <th id="trs-hd">Titulo</th>--}}
+{{--                        <th id="trs-hd">Personal Asignado</th>--}}
+{{--                        <th id="trs-hd">Fecha Creada</th>--}}
+{{--                        <th id="trs-hd">Fecha Asignada</th>--}}
+{{--                        <th id="trs-hd">Estado</th>--}}
+{{--                        <th id="trs-hd">Acciones</th>--}}
+{{--                    </tr>--}}
+{{--                    </thead>--}}
+{{--                    <tbody>--}}
+{{--                        @forelse($user->employee->orders as $order)--}}
+{{--                            <tr>--}}
+{{--                                <td>{{ $order->id }}</td>--}}
+{{--                                <td>{{ $order->employee->last_name }} {{ $order->employee->name }}</td>--}}
+{{--                                <td>{{ $order->title }}</td>--}}
+{{--                                <td>--}}
+{{--                                    <ol>--}}
+{{--                                        @foreach ($order->employees as $employees)--}}
+{{--                                            <li>{{ $employees->employee->last_name }}--}}
+{{--                                                {{ $employees->employee->name }}</li>--}}
+{{--                                        @endforeach--}}
+{{--                                    </ol>--}}
+{{--                                </td>--}}
+{{--                                <td>{{ $order->datetime }}</td>--}}
+{{--                                <td>--}}
+{{--                                    <ol>--}}
+{{--                                        @foreach ($order->employees as $employees)--}}
+{{--                                            <li>{{ $employees->datetime }}</li>--}}
+{{--                                        @endforeach--}}
+{{--                                    </ol>--}}
+{{--                                </td>--}}
+{{--                                @if ($employees->acomplished == true)--}}
+{{--                                    <td>Completada</td>--}}
+{{--                                @else--}}
+{{--                                    <td>No Completada</td>--}}
+{{--                                @endif--}}
+{{--                                <td>--}}
+{{--                                    <div class="text-center">--}}
+{{--                                        <a class="btn btn-primary" style="margin-left: 5px;"--}}
+{{--                                           href="/orders/{{ $order->id }}"><i class="fa fa-eye"--}}
+{{--                                                                              style="font-size: 15px;"></i>--}}
+{{--                                        </a>--}}
+{{--                                    </div>--}}
+{{--                                </td>--}}
+{{--                            </tr>--}}
+{{--                        @empty--}}
+{{--                            Aun no tienes Ordenes--}}
+{{--                        @endforelse--}}
+{{--                    </tbody>--}}
+{{--                </table>--}}
+{{--            </div>--}}
+{{--        @endif--}}
         @canany(['Listar Ordenes', 'Crear Ordenes', 'Editar Ordenes', 'Eliminar Ordenes'])
             <div class="x_panel mt-5">
                 @can('Crear Ordenes')

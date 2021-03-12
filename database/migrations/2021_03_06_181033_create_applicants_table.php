@@ -29,7 +29,7 @@ class CreateApplicantsTable extends Migration
             $table->string('resume_file')->nullable();
             $table->string('value')->nullable();
             $table->smallInteger('status');
-            $table->timestamps();
+            $table->date('created_at');
         });
 
 

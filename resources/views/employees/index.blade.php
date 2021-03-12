@@ -8,6 +8,7 @@
         @endphp
         @if($employee != null)
             <div class="container-fluid">
+                <h1>Información Personal de Empleado</h1>
                 <div class="card shadow mb-5">
                     <div class="card-header py-3">
                         <p class="text-primary m-0 font-weight-bold" style="font-size: 20px;">Mi Información</p>
@@ -81,65 +82,76 @@
             </div>
         @endif
         @canany(['Listar Personal', 'Crear Personal', 'Editar Personal', 'Eliminar Personal'])
-            <h1>Empleados</h1>
-            @canany(['Crear Personal'])
-                <a class="btn btn-primary mb-3 ml-2 mt-2" type="button"
-                   href="{{ route('employees.create') }}">Nuevo Empleado</a>
-            @endcanany
-            <div class="table-responsive table-bordered table table-hover table-bordered results">
-                @if(count($employees) >= 1)
-                    <div class="card" style="font-size: 20px; font-weight: bold">
-                        <div class="card-body">
-                            <table class="table table-bordered table-hover text-center" id="employees">
-                                <thead class="bill-header cs">
-                                <tr>
-                                    <th id="trs-hd">id</th>
-                                    <th id="trs-hd">Nombre Completo</th>
-                                    <th id="trs-hd">Telefono de Trabajo</th>
-                                    <th id="trs-hd">CI</th>
-                                    <th id="trs-hd">Nacionalidad</th>
-                                    <th id="trs-hd">Sexo</th>
-                                    @canany(['Editar Personal', 'Eliminar Personal'])
-                                        <th id="trs-hd">Acciones</th>
-                                    @endcanany
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($employees as $employee)
+            <div class="container-fluid">
+                <h1>Listado General de Empleados</h1>
+                @canany(['Crear Personal'])
+                    <a class="btn btn-primary mb-3 ml-2 mt-2" type="button"
+                       href="{{ route('employees.create') }}">Nuevo Empleado</a>
+                @endcanany
+                <div class="table-responsive table-bordered table table-hover table-bordered results">
+                    @if($employee != null)
+                        @php
+                            $otherEmployees = $employees->where('id', '!=', $employee->id);
+                        @endphp
+                    @else
+                        @php
+                            $otherEmployees = $employees;
+                        @endphp
+                    @endif
+                    @if(count($otherEmployees) >= 1)
+                        <div class="card" style="font-size: 20px; font-weight: bold">
+                            <div class="card-body">
+                                <table class="table table-bordered table-hover text-center" id="employees">
+                                    <thead class="bill-header cs">
                                     <tr>
-                                        <td>{{ $employee->id }}</td>
-                                        <td>{{ $employee->name.' '.$employee->last_name }}</td>
-                                        <td>{{ $employee->work_phone }}</td>
-                                        <td>{{ $employee->ID_number }}</td>
-                                        <td>{{ $employee->nationality }}</td>
-                                        <td>{{ $employee->sex }}</td>
+                                        <th id="trs-hd">id</th>
+                                        <th id="trs-hd">Nombre Completo</th>
+                                        <th id="trs-hd">Telefono de Trabajo</th>
+                                        <th id="trs-hd">CI</th>
+                                        <th id="trs-hd">Nacionalidad</th>
+                                        <th id="trs-hd">Sexo</th>
                                         @canany(['Editar Personal', 'Eliminar Personal'])
-                                            <td>
-                                                @canany(['Editar Personal'])
-                                                    <a class="btn btn-success" style="margin-left: 5px;" href="{{ route('employees.edit', $employee) }}">
-                                                        <i class="fa fa-check" style="font-size: 15px;"></i>
-                                                    </a>
-                                                @endcanany
-                                                @canany(['Eliminar Personal'])
-                                                    <button class="btn btn-danger" style="margin-left: 5px;" type="submit">
-                                                        <i class="fa fa-trash" style="font-size: 15px;"></i>
-                                                    </button>
-                                                @endcanany
-                                            </td>
+                                            <th id="trs-hd">Acciones</th>
                                         @endcanany
                                     </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($otherEmployees as $employee)
+                                        <tr>
+                                            <td>{{ $employee->id }}</td>
+                                            <td>{{ $employee->name.' '.$employee->last_name }}</td>
+                                            <td>{{ $employee->work_phone }}</td>
+                                            <td>{{ $employee->ID_number }}</td>
+                                            <td>{{ $employee->nationality }}</td>
+                                            <td>{{ $employee->sex }}</td>
+                                            @canany(['Editar Personal', 'Eliminar Personal'])
+                                                <td>
+                                                    @canany(['Editar Personal'])
+                                                        <a class="btn btn-success" style="margin-left: 5px;" href="{{ route('employees.edit', $employee) }}">
+                                                            <i class="fa fa-check" style="font-size: 15px;"></i>
+                                                        </a>
+                                                    @endcanany
+                                                    @canany(['Eliminar Personal'])
+                                                        <button class="btn btn-danger" style="margin-left: 5px;" type="submit">
+                                                            <i class="fa fa-trash" style="font-size: 15px;"></i>
+                                                        </button>
+                                                    @endcanany
+                                                </td>
+                                            @endcanany
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div>
-                @else
-                    <x-alert>
-                        <x-slot name="message">
-                            No hay Empleados registrados aún
-                        </x-slot>
-                    </x-alert>
-                @endif
+                    @else
+                        <x-alert>
+                            <x-slot name="message">
+                                No hay Empleados registrados aún
+                            </x-slot>
+                        </x-alert>
+                    @endif
+                </div>
             </div>
         @endcanany
     @endsection

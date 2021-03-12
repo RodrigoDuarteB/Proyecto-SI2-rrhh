@@ -31,7 +31,7 @@ class EmployeeRequest extends FormRequest{
             'ID_number' => 'required|numeric|regex:/^([0-9, ,--,+]+)/',
             'address' => 'required|string',
             'nationality' => 'required|string|regex:/^([a-z][a-z, ]+)/',
-            'passport' => 'numeric|regex:/^([0-9, ,--,+]+)/',
+            'passport' => '',
             'birthdate' => 'required|date',
             'birthplace' => 'required|string|regex:/^([A-Z,a-z, ]+)/',
             'marital_status' => 'required|numeric',

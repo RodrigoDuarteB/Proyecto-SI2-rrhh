@@ -13,7 +13,7 @@ class RoleSeeder extends Seeder
      * @return void
      */
     public function run(){
-        $empleado = ['Gestionar Personal', 'Gestionar Ordenes', 'Gestionar Asistencias', 'Gestionar Ausencias', 'Gestionar Capacitaciones', 'Gestionar Sueldos'];
+        $empleado = ['Gestionar Personal', 'Gestionar Ordenes', 'Gestionar Asistencias', 'Gestionar Ausencias', 'Gestionar Capacitaciones', 'Gestionar Sueldos', 'Listar Ordenes', 'Crear Ordenes'];
         Role::create([
             'name' => 'Empleado'
         ])->syncPermissions($empleado);

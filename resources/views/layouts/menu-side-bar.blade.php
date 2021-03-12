@@ -34,12 +34,6 @@
                             <li><a><i class="fa fa-users"></i>Administrar Personal<span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
                                     <li>
-                                        @canany(['Gestionar Usuarios'])
-                                            <a href="#">&gt; Gestionar Usuarios</a>
-                                        @endcanany
-                                    </li>
-
-                                    <li>
                                         @canany(['Gestionar Personal', 'Listar Personal'])
                                             <a href="{{ route('employees.index') }}">&gt;Gestionar Personal</a>
                                         @endcanany

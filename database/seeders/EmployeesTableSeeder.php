@@ -33,7 +33,27 @@ class EmployeesTableSeeder extends Seeder
                 'emergency_contact' => '75461548',
                 'status'            => 1,
                 'user_id'           => 1
+            ],
+            [
+                'name'              => 'Paulina',
+                'last_name'         => 'Rubio',
+                'work_phone'        => '78345467',
+                'personal_phone'    => '66445577',
+                'image_name'        => 'paulina.jpg',
+                'sex'               => 'Mujer',
+                'ID_number'         => 'E002',
+                'address'           => 'Las Lomas 18',
+                'nationality'       => 'Mexicana',
+                'passport'          => 'PS222023200201',
+                'birthdate'         => '1980-07-01',
+                'birthplace'        => 'Santa Cruz',
+                'marital_status'    => 'Soltera',
+                'children'          => 0,
+                'emergency_contact' => '66461548',
+                'status'            => 1,
+                'user_id'           => 2
             ]
+
         ]);
     }
 }

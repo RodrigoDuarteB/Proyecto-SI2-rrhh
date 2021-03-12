@@ -23,12 +23,19 @@
                                     @endphp
                                     <td>{{ $name.' - '.$employee->id }}</td>
                                     <td>
-                                        <ul>
-                                            <li></li>
-                                            <li></li>
-                                            <li></li>
-                                            <li></li>
-                                        </ul>
+                                        @php
+                                            $contract = $employee->currentContract()
+                                        @endphp
+                                        @if($contract != null)
+                                            <ul>
+                                                <li>{{ $contract->name }}</li>
+                                                <li>{{ $contract->job->name }}</li>
+                                                <li>{{ $contract->planning->name }}</li>
+                                                <li>{{ $contract->planning->schedule->name }}</li>
+                                            </ul>
+                                        @else
+                                            Sin contrato
+                                        @endif
                                     </td>
                                     <td>
                                         <a class="btn btn-primary" type="button" href="{{ route('administrative-careers.show', $employee) }}">Ver Carrera</a>

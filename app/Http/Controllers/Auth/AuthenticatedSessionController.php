@@ -33,7 +33,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        Log::new(Log::$LOGGED, 'El usuario con id '.\auth()->user()->id.' ingresó al sistema');
+        Log::new(Log::$LOGGED, 'Ingresó al sistema');
 
         return redirect()->intended(RouteServiceProvider::HOME);
     }
@@ -46,7 +46,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request)
     {
-        Log::new(Log::$CLOSED, 'El usuario con id '.\auth()->user()->id.' salió del sistema');
+        Log::new(Log::$CLOSED, 'Salió del sistema');
 
         Auth::guard('web')->logout();
 

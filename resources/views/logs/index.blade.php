@@ -10,7 +10,7 @@
                             <thead class="bill-header cs">
                             <tr>
                                 <th id="trs-hd">id</th>
-                                <th id="trs-hd">Usaurio - ID</th>
+                                <th id="trs-hd">Usuario - ID</th>
                                 <th id="trs-hd">IP Usuario</th>
                                 <th id="trs-hd">Tipo de Acción</th>
                                 <th id="trs-hd">Acción</th>

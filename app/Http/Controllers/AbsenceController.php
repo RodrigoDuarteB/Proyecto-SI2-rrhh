@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AbsenceRequest;
 use App\Models\Absence;
+use App\Models\Log;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AbsenceController extends Controller{
@@ -26,10 +28,11 @@ class AbsenceController extends Controller{
         $absence->type = $request->input('type');
         $absence->begin = $request->input('begin');
         $absence->end = $request->input('end');
-        $absence->requested_date = date('d-m-Y');
+        $absence->requested_date = Carbon::now('America/La_Paz')->toDateString();
         $absence->status = Absence::$REQUESTED;
         $absence->employee_id = auth()->user()->employee()->id;
         $absence->save();
+        Log::new(Log::$CREATED, 'Solicitó la ausencia con id '.$absence->id);
         return redirect()->route('absences.index')->with('success', 'Ausencia solicitada correctamente');
     }
 
@@ -61,21 +64,24 @@ class AbsenceController extends Controller{
         $absence->type = $request->input('type');
         $absence->begin = $request->input('begin');
         $absence->end = $request->input('end');
-        $absence->requested_date = date('d-m-Y');
+        $absence->requested_date = Carbon::now('America/La_Paz')->toDateString();
         $absence->status = Absence::$REQUESTED;
         $absence->employee_id = auth()->user()->employee()->id;
         $absence->save();
+        Log::new(Log::$EDITED, 'Editó la ausencia con id '.$absence->id);
         return redirect()->route('absences.index')->with('success', 'Ausencia actualizada correctamente');
     }
 
 
     public function destroy(Absence $absence){
         try{
+            $id = $absence->id;
             Absence::findOrFail($absence->id);
             Absence::destroy([$absence->id]);
         }catch (\Exception $e){
             return redirect()->route('absences.index')->with('failed', 'La ausencia solicitada no existe');
         }
+        Log::new(Log::$DELETED, 'Eliminó la ausencia con id '.$id);
         return redirect()->route('absences.index')->with('success', 'Ausencia eliminada correctamente');
     }
 }

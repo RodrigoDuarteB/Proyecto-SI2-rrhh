@@ -63,7 +63,8 @@ Route::middleware(['auth'])->group(function (){
 
 //RUTA para pruebas
 Route::get('/test', function (){
-    return \Carbon\Carbon::now('America/La_Paz')->toDateTimeString();
+    $emloyee = \App\Models\Employee::find(3);
+    return $emloyee->currentContract();
 });
 
 

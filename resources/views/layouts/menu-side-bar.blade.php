@@ -10,14 +10,16 @@
                 </div>
 
                 <div class="clearfix"></div>
-
+                @php
+                    $user = auth()->user();
+                @endphp
                 <!-- menu profile quick info -->
                 <div class="profile clearfix" style="margin-bottom: 25px;">
                     <div class="profile_pic">
-                        <img src="{{ asset('assets/img/dogs/image3.jpeg') }}" width="60" height="60" alt="..." class="img-circle profile_img">
+                        <img src="{{ $user->employee == null ? asset('storage/images/employees/user.png') : asset('storage/images/employees/'.$user->employee->image_name) }}" width="60" height="60" alt="..." class="img-circle profile_img">
                     </div>
                     <div class="profile_info">
-                        <span>Bienvenido,</span>
+                        <span>Bienvenido !<br>{{ ''.$user->name }}</span>
                         <h2></h2>
                     </div>
                 </div>

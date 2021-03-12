@@ -16,12 +16,41 @@ class PermissionSeeder extends Seeder
         Permission::create([
            'name' => 'Gestionar Usuarios'
         ]);
+
+        //Gestionar Personal
         Permission::create([
             'name' => 'Gestionar Personal'
         ]);
         Permission::create([
+            'name' => 'Listar Personal'
+        ]);
+        Permission::create([
+            'name' => 'Crear Personal'
+        ]);
+        Permission::create([
+            'name' => 'Editar Personal'
+        ]);
+        Permission::create([
+            'name' => 'Eliminar Personal'
+        ]);
+
+        //Gestionar Ordenes
+        Permission::create([
             'name' => 'Gestionar Ordenes'
         ]);
+        Permission::create([
+            'name' => 'Listar Ordenes'
+        ]);
+        Permission::create([
+            'name' => 'Crear Ordenes'
+        ]);
+        Permission::create([
+            'name' => 'Editar Ordenes'
+        ]);
+        Permission::create([
+            'name' => 'Eliminar Ordenes'
+        ]);
+
         Permission::create([
             'name' => 'Gestionar Departamentos'
         ]);

@@ -82,7 +82,7 @@
                                     </li>
                                     <li>
                                         @canany(['Gestionar Cargos'])
-                                            <a href="#">&gt; Gestionar Cargos</a>
+                                            <a href="{{ route('jobs.index') }}">&gt; Gestionar Cargos</a>
                                         @endcanany
                                     </li>
                                     <li>

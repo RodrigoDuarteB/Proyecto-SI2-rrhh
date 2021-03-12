@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Schedule;
+use App\Models\Log;
 use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
@@ -49,6 +50,9 @@ class ScheduleController extends Controller
             return redirect('/schedules/create')->with('failed', 'Horario con el Nombre: "' . $request->input('name') . '" ya existe');
 
         }
+
+        Log::new(Log::$CREATED, 'Creó el Horario con id '.$schedule->id.' nombre: '.$schedule->name);
+
         return redirect('/schedules')->with('success', 'Horario Creado Correctamente.');
 
     }
@@ -102,6 +106,7 @@ class ScheduleController extends Controller
             $schedule->clock_out = $request->input('clock_out');
             $schedule->save();
 
+            Log::new(Log::$EDITED, 'Editó el Horario con id '.$schedule->id.' nombre: '.$schedule->name);
         return redirect('/schedules')->with('success', 'Horario Actualizado Correctamente.');
 
     }
@@ -113,9 +118,13 @@ class ScheduleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Schedule $schedule)
-    {
+    {   
+        $scheduleID = $schedule->id;
+        $scheduleName = $schedule->name;
         $schedule = Schedule::find($schedule->id);
         $schedule->delete();
+
+        Log::new(Log::$DELETED, 'Eliminó el Horario con id '.$scheduleID.' nombre: '.$scheduleName);
 
         return redirect('/schedules')->with('status', 'Horario Creado Correctamente.');
     }

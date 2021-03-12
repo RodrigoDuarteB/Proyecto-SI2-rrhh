@@ -42,7 +42,9 @@
                                                         </div>
 
                                                         <div class="form-group  text-right">
-                                                            <a class="btn btn-primary stretched-link"
+                                                            <a class="btn btn-danger "  href="/departments/">Volver</a>
+
+                                                            <a class="btn btn-primary"
                                                                 href="/departments/{{ $department->id }}/edit">Editar
                                                                 Departamento</a>
                                                         </div>

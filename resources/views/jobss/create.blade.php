@@ -1,40 +1,118 @@
-@extends('layouts.app')
+@extends("layouts.app")
+
+@section('title', 'Create - Cargos')
+
+
 @section('content')
-<div class="container-fluid">
-    <h3 class="text-dark mb-1" style="padding-bottom: 17px;"><strong>Cargos</strong><br></h3>
-    <div class="card shadow mb-3">
-        <div class="card-header py-3">
-            <p class="text-primary m-0 font-weight-bold">Crear Nuevo Cargo</p>
+    @include('layouts.session-messages')
+
+    @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
         </div>
-        <div class="card-body">
-            <div class="form-row">
-                <div class="col">
-                    <div class="form-group" style="margin-bottom: 31px;margin-left: 10px;"><label><strong>Nombre
-                                :</strong><br></label><input type="text" name="name" value="name"
-                            style="margin-left: 25px;width: 290px;"></div>
-                    <div class="form-group" style="margin-top: 33px;margin-bottom: 46px;"><label><strong>Descripción
-                                :</strong><br></label><textarea
-                            style="margin-bottom: -35px;margin-left: 10px;width: 290px;" name="description"></textarea>
+    @endif
+
+    <div class="x_panel mt-5">
+
+        <h3 class="text-dark mt-3">Crear Nuevo Cargo</h3>
+        <div class="row mt-3">
+            <div class="col-md-9 col-sm-6 float-center" style="padding-top: 0px;margin-top: 0px;margin-bottom: 0px;">
+                <div class="card shadow mb-3">
+                    <div class="card-header py-3">
+                        <p class="text-primary m-0 font-weight-bold">Datos del Nuevo Cargo</p>
                     </div>
-                    <div class="form-group" style="margin-bottom: 30px;"><label><strong>Salario Base
-                                :</strong><br></label><input type="text" name="base_salary" value="salario base"
-                            style="margin-left: 25px;width: 266px;"></div>
-                    <div class="form-group"><label for="last_name"><strong>Departamento :</strong><br></label><select
-                            class="form-control" id="exampleSelect-2" style="min-width: 0px|;width: 50%;">
-                            <option value="">Tipo1</option>
-                            <option value="">Tipo2</option>
-                            <option value="">Tipo3</option>
-                        </select></div>
+                    <div class="card-body">
+                        <form id="form-solicitud" data-parsley-validate class="form-horizontal form-label-left"
+                            method="POST" action="/jobs">
+                            @csrf
+
+                            <div class="col">
+                                <div class="item form-group">
+                                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="name">Nombre del Cargo
+                                        de Trabajo<span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 ">
+                                        <input type="text" id="name" name="name" required="required" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="col-form-label col-md-3 col-sm-3 label-align"
+                                        for="description">Descripción del Cargo
+                                        de Trabajo<span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 ">
+                                        <input type="text" id="description" name="description" required="required"
+                                            class="form-control">
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="description">Salario
+                                        Base<span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 ">
+                                        <input type="number" id="base_salary" name="base_salary" required="required"
+                                            class="form-control">
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="description">Departmaneto Perteneciente<span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 ">
+                                    <select name="department_id" id="department_id" class="form-control" 
+                                        onchange="carg2(this);">
+                                        <option value="0">Sin Asignar</option>
+                                        @foreach ($departments as $department)
+
+                                            <option value="{{ $department->id }}">
+                                                {{ $department->name }}
+                                            </option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="/jobs" class="btn btn-danger" data-dismiss="modal"
+                                        type="button">Cancelar</a>
+                                    <button class="btn btn-success" type="reset">Reset</button>
+                                    <button class="btn btn-primary" type="submit">Crear</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div class="col"></div>
-            </div>
-            <div class="row justify-content-center h-100" style="margin-top: 13px;padding-top: 40px;">
-                <div class="col-sm-8 align-self-center text-center"><button class="btn btn-success" type="submit"
-                        style="margin-right: 77px;width: 95px;">Crear</button><a class="btn btn-danger" role="button"
-                        href="contracts.edit.html">Cancelar</a></div>
             </div>
         </div>
     </div>
-</div>
 
+    <script>
+        var input = document.getElementById('employee_id_2');
+        var input2 = document.getElementById('employee_id_3');
+
+        function carg(elemento) {
+            d = elemento.value;
+
+            if (d == "0") {
+                input.disabled = true;
+                input2.disabled = true;
+                input.value = '0';
+                input2.value = '0';
+            } else {
+                input.disabled = false;
+            }
+        }
+
+
+        function carg2(elemento) {
+            d = elemento.value;
+
+            if (d == "0") {
+                input2.disabled = true;
+                input2.value = '0';
+            } else {
+                input2.disabled = false;
+            }
+        }
+
+    </script>
 @endsection

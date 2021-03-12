@@ -170,6 +170,8 @@ class OrderController extends Controller
         if($order->title != $request->input('title')){
             if(!count($searchfirst) < 1){ 
                 return redirect()->route('orders.edit', $order)->with('failed','Orden con el titulo: "'.$request->input('title').'" ya existe');
+            }else{
+                $order->title = $request->input('title');
             }
         }else{ 
             $order->title = $request->input('title');

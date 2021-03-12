@@ -54,6 +54,26 @@ class EmployeesTableSeeder extends Seeder
                 'created_at'        => date('d-m-Y'),
                 'status'            => 1,
                 'user_id'           => 2
+            ],
+            [
+                'name'              => 'Mario',
+                'last_name'         => 'Castañeda',
+                'work_phone'        => '68445467',
+                'personal_phone'    => '66555577',
+                'image_name'        => 'mario.jpg',
+                'sex'               => 'Mujer',
+                'ID_number'         => 'E003',
+                'address'           => 'Las Palmas 18',
+                'nationality'       => 'Bolviana',
+                'passport'          => 'PS2220255550201',
+                'birthdate'         => '1985-08-11',
+                'birthplace'        => 'Santa Cruz',
+                'marital_status'    => 'Soltero',
+                'children'          => 2,
+                'emergency_contact' => '66461548',
+                'created_at'        => date('d-m-Y'),
+                'status'            => 1,
+                'user_id'           => 3
             ]
 
         ]);

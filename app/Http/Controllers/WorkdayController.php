@@ -4,22 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Models\Workday;
 use App\Models\Employee;
+use App\Models\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class WorkdayController extends Controller
 {
-
     public function addWorkdayFromMobile(Request $request){
+
+
         $employee = auth()->user()->employee;
         $data["date"]       = $this->getFormatedDate();
         $data["clock_in"]   = $this->getFormatedTime();
         $data["latitude"]   = $request->latitude;
         $data["longitude"]  = $request->longitude;
-        $data["status"]     = $this->getWorkdayStatus($employee, $data["date"], $data["clock_in"]);
-        $data["employee_id"]= $request->employee_id;
+        $data["status"]     = $this->setWorkdayStatus($employee, $data["date"], $data["clock_in"]);
+        $data["employee_id"]= $employee->id;
 
         Workday::insert($data);
+
         $data["id"]         = 1;
         $data["clock_out"]  = null;
         $data["user_id"]= 1;
@@ -28,17 +31,46 @@ class WorkdayController extends Controller
     }
 
     public function setWorkdayFromMobile(Request $request){
-        $date                   = $this->getFormatedDate();
-        $data["clock_out"]      = $this->getFormatedTime();
+        $date               = $this->getFormatedDate();
+        $data["clock_out"]  = $this->getFormatedTime();
+        $employee = auth()->user()->employee;
         Workday::where([
-            ['employee_id','=',$request->employee_id],
+            ['employee_id','=',$employee->id],
             ['date', '=', $date]
         ])->update($data);
-        //return redirect('workdays'.$request->input('employee_id'))->with('Mensaje','Hora de salida marcada satisfactoriamente.');
         return $data;
     }
 
-    public function getWorkdayStatus(Employee $employee, $date, $clock_in_registered){
+    public function getWorkday($date){
+        $employee = auth()->user()->employee;
+        $workdays = Workday::where([
+            ['employee_id', '=', $employee->id],
+            ['date', '=', $date]
+        ])->orderBy('id', 'ASC')->get();
+
+        return $workdays;
+    }
+
+    public function verifyWorkdayRegistered(){
+        $date     = $this->getFormatedDate();
+        $employee = auth()->user()->employee;
+        $registered = false;
+        $workday = Workday::where([
+            ['employee_id', '=', $employee->id],
+            ['date', '=', $date]
+        ])->first();
+
+        $employee = auth()->user()->employee;
+
+        if ($workday === null) {
+            $registered = false;
+        } else {
+            $registered = true;
+        }
+        return $registered;
+    }
+
+    public function setWorkdayStatus(Employee $employee, $date, $clock_in_registered){
         $clock_in_schedule = $employee->currentContract()->planning->schedule->clock_in;
         $entry_time     = strtotime($date ." ". $clock_in_schedule);
         $datetime_in    = strtotime($date ." ". $clock_in_registered);
@@ -77,8 +109,45 @@ class WorkdayController extends Controller
      */
     public function index()
     {
-        $datos['workdays'] = Workday::paginate();
-		return view('workdays.index', $datos);
+        //$datos['workdays'] = Workday::paginate();
+        //return view('workdays.index', $workdays);
+        $employee = auth()->user()->employee;
+        $user = auth()->user();
+        $workdays = null;
+        if($user->type == 3) {
+            $data['workdays'] = Workday::select(
+                'workdays.id',
+                'workdays.date',
+                'workdays.clock_in',
+                'workdays.clock_out',
+                'workdays.latitude',
+                'workdays.longitude',
+                'workdays.status',
+                'employees.name'
+                )
+                ->leftjoin('employees', 'workdays.employee_id', '=', 'employees.id')
+                ->get();
+                $workdays = $data['workdays'];
+        }
+
+        if($user->type == 1 || $user->type == 2){
+            $data['workdays'] = Workday::select(
+                'workdays.id',
+                'workdays.date',
+                'workdays.clock_in',
+                'workdays.clock_out',
+                'workdays.latitude',
+                'workdays.longitude',
+                'workdays.status',
+                'employees.name'
+                )
+                ->leftjoin('employees', 'workdays.employee_id', '=', 'employees.id')
+                ->where('employee_id', '=' , $employee->id)
+                ->get();
+                $workdays = $data['workdays'];
+        }
+
+        return \view('workdays.index', compact('workdays', 'employee'));
     }
 
 
@@ -89,7 +158,9 @@ class WorkdayController extends Controller
      */
     public function create()
     {
-        return view('workdays.create');
+        $employee = auth()->user()->employee;
+        $registered = $this->verifyWorkdayRegistered();
+        return view('workdays.create', compact('employee', 'registered'));
     }
 
     /**
@@ -100,10 +171,13 @@ class WorkdayController extends Controller
      */
     public function store(Request $request)
     {
-        $data = request()->except('_token');
-        Workday::insert($data);
-        $this->addWorkdayFromMobile($request);
-        return redirect('workdays')->with('Mensaje','Su asistencia fue registrada satisfactoriamente.');
+        if($this->verifyWorkdayRegistered()){
+            $this->setWorkdayFromMobile($request);
+            return redirect()->route('workdays.index')->with('success', 'Salida registrada satisfactoriamente.');
+        } else {
+            $this->addWorkdayFromMobile($request);
+            return redirect()->route('workdays.index')->with('success', 'Asistencia registrada satisfactoriamente.');
+        }
     }
 
     /**
@@ -114,7 +188,8 @@ class WorkdayController extends Controller
      */
     public function show(Workday $workday)
     {
-        //
+        $employee = auth()->user()->employee;
+        return \view('workdays.show', compact('workdays', 'employee'));
     }
 
     /**
@@ -148,6 +223,14 @@ class WorkdayController extends Controller
      */
     public function destroy(Workday $workday)
     {
-        //
+        try {
+            $id = $workday->id;
+            Workday::findOrFail($workday->id);
+            Workday::destroy([$workday->id]);
+        }catch (\Exception $e){
+            return redirect()->route('workdays.index')->with('failed', 'El Rol que intentó eliminar no existe');
+        }
+        Log::new(Log::$DELETED, 'Eliminó la asistencia con el id '.$id);
+        return redirect()->route('workdays.index')->with('success', 'Asistencia eliminada correctamente');
     }
 }

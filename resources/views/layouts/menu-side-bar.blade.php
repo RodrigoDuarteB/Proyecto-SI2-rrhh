@@ -56,7 +56,7 @@
                                     </li>
                                     <li>
                                         @canany(['Gestionar Asistencias'])
-                                            <a href="{{ route('workdays')}}">&gt; Administrar<br>&nbsp;
+                                            <a href="{{ route('workdays.index')}}">&gt; Administrar<br>&nbsp;
                                                 &nbsp;Asistencias</a>
                                         @endcanany
                                     </li>

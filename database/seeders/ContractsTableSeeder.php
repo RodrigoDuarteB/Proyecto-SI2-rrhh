@@ -35,6 +35,26 @@ class ContractsTableSeeder extends Seeder
                 'employee_id'   => 1,
                 'job_id'        => 2,
                 'planning_id'   => 2
+            ],
+            [
+                'name'          => 'Contrato Mobile Developer 2020',
+                'description'   => 'Contrato con opción de trabajo remoto',
+                'initial_date'  => '2020-03-24',
+                'final_date'    => '2022-03-24',
+                'status'        => Contract::$ACTIVE,
+                'employee_id'   => 2,
+                'job_id'        => 2,
+                'planning_id'   => 2
+            ],
+            [
+                'name'          => 'Administrador de Recursos Humanos',
+                'description'   => 'Contrato con opción de trabajo remoto',
+                'initial_date'  => '2020-03-24',
+                'final_date'    => '2024-03-24',
+                'status'        => Contract::$ACTIVE,
+                'employee_id'   => 3,
+                'job_id'        => 2,
+                'planning_id'   => 2
             ]
         ]);
     }

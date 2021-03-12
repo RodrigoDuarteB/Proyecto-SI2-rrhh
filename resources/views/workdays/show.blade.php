@@ -12,7 +12,7 @@
         </div>
     @endif
     <div class="x_panel mt-5">
-        <a class="btn btn-primary mb-3 float-right" type="button" href="{{ route('workdays.create') }}">Marcar Entrada/Salida</a>
+        <a class="btn btn-primary mb-3 float-right" type="button" href="{{ route('workdays.create') }}">Registrar Asistencia</a>
         <h2>Asistencias</h2>
         <div class="table-responsive">
             <table id="tablepro" class="table table-bordered table-hover" style="width:100%">
@@ -60,10 +60,13 @@
                                         {{ 'Sin registrar' }}
                                 @endswitch
                             </td>
-                            <td>{{ $data->name }}</td>
+                            <td>{{ $employee->name }}</td>
                             <td>
                                 <div class="text-center">
                                     <form action="{{ route('workdays.destroy', $data->id) }}" method="POST">
+                                        <a href="workdays/{{ $data->id }}/edit" class="btn btn-success"
+                                            style="margin-left: 5px;" type="submit"><i class="fa fa-pencil"
+                                                style="font-size: 15px;"></i></a>
                                         @csrf
                                         @method('DELETE')
                                         <button class="btn btn-danger" style="margin-left: 5px;" type="submit">

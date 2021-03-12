@@ -34,7 +34,7 @@
                                                 <div class="form-group row">
 
                                                     <label style="color: #2196F3" class="col-sm-2 col-form-label "
-                                                        for="first_name"><strong>DESCIPCION:</strong><br></label>
+                                                        for="first_name"><strong>Descripción:</strong><br></label>
                                                     <div class="col-sm-9 mt-2">
                                                         <label
                                                             for="ID_employed"><strong>{{ $job->description }}</strong><br></label>

@@ -16,13 +16,9 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\LogController;
-<<<<<<< Updated upstream
 use App\Http\Controllers\WorkdayController;
-
-
-=======
 use App\Http\Controllers\SalaryController;
->>>>>>> Stashed changes
+
 
 /*
 |--------------------------------------------------------------------------
@@ -78,14 +74,12 @@ Route::middleware(['auth'])->group(function (){
 <<<<<<< Updated upstream
     Route::get('/workdays/{workday}', 'App\Http\Controllers\WorkdayController@update')->name('workdays.update');*/
     Route::resource('workdays', WorkdayController::class)->names('workdays');
-=======
     Route::get('/workdays/{workday}', 'App\Http\Controllers\WorkdayController@update')->name('workdays.update');
 
     //salarios
     Route::get('salaries/discounts', [SalaryController::class, 'discounts'])->name('salaries.discounts');
     Route::get('salaries/extras', [SalaryController::class, 'extras'])->name('salaries.extras');
     Route::get('salaries/liquid', [SalaryController::class, 'liquid'])->name('salaries.liquid');
->>>>>>> Stashed changes
 });
 
 

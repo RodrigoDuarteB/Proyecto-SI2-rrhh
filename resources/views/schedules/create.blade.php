@@ -52,7 +52,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <a href="/shcedules" class="btn btn-danger" data-dismiss="modal" type="button">Cancelar</a>
+                                <a href="/schedules" class="btn btn-danger" data-dismiss="modal" type="button">Cancelar</a>
                                 <button class="btn btn-success" type="reset">Reset</button>
                                 <button class="btn btn-primary" type="submit">Crear</button>
                             </div>

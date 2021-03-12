@@ -6,6 +6,7 @@ use App\Http\Requests\DepartmentRequest;
 use App\Models\Department;
 use App\Models\Employee;
 use App\Models\Job;
+use App\Models\Log;
 use Illuminate\Http\Request;
 use Illuminate\Queue\Events\JobProcessed;
 
@@ -63,6 +64,8 @@ class DepartmentController extends Controller
             return redirect()->route('departments.create')->with('failed', 'Departamento '
                 . $request->input('name') . ' ya existe');
         }
+
+        Log::new(Log::$CREATED, 'Creo el Departamento con id '.$department->id.' nombre: '.$department->name);
 
         return redirect('/departments')->with('status', 'Departamento Creado Correctamente.');
     }
@@ -145,6 +148,7 @@ class DepartmentController extends Controller
         }
 
         $department->save();
+        Log::new(Log::$EDITED, 'Actualizó el Departamento con id '.$department->id);
 
         return redirect('/departments')->with('status', 'Departamento Actualizado Correctamente.');
     }
@@ -158,8 +162,12 @@ class DepartmentController extends Controller
      */
     public function destroy(Department $department)
     {
+        $departmentID = $department->id;
+        $departmentName = $department->name;
         $department = Department::find($department->id);
         $department->delete();
+
+        Log::new(Log::$CREATED, 'Actualizó el Departamento  con id '.$departmentID. ' Nombre: ' .$departmentName);
 
         return redirect('/departments')->with('status', 'Departamento Eliminado Correctamente.');
     }

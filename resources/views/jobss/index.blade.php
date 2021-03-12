@@ -50,14 +50,17 @@
 
 
                             <tr>
-                                <td>{{ $job->id}}</td>
-                                <td>{{ $job->name}}</td>
+                                <td>{{ $job->id }}</td>
+                                <td>{{ $job->name }}</td>
                                 <td>{{ $job->base_salary }}</td>
                                 <td>
                                     <div class="text-center">
                                         <form action="{{ route('jobs.destroy', $job->id) }}" method="POST">
                                             <a href="/jobs/{{ $job->id }}/edit" class="btn btn-success"
                                                 style="margin-left: 5px;" type="submit"><i class="fa fa-pencil"
+                                                    style="font-size: 15px;"></i></a>
+                                            <a class="btn btn-primary" style="margin-left: 5px;"
+                                                href="/jobs/{{ $job->id }}"><i class="fa fa-eye"
                                                     style="font-size: 15px;"></i></a>
                                             @csrf
                                             @method('DELETE')

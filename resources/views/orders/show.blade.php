@@ -76,6 +76,7 @@
                                                     @endif
                                                 </div>
                                                 <div class="form-group  text-right">
+                                                    <a class="btn btn-danger "  href="/orders/">Volver</a>
                                                     <a  class="btn btn-success " href="{{route('ordencomplete.complete', [$orders->id]) }}">Completar Orden</a>
                                                     <a  class="btn btn-primary " href="/orders/{{$orders->id}}/edit">Editar Orden</a>
                                                 </div>

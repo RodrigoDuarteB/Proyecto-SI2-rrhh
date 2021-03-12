@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\OrderRequest;
 use App\Models\Order;
 use App\Models\Employee;
+use App\Models\Log;
 use App\Models\OrderEmployees;
 use Illuminate\Http\Request;
 
@@ -95,6 +96,8 @@ class OrderController extends Controller
         } else {
             return redirect('/orders/create')->with('failed', 'Orden con el titulo: "' . $request->input('title') . '" ya existe');
         }
+        
+        Log::new(Log::$CREATED, 'Creó la Orden de trabajo con id '.$order->id);
 
         return redirect('/orders')->with('success', 'Orden Creada Correctamente.');
 
@@ -145,6 +148,7 @@ class OrderController extends Controller
                 $employee->acomplished = true;
                 $employee->save();
             }
+            Log::new(Log::$CREATED, 'Creó el contrato con id '.$order->id.' para empleado con id ');
             return redirect()->route('orders.show', $order)->with('success', 'Orden marcada como completada!!!');
         } else {
             return redirect()->route('orders.show', $order)->with('failed', 'La orden no puede marcarse como Completa sin Personal Asignado');
@@ -303,6 +307,8 @@ class OrderController extends Controller
 
        $order->save();
 
+       Log::new(Log::$EDITED, 'Actualizó la Orden de trabajo con id '.$order->id);
+
         return redirect('/orders')->with('status', 'Orden Actualizada Correctamente.');
         // } catch (\Exception $e) {
         //      return redirect()->route('orders.index')->with('info', 'Ocurrió un error al intentar Actualizar la Orden de Trabajo');
@@ -319,11 +325,16 @@ class OrderController extends Controller
     {
         //try {
         $order = Order::find($order->id);
+        $orderID = $order->id;
         $order_employee = OrderEmployees::where('order_id', '=', $order->id)->get();
         foreach ($order_employee as $order_employee) {
             $order_employee->delete();
         }
+        
+        
         $order->delete();
+        
+        Log::new(Log::$DELETED, 'Eliminó la Orden de trabajo con id '.$orderID);
         return redirect('/orders')->with('status', 'Orden Eliminada Correctamente.');
 
         //} catch (\Exception $e) {

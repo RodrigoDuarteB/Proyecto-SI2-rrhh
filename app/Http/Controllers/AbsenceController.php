@@ -25,12 +25,27 @@ class AbsenceController extends Controller{
         $absence = new Absence();
         $absence->title = $request->input('title');
         $absence->reason = $request->input('reason');
-        $absence->type = $request->input('type');
+        switch ($request->input('type')){
+            case 1:
+                $absence->type = Absence::$VACATION;
+                break;
+            case 2:
+                $absence->type = Absence::$SICKNESS;
+                break;
+            case 3:
+                $absence->type = Absence::$TRAVEL;
+                break;
+            case 4:
+                $absence->type = Absence::$OTHER;
+                break;
+            default:
+                $absence->type = Absence::$OTHER;
+        }
         $absence->begin = $request->input('begin');
         $absence->end = $request->input('end');
         $absence->requested_date = Carbon::now('America/La_Paz')->toDateString();
         $absence->status = Absence::$REQUESTED;
-        $absence->employee_id = auth()->user()->employee()->id;
+        $absence->employee_id = auth()->user()->employee->id;
         $absence->save();
         Log::new(Log::$CREATED, 'Solicitó la ausencia con id '.$absence->id);
         return redirect()->route('absences.index')->with('success', 'Ausencia solicitada correctamente');

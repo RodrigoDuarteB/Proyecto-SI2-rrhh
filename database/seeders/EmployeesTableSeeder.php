@@ -20,7 +20,7 @@ class EmployeesTableSeeder extends Seeder
                 'last_name'         => 'Estefan',
                 'work_phone'        => '66345467',
                 'personal_phone'    => '66345467',
-                'image_name'        => 'selena906090.jpg',
+                'image_name'        => 'user.png',
                 'sex'               => 'Mujer',
                 'ID_number'         => 'E001',
                 'address'           => 'Las Lomas 17',

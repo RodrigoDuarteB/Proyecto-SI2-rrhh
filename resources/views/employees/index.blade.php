@@ -1,5 +1,7 @@
 @extends('layouts.app')
+@section('title', 'Empleados')
     @section('content')
+        @include('layouts.session-messages')
         @php
             $user = auth()->user();
             $employee = $user->employee;
@@ -80,7 +82,6 @@
         @endif
         @canany(['Listar Personal', 'Crear Personal', 'Editar Personal', 'Eliminar Personal'])
             <h1>Empleados</h1>
-            @include('layouts.session-messages')
             @canany(['Crear Personal'])
                 <a class="btn btn-primary mb-3 ml-2 mt-2" type="button"
                    href="{{ route('employees.create') }}">Nuevo Empleado</a>

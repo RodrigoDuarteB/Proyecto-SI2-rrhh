@@ -275,7 +275,7 @@ class EmployeeController extends Controller{
         if($request->hasFile('image_name')){
             $image = $request->file('image_name');
             $name = time().$image->getClientOriginalName();
-            $image->move(public_path().'storage/images/employees/'.$name);
+            $image->move(public_path('storage/images/employees'), $name);
             $employee->image_name = $name;
         }
         //Edita su usuario

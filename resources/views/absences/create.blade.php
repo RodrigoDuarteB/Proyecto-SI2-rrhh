@@ -26,9 +26,10 @@
                                     <strong>Tipo de Solicitud:</strong><br></label>
                                 <select class="form-control" id="exampleSelect-2" style="min-width: 0px|;" name="type">
                                     <option disabled selected value="">Elija una Opcion</option>
-                                    <option value="1">Tipo1</option>
-                                    <option value="2">Tipo2</option>
-                                    <option value="3">Tipo3</option>
+                                    <option value="1">Vacaciones</option>
+                                    <option value="2">Enfermedad</option>
+                                    <option value="3">Viaje</option>
+                                    <option value="4">Otro</option>
                                 </select>
                             </div>
                         </div>

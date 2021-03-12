@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', 'Carreras Administrativas')
     @section('content')
         <h1>Carreras Administrativas</h1>
         @include('layouts.session-messages')

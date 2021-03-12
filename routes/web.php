@@ -18,6 +18,8 @@ use App\Http\Controllers\JobController;
 use Spatie\Permission\Models\Permission;
 use App\Http\Controllers\LogController;
 
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -45,6 +47,7 @@ Route::middleware(['auth'])->group(function (){
     Route::resource('schedules', ScheduleController::class)->names('schedules');
     Route::resource('jobs', JobController::class)->names('jobs');
     Route::resource('logs', LogController::class)->only(['index'])->names('logs')->middleware('password.confirm');
+
 
     // carreras administrativas
     Route::resource('administrative-careers', AdministrativeCareerController::class)->names('administrative-careers')->only('index');

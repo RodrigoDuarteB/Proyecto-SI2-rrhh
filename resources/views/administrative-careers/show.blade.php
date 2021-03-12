@@ -97,7 +97,7 @@
                 <p class="text-primary m-0 font-weight-bold">Contratos Pasados<br></p>
             </div>
             <div class="card-body">
-                @forelse($employee->contracts as $contract)
+                @forelse($employee->contracts->where('id', '!=', $currentContract->id) as $contract)
                     <div class="form-row">
                         <div class="col">
                             <div class="form-group" style="margin-bottom: 30px;">

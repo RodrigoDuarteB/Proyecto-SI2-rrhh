@@ -119,6 +119,9 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/laravel/ui" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/laravel/breeze" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/elgibor-solution/laravel-database-encryption" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/lcobucci/jwt" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/tymon/jwt-auth" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/namshi/jose" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

@@ -11,6 +11,24 @@ use Illuminate\Support\Facades\Auth;
 class WorkdayController extends Controller
 {
     public function addWorkdayFromMobile(Request $request){
+        $data["date"]       = $this->getFormatedDate();
+        $data["clock_in"]   = $this->getFormatedTime();
+        $data["latitude"]   = $request->latitude;
+        $data["longitude"]  = $request->longitude;
+        $data["status"]     = null;
+
+        $data["employee_id"]= $request->employee_id;
+
+        Workday::insert($data);
+
+        $data["id"]         = 1;
+        $data["clock_out"]  = null;
+        $data["user_id"]= 1;
+        //return ["Response"=>"Su asistencia fue registrada satisfactoriamente". $now->format('d-m-Y H:i:s')];
+        return $data;
+    }
+
+    public function addWorkdayFromWeb(Request $request){
 
 
         $employee = auth()->user()->employee;
@@ -19,7 +37,8 @@ class WorkdayController extends Controller
         $data["latitude"]   = $request->latitude;
         $data["longitude"]  = $request->longitude;
         $data["status"]     = $this->setWorkdayStatus($employee, $data["date"], $data["clock_in"]);
-        $data["employee_id"]= $employee->id;
+
+        $data["employee_id"]= isset($request->employee_id) ? $request->employee_id : $employee->id;
 
         Workday::insert($data);
 
@@ -31,6 +50,16 @@ class WorkdayController extends Controller
     }
 
     public function setWorkdayFromMobile(Request $request){
+        $date               = $this->getFormatedDate();
+        $data["clock_out"]  = $this->getFormatedTime();
+        Workday::where([
+            ['employee_id','=',$request->employee_id],
+            ['date', '=', $date]
+        ])->update($data);
+        return $data;
+    }
+
+    public function setWorkdayFromWeb(Request $request){
         $date               = $this->getFormatedDate();
         $data["clock_out"]  = $this->getFormatedTime();
         $employee = auth()->user()->employee;
@@ -176,7 +205,7 @@ class WorkdayController extends Controller
             $this->setWorkdayFromMobile($request);
             return redirect()->route('workdays.index')->with('success', 'Salida registrada satisfactoriamente.');
         } else {
-            $this->addWorkdayFromMobile($request);
+            $this->addWorkdayFromWeb($request);
             return redirect()->route('workdays.index')->with('success', 'Asistencia registrada satisfactoriamente.');
         }
     }

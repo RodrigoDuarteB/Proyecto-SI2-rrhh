@@ -45,24 +45,24 @@ class DepartmentController extends Controller
 
         $validated = $request->validated();
         $searchFirst = Department::where('name', '=', $request->input('name'))->get();
-        if(count($searchFirst) < 1){
-        $department = new Department();
-        $department->name = $request->input('name');
-        $department->description = $request->input('description');
+        if (count($searchFirst) < 1) {
+            $department = new Department();
+            $department->name = $request->input('name');
+            $department->description = $request->input('description');
 
-        if ($request->input('employee_id') != Null) {
-            $department->employee_id = $request->input('employee_id');
+            if ($request->input('employee_id') != Null) {
+                $department->employee_id = $request->input('employee_id');
+            }
+
+            if ($request->input('parent_id') != Null) {
+                $department->parent_id = $request->input('parent_id');
+            }
+
+            $department->save();
+        } else {
+            return redirect()->route('departments.create')->with('failed', 'Departamento '
+                . $request->input('name') . ' ya existe');
         }
-
-        if ($request->input('parent_id') != Null) {
-            $department->parent_id = $request->input('parent_id');
-        }
-
-        $department->save();
-    }else{
-        return redirect()->route('departments.create')->with('failed', 'Departamento '
-        .$request->input('name').' ya existe');
-    }
 
         return redirect('/departments')->with('status', 'Departamento Creado Correctamente.');
     }
@@ -76,8 +76,8 @@ class DepartmentController extends Controller
     public function show(Department $department)
     {
         $department = Department::with('manager')->find($department->id);
-        $employees = Department::with('jobs')->where('id','=', $department->id)->get();
-        return view('departments.show', compact('department','employees'));
+        $employees = Department::with('jobs')->where('id', '=', $department->id)->get();
+        return view('departments.show', compact('department', 'employees'));
     }
 
     /**
@@ -89,7 +89,7 @@ class DepartmentController extends Controller
     public function edit(Department $department)
     {
         $department = Department::with('manager')->find($department->id);
-        $departments = Department::where('id','!=',$department->id)->get();
+        $departments = Department::where('id', '!=', $department->id)->get();
         $cargos = Employee::all();
         return view('departments.edit', compact('cargos', 'departments'))->with('department', $department);
     }
@@ -104,18 +104,29 @@ class DepartmentController extends Controller
     public function update(DepartmentRequest $request, Department $department)
     {
         $validated = $request->validated();
-
+        
         $searchfirst = Department::where('name', '=', $request->input('name'))->get();
-        if(count($searchfirst) < 1){ 
-        $department =Department::find($department->id);
-        $department->name = $request->input('name');
+        $department = Department::find($department->id);
+
+        if ($department->name != $request->input('name')) {
+            if (!count($searchfirst) < 1) {
+
+                return redirect()->route('departments.edit', $department)->with('failed', 'Departamento ' . $request->input('name') . ' ya existe');
+            } else {
+
+                $department->name = $request->input('name');
+            }
+        } else {
+            $department->name = $request->input('name');
+        }
+
         $department->description = $request->input('description');
 
 
         if ($request->input('employee_id') != Null) {
-            if (($request ->input('employee_id')) == 'delete') {
+            if (($request->input('employee_id')) == 'delete') {
                 $department->employee_id = null;
-            }else{
+            } else {
 
                 $department->employee_id = $request->input('employee_id');
             }
@@ -127,18 +138,13 @@ class DepartmentController extends Controller
         if ($request->input('parent_id') != Null) {
             if (($request->input('parent_id')) == 'delete') {
                 $department->parent_id = null;
-            }else{
+            } else {
 
                 $department->parent_id = $request->input('parent_id');
             }
         }
 
         $department->save();
-
-    }else{
-        return redirect()->route('departments.create', $department)->with('failed', 'Departamento '
-        .$request->input('name').' ya existe');
-    }
 
         return redirect('/departments')->with('status', 'Departamento Actualizado Correctamente.');
     }

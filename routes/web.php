@@ -13,6 +13,8 @@ use App\Http\Controllers\PlanningController;
 use App\Http\Controllers\AdministrativeCareerController;
 use App\Http\Controllers\AbsenceController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\JobController;
 use Spatie\Permission\Models\Permission;
 
 /*
@@ -39,6 +41,8 @@ Route::middleware(['auth'])->group(function (){
     Route::resource('absences', AbsenceController::class)->names('absences');
     Route::resource('reports', ReportController::class)->names('reports')->only(['index', 'create']);
     Route::resource('applicants', ApplicantController::class)->names('applicants');
+    Route::resource('schedules', ScheduleController::class)->names('schedules');
+    Route::resource('jobs', JobController::class)->names('jobs');
 
     // carreras administrativas
     Route::resource('administrative-careers', AdministrativeCareerController::class)->names('administrative-careers')->only('index');

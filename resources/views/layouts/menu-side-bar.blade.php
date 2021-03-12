@@ -90,7 +90,7 @@
                                     </li>
                                     <li>
                                         @canany(['Gestionar Horarios'])
-                                            <a href="#">&gt; Gestionar Horarios<br></a>
+                                            <a href="{{ route('schedules.index') }}">&gt; Gestionar Horarios<br></a>
                                         @endcanany
                                     </li>
                                     <li>

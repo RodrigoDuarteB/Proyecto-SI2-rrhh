@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Log;
 use App\Models\Planning;
 use Illuminate\Http\Request;
 
@@ -29,6 +30,7 @@ class PlanningController extends Controller{
         $planning->description = $request->input('description');
         $planning->schedule_id = $request->input('schedule_id');
         $planning->save();
+        Log::new(Log::$CREATED, 'Creó la planificación con id '.$planning->id);
         return redirect()->route('plannings.index')->with('success', 'Planificacion Laboral creada correctamente');
     }
 
@@ -63,17 +65,20 @@ class PlanningController extends Controller{
         $planning->description = $request->input('description');
         $planning->schedule_id = $request->input('schedule_id');
         $planning->save();
+        Log::new(Log::$EDITED, 'Editó la planificación con id '.$planning->id);
         return redirect()->route('plannings.index')->with('success', 'Planificacion Laboral actualizada correctamente');
     }
 
 
     public function destroy(Planning $planning){
         try {
+            $id = $planning->id;
             Planning::findOrFail($planning->id);
             $planning->delete();
         }catch (\Exception $e){
             return redirect()->route('plannings.index')->with('failed', 'Planificacion Laboral no encontrada');
         }
+        Log::new(Log::$DELETED, 'Eliminó la planificación con id '.$id);
         return redirect()->route('plannings.index')->with('success', 'Planificacion Laboral eliminada correctamente');
     }
 }

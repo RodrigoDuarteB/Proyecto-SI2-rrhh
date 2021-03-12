@@ -5,7 +5,7 @@
     <p class="card-category">Ingrese los datos correspondientes</p>
     <div class="row mb-3">
         <div class="col-lg-3">
-            <div class="card shadow mb-4"></div>
+            
         </div>
         <div class="col-lg-12">
             <div class="row">
@@ -147,6 +147,6 @@
             </div>
         </div>
     </div>
-    <div class="card shadow mb-5"></div>
+   
 
 @endsection

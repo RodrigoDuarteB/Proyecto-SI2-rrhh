@@ -1,62 +1,35 @@
 @extends('layouts.app')
     @section('content')
         <h3 class="text-dark mb-4">Crear Nuevo Personal</h3>
-        <div class="row mb-3">
-            <div class="col-lg-4">
-                <div class="card mb-3" style="width: 252px;margin-top: 4px;padding: 2px;margin-right: 2px;margin-left: 22px;padding-right: 0px;margin-bottom: -4px;padding-bottom: -7px;">
-                    @error('image_name')
-                        <small style="color: red">{{$message}}</small>
-                    @enderror
-                    <div class="card-body text-center shadow" style="margin: 13px;margin-top: 22px;">
-                        <img class="rounded-circle mb-3 mt-4" data-aos="fade-down" data-aos-duration="850"
-                            src="" width="160" height="160" id="im">
-                        <div class="mb-3">
-                            <button class="btn btn-outline-primary" type="button">Cargar Imagen
-                                <input class="d-xl-flex form-control-file" type="file"
-                                       id="imageR" aria-describedby="fileHelp" style="margin-left: -2px;padding-left: 0px;padding-right: 2px;min-height: 0px;max-height: none;margin-right: 0px;margin-bottom: 11px; display: none"
-                                       name="image_name" value="{{ old('image_name') }}" accept="image/*">
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="card shadow mb-4"></div>
-            </div>
-            <div class="col-lg-8">
-                <div class="row mb-3 d-none">
-                    <div class="col">
-                        <div class="card text-white bg-primary shadow">
-                            <div class="card-body">
-                                <div class="row mb-2">
-                                    <div class="col">
-                                        <p class="m-0">Peformance</p>
-                                        <p class="m-0"><strong>65.2%</strong></p>
-                                    </div>
-                                    <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
-                                </div>
-                                <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i>&nbsp;5%
-                                    since last month</p>
+        <form action="{{ route('employees.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div class="row mb-3">
+                <div class="col-lg-4">
+                    <div class="card mb-3" style="width: 252px;margin-right: 10px; margin-left: 50px;">
+                        @error('image_name')
+                            <small style="color: red">{{$message}}</small>
+                        @enderror
+                        <div class="bootstrap_img_upload">
+                            <div class="col" style="padding-left: 40px;" >
+                                <!-- Uploaded image area-->
+                                <img id="imageResult" src="{{ asset('assets/img/perfil_vacio.jpg') }}" alt="" class="rounded-circle mb-3 mt-4" width="160" height="160">
                             </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card text-white bg-success shadow">
-                            <div class="card-body">
-                                <div class="row mb-2">
-                                    <div class="col">
-                                        <p class="m-0">Peformance</p>
-                                        <p class="m-0"><strong>65.2%</strong></p>
-                                    </div>
-                                    <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
+                            <!-- Upload image input-->
+                            <div class="input-group px-1 py-2 rounded-pill  shadow-sm" style="margin-left: -30px;">
+                                <input id="upload" type="file" onchange="readURL(this);" class="form-control border-0" name="image_name" value="{{ old('image_name') }}" accept="image/*">
+                                <label id="upload-label" for="upload" class="font-weight-light text-muted"></label>
+                                <div class="input-group-append">
+                                    <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i
+                                            class="fa fa-cloud-upload mr-2 text-muted"></i><small
+                                            class="text-uppercase font-weight-bold text-muted">Cargar Imagen</small>
+                                    </label>
                                 </div>
-                                <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i>&nbsp;5%
-                                    since last month</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <form action="{{ route('employees.store') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
+                <div class="col-lg-8">
+                    <div class="row">
                         <div class="col" style="padding-top: 0px;margin-top: 0px;margin-bottom: 0px;">
                             <div class="card shadow mb-3">
                                 <div class="card-header py-3">
@@ -68,7 +41,7 @@
                                             <div class="form-group">
                                                 <div class="col">
                                                     @error('name')
-                                                        <small style="color: red">{{$message}}</small>
+                                                    <small style="color: red">{{$message}}</small>
                                                     @enderror
                                                     <div class="form-group">
                                                         <label for="name">
@@ -81,7 +54,7 @@
                                                 </div>
                                                 <div class="col">
                                                     @error('ID_number')
-                                                        <small style="color: red">{{$message}}</small>
+                                                    <small style="color: red">{{$message}}</small>
                                                     @enderror
                                                     <div class="form-group">
                                                         <label><strong>Carnet de
@@ -93,7 +66,7 @@
                                                 </div>
                                                 <div class="col">
                                                     @error('birthdate')
-                                                        <small style="color: red">{{$message}}</small>
+                                                    <small style="color: red">{{$message}}</small>
                                                     @enderror
                                                     <div class="form-group">
                                                         <label><strong>Fecha de
@@ -278,17 +251,16 @@
                             </div>
                             <div class="card shadow mb-3">
                                 <div class="card-header py-3">
-                                    <p class="text-primary m-0 font-weight-bold">Datos RRHH</p>
+                                    <p class="text-primary m-0 font-weight-bold">Contrato</p>
                                 </div>
                                 <div class="card-body">
-                                    <h3>Contrato</h3>
                                     @error('contract_name')
                                         <small style="color: red">{{$message}}</small>
                                     @enderror
                                     <div class="form-group">
                                         <label for="address"><strong>Título del Contrato</strong></label>
                                         <input class="form-control" type="text" name="contract_name"
-                                            value="{{ old('contract_name') }}">
+                                               value="{{ old('contract_name') }}">
                                     </div>
                                     @error('contract_description')
                                         <small style="color: red">{{$message}}</small>
@@ -300,8 +272,9 @@
                                             name="contract_description">{{ old('contract_description') }}</textarea>
                                     </div>
                                     <div class="form-group" style="width: 169px;">
-                                        <label><strong>Fecha del Inicio del Contrato:</strong><br></label><input
-                                            class="form-control" type="text" name="contract_initial_date" disabled value="{{ date('d-m-Y') }}">
+                                        <label><strong>Fecha del Inicio del Contrato:</strong><br></label>
+                                        <input
+                                            class="form-control" type="text" name="contract_initial_date" disabled value="{{ \Carbon\Carbon::now('America/La_Paz')->format('d/m/Y') }}">
                                     </div>
                                     @error('contract_final_date')
                                         <small style="color: red">{{$message}}</small>
@@ -310,42 +283,42 @@
                                         <label><strong>Final:</strong><br></label>
                                         <input class="form-control" type="date" name="contract_final_date" value="{{ old('contract_final_date') }}">
                                     </div>
-                                    <div class="form-row">
-                                        <div class="col">
-                                            <div class="form-group">
-                                                <label for="city" style="margin-left: 2px;"><strong>Cargo</strong></label>
-                                                <select
-                                                    class="form-control form-control" id="exampleSelect-1"
-                                                    style="padding-left: 9px;padding-right: 60px;padding-top: 0px;padding-bottom: 0px;margin-right: 5px;margin-bottom: -4px;margin-left: -1px;min-width: 0px;width: 300px;" name="contract_job">
-                                                    <option value="" selected disabled>Elija un Cargo</option>
-                                                    @forelse($jobs as $job)
-                                                        <option value="{{ $job->id }}" {{ old('contract_job') == $job->id ? 'selected' : '' }}>{{ $job->name.' - Departamento: '.$job->department->name }}</option>
-                                                    @empty
-                                                        <option value="" disabled>No hay Cargos</option>
-                                                    @endforelse
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="form-group">
-                                                <label for="city" style="margin-left: 2px;">
-                                                    <strong>Planificación Laboral</strong></label>
-                                                <select
-                                                    class="form-control form-control" id="exampleSelect-1"
-                                                    style="padding-left: 9px;padding-right: 60px;padding-top: 0px;padding-bottom: 0px;margin-right: 5px;margin-bottom: -4px;margin-left: -1px;min-width: 0px;width: 300px;" name="contract_planning">
-                                                    <option value="" selected disabled>Elija una Planificacion</option>
-                                                    @forelse($plannings as $planning)
-                                                        @php
-                                                            $schedule = $planning->schedule;
-                                                            $full_schedule = $schedule->clock_in.' - '.$schedule->clock_out;
-                                                        @endphp
-                                                        <option value="{{ $planning->id }}" {{ old('contract_planning') == $planning->id ? 'selected' : '' }}>{{ $planning->name.' - Horario: '.$full_schedule }}</option>
-                                                    @empty
-                                                        <option value="" disabled>No hay Planificaciones Laborales</option>
-                                                    @endforelse
-                                                </select>
-                                            </div>
-                                        </div>
+                                    @error('contract_job')
+                                        <small style="color: red">{{$message}}</small>
+                                    @enderror
+                                    <div class="form-group">
+                                        <label for="city" style="margin-left: 2px;"><strong>Cargo</strong></label>
+                                        <select
+                                            class="form-control form-control" id="exampleSelect-1"
+                                            style="padding-left: 9px;padding-right: 60px;padding-top: 0px;padding-bottom: 0px;margin-right: 5px;margin-bottom: -4px;margin-left: -1px;min-width: 0px;" name="contract_job">
+                                            <option value="" selected disabled>Elija un Cargo</option>
+                                            @forelse($jobs as $job)
+                                                <option value="{{ $job->id }}" {{ old('contract_job') == $job->id ? 'selected' : '' }}>{{ $job->name.' - Departamento: '.$job->department->name }}</option>
+                                            @empty
+                                                <option value="" disabled>No hay Cargos</option>
+                                            @endforelse
+                                        </select>
+                                    </div>
+                                    @error('contract_planning')
+                                        <small style="color: red">{{$message}}</small>
+                                    @enderror
+                                    <div class="form-group">
+                                        <label for="city" style="margin-left: 2px;">
+                                            <strong>Planificación Laboral</strong></label>
+                                        <select
+                                            class="form-control form-control" id="exampleSelect-1"
+                                            style="padding-left: 9px;padding-right: 60px;padding-top: 0px;padding-bottom: 0px;margin-right: 5px;margin-bottom: -4px;margin-left: -1px;min-width: 0px;" name="contract_planning">
+                                            <option value="" selected disabled>Elija una Planificacion</option>
+                                            @forelse($plannings as $planning)
+                                                @php
+                                                    $schedule = $planning->schedule;
+                                                    $full_schedule = $schedule->clock_in.' - '.$schedule->clock_out;
+                                                @endphp
+                                                <option value="{{ $planning->id }}" {{ old('contract_planning') == $planning->id ? 'selected' : '' }}>{{ $planning->name.' - Horario: '.$full_schedule }}</option>
+                                            @empty
+                                                <option value="" disabled>No hay Planificaciones Laborales</option>
+                                            @endforelse
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -357,14 +330,14 @@
                                     <div class="form-row">
                                         <div class="col">
                                             <div class="form-group">
-                                                @error('personal_phone')
+                                                @error('work_phone')
                                                     <small style="color: red">{{$message}}</small>
                                                 @enderror
                                                 <div class="col">
                                                     <div class="form-group"><label><strong>Teléfono
                                                                 de Trabajo:</strong><br></label><input
                                                             class="form-control" type="text"
-                                                            name="personal_phone" value="{{ old('personal_phone') }}">
+                                                            name="work_phone" value="{{ old('work_phone') }}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -389,7 +362,8 @@
                                                     <div class="modal-footer">
                                                         <button class="btn btn-light" data-dismiss="modal"
                                                                 type="button">Cancelar</button>
-                                                        <button class="btn btn-primary" type="submit">Aceptar</button>
+                                                        <button
+                                                            class="btn btn-primary" type="submit">Aceptar</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -398,35 +372,10 @@
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
-        </div>
+        </form>
         <div class="card shadow mb-5"></div>
     @endsection
-    @section('other-scripts')
-        <script type="text/javascript" >
-            $(function () {
-                // Summernote
-                $('.textarea').summernote()
-            })
-            $('input[type="file"]').change(function(e){
-                var fileName = e.target.files[0].name;
-                $('.custom-file-label').html(fileName);
-            });
-            const $seleccionArchivos = document.querySelector("#imagenR"),
-                $imagenPrevisualizacion = document.querySelector("#im");
-            $seleccionArchivos.addEventListener("change", () => {
 
-                const archivos = $seleccionArchivos.files;
-                if (!archivos || !archivos.length) {
-                    $imagenPrevisualizacion.src = "";
-                    return;
-                }
-                const primerArchivo = archivos[0];
-                const objectURL = URL.createObjectURL(primerArchivo);
-                $imagenPrevisualizacion.src = objectURL;
-            });
-            $('.my-colorpicker1').colorpicker()
-        </script>
-    @endsection

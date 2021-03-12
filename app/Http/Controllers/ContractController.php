@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ContractRequest;
 use App\Models\Contract;
 use App\Models\Employee;
+use App\Models\Log;
+use Carbon\Carbon;
 
 class ContractController extends Controller{
 
@@ -30,13 +32,15 @@ class ContractController extends Controller{
         $contract = new Contract();
         $contract->name = $request->input('name');
         $contract->description = $request->input('description');
-        $contract->initial_date = date('Y-m-d');
+        $contract->initial_date = Carbon::now('America/La_Paz')->toDateString();
         $contract->final_date = $request->input('final_date');
         $contract->employee_id = $employee->id;
         $contract->job_id = $request->input('job_id');
         $contract->planning_id = $request->input('planning_id');
         $contract->status = Contract::$ACTIVE;
         $contract->save();
+        Log::new(Log::$CREATED, 'Creó el contrato con id '.$contract->id.' para empleado con id '
+            .$employee->id);
         return redirect()->route('contracts.index')->with('success', 'Contrato creado correctamente');
     }
 
@@ -59,6 +63,8 @@ class ContractController extends Controller{
         $contract->job_id = $request->input('job_id');
         $contract->planning_id = $request->input('planning_id');
         $contract->save();
+        Log::new(Log::$EDITED, 'Editó el contrato con id '.$contract->id.' para empleado con id '
+            .$contract->employee->id);
         return redirect()->route('contracts.index')->with('success', 'Contrato creado correctamente');
     }
 
@@ -71,6 +77,8 @@ class ContractController extends Controller{
         }catch (\Exception $e){
             return redirect()->route('contracts.index')->with('failed', 'El contrato que intento cancelar no se encontro');
         }
+        Log::new(Log::$DELETED, 'Canceló el contrato con id '.$contract->id.' para empleado con id '
+            .$contract->employee->id);
         return redirect()->route('contracts.index')->with('success', 'Contrato cancelado correctamente');
     }
 

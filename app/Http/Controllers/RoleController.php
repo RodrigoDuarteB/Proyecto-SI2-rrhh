@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Log;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
@@ -37,6 +38,7 @@ class RoleController extends Controller{
             return redirect()->route('roles.create')->with('failed', 'Rol '
                 .$request->input('name').' ya existe');
         }
+        Log::new(Log::$CREATED, 'Creó el rol con id '.$role->id);
         return redirect()->route('roles.index')->with('success', 'Rol creado correctamente');
     }
 
@@ -84,17 +86,20 @@ class RoleController extends Controller{
         }else{
             $role->syncPermissions([]);
         }
+        Log::new(Log::$EDITED, 'Editó el rol con id '.$role->id);
         return redirect()->route('roles.index')->with('success', 'Rol actualizado correctamente');
     }
 
 
     public function destroy(Role $role){
         try {
+            $id = $role->id;
             Role::findOrFail($role->id);
             Role::destroy([$role->id]);
         }catch (\Exception $e){
             return redirect()->route('roles.index')->with('failed', 'El Rol que intentó eliminar no existe');
         }
+        Log::new(Log::$DELETED, 'Eliminó el rol con id '.$id);
         return redirect()->route('roles.index')->with('success', 'Rol eliminado correctamente');;
     }
 

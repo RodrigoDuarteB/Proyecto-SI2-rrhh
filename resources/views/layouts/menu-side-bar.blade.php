@@ -1,5 +1,5 @@
-<div class="container body " style="width:240px; background: #4e73df;">
-    <div class="main_container">
+<div class="container body " style="width:230px; background: #4e73df;">
+    <div class="main_container fullHeight">
         <div class="col-md-13 left_col">
             <div class="left_col scroll-view" style="background: #4e73df;">
                 <div class="navbar nav_title justify-content-center" style="background: #4e73df;">
@@ -10,14 +10,16 @@
                 </div>
 
                 <div class="clearfix"></div>
-
+                @php
+                    $user = auth()->user();
+                @endphp
                 <!-- menu profile quick info -->
                 <div class="profile clearfix" style="margin-bottom: 25px;">
                     <div class="profile_pic">
-                        <img src="assets/img/dogs/image3.jpeg" width="60" height="60" alt="..." class="img-circle profile_img">
+                        <img src="{{ $user->employee == null ? asset('storage/images/employees/user.png') : asset('storage/images/employees/'.$user->employee->image_name) }}" width="60" height="60" alt="..." class="img-circle profile_img">
                     </div>
                     <div class="profile_info">
-                        <span>Bienvenido,</span>
+                        <span>Bienvenido !<br>{{ ''.$user->name }}</span>
                         <h2></h2>
                     </div>
                 </div>
@@ -90,7 +92,7 @@
                                     </li>
                                     <li>
                                         @canany(['Gestionar Horarios'])
-                                            <a href="#">&gt; Gestionar Horarios<br></a>
+                                            <a href="{{ route('schedules.index') }}">&gt; Gestionar Horarios<br></a>
                                         @endcanany
                                     </li>
                                     <li>
@@ -142,7 +144,7 @@
                                     <ul class="nav child_menu">
                                         <li>
                                             @canany(['Gestionar Bitacora'])
-                                                <a href="#">&gt; Gestionar Bitácora</a>
+                                                <a href="{{ route('logs.index') }}">&gt; Gestionar Bitácora</a>
                                             @endcanany
                                         </li>
                                         <li>

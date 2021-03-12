@@ -25,7 +25,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             EmployeesTableSeeder::class,
             ScheduleSeeder::class,
-            PlanningSeeder::class
+            PlanningSeeder::class,
+            ContractsTableSeeder::class
         ]);
     }
 }

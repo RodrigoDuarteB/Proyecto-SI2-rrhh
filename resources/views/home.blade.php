@@ -2,9 +2,12 @@
 
 @section('content')
 <div class="container-fluid">
+    @php
+        $user = auth()->user();
+    @endphp
     <h3 class="text-dark mb-4"> ¡Bienvenido
         @auth()
-        {{ auth()->user()->name }}
+            {{ $user->name }}
         @elseauth()
         Usuario
         @endauth
@@ -15,7 +18,7 @@
                 style="width: 252px;margin-top: 4px;padding: 2px;margin-right: 2px;margin-left: 22px;padding-right: 0px;margin-bottom: -4px;padding-bottom: -7px;">
                 <div class="card-body text-center shadow" style="margin: 13px;margin-top: 22px;"><img
                         class="rounded-circle mb-3 mt-4" data-aos="fade-down" data-aos-duration="850"
-                        src="assets/img/dogs/image3.jpeg" width="160" height="160"></div>
+                        src="{{ $user->employee == null ? asset('storage/images/employees/user.png') : asset('storage/images/employees/'.$user->employee->image_name) }}" width="160" height="160"></div>
             </div>
         </div>
         <div class="col-lg-8">

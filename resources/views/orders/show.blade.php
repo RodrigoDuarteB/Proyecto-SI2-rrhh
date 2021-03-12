@@ -4,6 +4,7 @@
 
 
 @section('content')
+@include('layouts.session-messages')
 
     <div class="container-fluid">
         <div class="row mb-3">
@@ -15,7 +16,8 @@
                                 <p class="text-primary m-0 font-weight-bold">DETALLE DE LA ORDEN</p>
                             </div>
                             <div class="card-body">
-                                <form>
+                                <form >
+                                    
                                     <div class="col">
                                         <div class="form-group">
                                             <div class="col-xl-12 offset-xl-0">
@@ -64,17 +66,18 @@
                                                             </div>
                                                         @else
                                                             <div class="col-sm-10 mt-2">
-                                                                <label for="name"><strong>En Proceso</strong><br></label>
+                                                                <label for="name"><strong>No Completada</strong><br></label>
                                                             </div>
                                                         @endif
                                                     @else
                                                         <div class="col-sm-10 mt-2">
-                                                            <label for="name"><strong>En Proceso</strong><br></label>
+                                                            <label for="name"><strong>No Completada/strong><br></label>
                                                         </div>
                                                     @endif
                                                 </div>
                                                 <div class="form-group  text-right">
-                                                    <a  class="btn btn-primary stretched-link" href="/orders/{{$orders->id}}/edit">Editar Orden</a>
+                                                    <a  class="btn btn-success " href="{{route('ordencomplete.complete', [$orders->id]) }}">Completar Orden</a>
+                                                    <a  class="btn btn-primary " href="/orders/{{$orders->id}}/edit">Editar Orden</a>
                                                 </div>
                                             </div>
                                         </div>

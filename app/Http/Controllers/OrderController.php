@@ -43,51 +43,57 @@ class OrderController extends Controller
         //   try {
 
         $validated = $request->validated();
-        $order = new Order();
 
-        $order->title = $request->input('title');
-        $order->description = $request->input('description');
-        $order->datetime = new \Datetime();
+        $searchfirst = Order::where('title', '=', $request->input('title'))->get();
+        if (count($searchfirst) < 1) {
+            $order = new Order();
 
-        //obteniendo la informacion del usuario logueado
-        $login_user = Employee::find(auth()->id());
-        $order->employee_id = $login_user->id;
-        $order->save();
+            $order->title = $request->input('title');
+            $order->description = $request->input('description');
+            $order->datetime = new \Datetime();
 
-        $order_employee = new OrderEmployees();
+            //obteniendo la informacion del usuario logueado
+            $login_user = Employee::find(auth()->user()->employee->id);
+            $order->employee_id = $login_user->id;
+            $order->save();
 
-        $employee1 = $request->input('employee_id_1');
-        $employee2 = $request->input('employee_id_2');
-        $employee3 = $request->input('employee_id_3');
+            $order_employee = new OrderEmployees();
 
-        if ($employee1 != '0') {
+            $employee1 = $request->input('employee_id_1');
+            $employee2 = $request->input('employee_id_2');
+            $employee3 = $request->input('employee_id_3');
 
-            $order_employee->order_id = $order->id;
-            $order_employee->employee_id = $employee1;
-            $order_employee->acomplished = false;
-            $order_employee->datetime = new \Datetime();
-            $order_employee->save();
-        }
+            if ($employee1 != '0') {
 
-        if ($employee2 != '0') {
+                $order_employee->order_id = $order->id;
+                $order_employee->employee_id = $employee1;
+                $order_employee->acomplished = false;
+                $order_employee->datetime = new \Datetime();
+                $order_employee->save();
+            }
 
-            $order_employee2 = new OrderEmployees();
+            if ($employee2 != '0' && $employee2 != null) {
 
-            $order_employee2->order_id = $order->id;
-            $order_employee2->employee_id = $employee2;
-            $order_employee2->acomplished = false;
-            $order_employee2->datetime = new \Datetime();
-            $order_employee2->save();
-        }
+                $order_employee2 = new OrderEmployees();
 
-        if ($employee3 != '0') {
-            $order_employee3 = new OrderEmployees();
+                $order_employee2->order_id = $order->id;
+                $order_employee2->employee_id = $employee2;
+                $order_employee2->acomplished = false;
+                $order_employee2->datetime = new \Datetime();
+                $order_employee2->save();
+            }
 
-            $order_employee3->order_id = $order->id;
-            $order_employee3->employee_id = $employee3;
-            $order_employee3->acomplished = false;
-            $order_employee3->datetime = new \Datetime();
-            $order_employee3->save();
+            if ($employee3 != '0' && $employee3 != null) {
+                $order_employee3 = new OrderEmployees();
+
+                $order_employee3->order_id = $order->id;
+                $order_employee3->employee_id = $employee3;
+                $order_employee3->acomplished = false;
+                $order_employee3->datetime = new \Datetime();
+                $order_employee3->save();
+            }
+        } else {
+            return redirect('/orders/create')->with('failed', 'Orden con el titulo: "' . $request->input('title') . '" ya existe');
         }
 
         return redirect('/orders')->with('success', 'Orden Creada Correctamente.');
@@ -129,6 +135,22 @@ class OrderController extends Controller
         //  }
     }
 
+    public function complete(Order $order)
+    {
+
+        if ($order->employees != '[]') {
+            $order_employee = OrderEmployees::where('order_id', '=', $order->id)->get();
+            foreach ($order_employee as $employee) {
+
+                $employee->acomplished = true;
+                $employee->save();
+            }
+            return redirect()->route('orders.show', $order)->with('success', 'Orden marcada como completada!!!');
+        } else {
+            return redirect()->route('orders.show', $order)->with('failed', 'La orden no puede marcarse como Completa sin Personal Asignado');
+        }
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -139,10 +161,23 @@ class OrderController extends Controller
     public function update(OrderRequest $request, Order $order)
     {
         //  try {
+        $searchfirst = Order::where('title', '=', $request->input('title'))->get();
+
+
+
         $validated = $request->validated();
         $order = Order::find($order->id);
-
-        $order->title = $request->input('title');
+        if($order->title != $request->input('title')){
+            if(!count($searchfirst) < 1){ 
+                return redirect()->route('orders.edit', $order)->with('failed','Orden con el titulo: "'.$request->input('title').'" ya existe');
+            }else{
+                $order->title = $request->input('title');
+            }
+        }else{ 
+            $order->title = $request->input('title');
+             
+        }
+            
         $order->description = $request->input('description');
         $order->datetime = new \Datetime();
 
@@ -163,7 +198,7 @@ class OrderController extends Controller
         $order_employee = OrderEmployees::where('order_id', '=', $order->id)->get();
 
 
-        
+
 
         if ($employee1 != '0' and $employee1 != 'delete') {
             //pregunta si esta vacio el array q se consulta para crear uno nuevo o reemplazar el ya asignado
@@ -266,9 +301,7 @@ class OrderController extends Controller
             $order_employee[0]->delete();
         }
 
-        $order->save();
-
-
+       $order->save();
 
         return redirect('/orders')->with('status', 'Orden Actualizada Correctamente.');
         // } catch (\Exception $e) {
@@ -285,16 +318,16 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
         //try {
-            $order = Order::find($order->id);
-            $order_employee = OrderEmployees::where('order_id', '=', $order->id)->get();
-            foreach ($order_employee as $order_employee){
-                $order_employee->delete();
-            }
-            $order->delete();
-            return redirect('/orders')->with('status', 'Orden Eliminada Correctamente.');
-        
+        $order = Order::find($order->id);
+        $order_employee = OrderEmployees::where('order_id', '=', $order->id)->get();
+        foreach ($order_employee as $order_employee) {
+            $order_employee->delete();
+        }
+        $order->delete();
+        return redirect('/orders')->with('status', 'Orden Eliminada Correctamente.');
+
         //} catch (\Exception $e) {
-          //  return redirect()->route('employees.index')->with('info', 'Ocurrió un error al intentar despedir el empleado');
+        //  return redirect()->route('employees.index')->with('info', 'Ocurrió un error al intentar despedir el empleado');
         //}
     }
 }
